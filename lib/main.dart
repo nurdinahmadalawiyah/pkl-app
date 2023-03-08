@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/api/api_service.dart';
+import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
+import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/profile_cubit.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/isi_biodata_industri_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/jurnal_kegiatan_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/konfirmasi_diterima_pkl_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/lowongan_pkl_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/mahasiswa_dashboard_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/edit_profile_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/ganti_password_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/mahasiswa_login_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/profile_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/status_pengajuan_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/pencarian_lowongan_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
+import 'package:magang_app/presentation/pages/splash_page.dart';
+import 'package:magang_app/presentation/provider/auth_provider.dart';
+import 'package:magang_app/presentation/provider/ganti_password_provider.dart';
+import 'package:magang_app/presentation/provider/password_visibility_provider.dart';
+import 'package:magang_app/presentation/provider/pencarian_provider.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PencarianProvider(apiService: ApiService()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PasswordVisibilityProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GantiPasswordProvider(),
+        ),
+        BlocProvider(
+          create: (_) => ProfileCubit(apiService: ApiService()),
+        ),
+        BlocProvider(
+          create: (_) => PengajuanPklCubit(),
+        ),
+        BlocProvider(
+          create: (_) => EditProfileCubit(),
+        ),
+        BlocProvider(
+          create: (_) => KonfirmasiDiterimaPklCubit(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'PKL App',
+        theme: ThemeData.light().copyWith(
+          colorScheme: kColorScheme,
+          primaryColor: backgroundColor,
+          scaffoldBackgroundColor: backgroundColor,
+          textTheme: kTextTheme,
+          useMaterial3: true,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/dashboard': (context) => const MahasiswaDashboardPage(),
+          '/login-mahasiswa': (context) => const MahasiswaLoginPage(),
+          '/lowongan-pkl': (context) => const LowonganPklPage(),
+          '/login-pembimbing': (context) => const PembimbingLoginPage(),
+          '/pencarian': (context) => const PencarianLowonganPage(),
+          '/profile': (context) => const ProfilePage(),
+          '/ganti-password': (context) => const GantiPasswordPage(),
+          '/edit-profile': (context) => const EditProfilePage(),
+          '/status-pengajuan': (context) => const StatusPengajuanPage(),
+          '/pengajuan-pkl': (context) =>  const AjukanTempatPklPage(),
+          '/konfirmasi-pkl': (context) => const KonfirmasiDiterimaPklPage(),
+          '/biodata-industri': (context) => const BiodataIndustriPage(),
+          '/isi-biodata-industri': (context) => const IsiBiodataIndustriPage(),
+          '/jurnal-kegiatan': (context) => const JurnalKegiatanPage(),
+
+          '/dashboard-pembimbing':(context) => const PembimbingDashboardPage(),
+        },
+      ),
+    );
+  }
+}
