@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/presentation/widgets/menu_dashboard_mahasiswa.dart';
 
 class PembimbingDashboardPage extends StatelessWidget {
   const PembimbingDashboardPage({super.key});
@@ -126,7 +125,7 @@ class PembimbingDashboardPage extends StatelessWidget {
               ],
             ),
           ),
-          MenuDashboardPembimbing()
+          const MenuDashboardPembimbing()
         ],
       ),
     );

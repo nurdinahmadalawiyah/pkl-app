@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
 

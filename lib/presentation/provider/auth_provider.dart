@@ -5,7 +5,7 @@ import 'package:magang_app/data/models/login_model.dart';
 import 'package:magang_app/data/models/logout_model.dart';
 
 class AuthProvider extends ChangeNotifier {
-  final FlutterSecureStorage storage = FlutterSecureStorage();
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
   String? _token;
   late Login _login;
   late Logout _logout;

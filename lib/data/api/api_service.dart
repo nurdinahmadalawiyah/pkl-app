@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
@@ -208,15 +209,30 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      KonfirmasiDiterimaPkl konfirmasiDiterimaPkl = KonfirmasiDiterimaPkl.fromJson(data);
+      KonfirmasiDiterimaPkl konfirmasiDiterimaPkl =
+          KonfirmasiDiterimaPkl.fromJson(data);
       konfirmasiDiterimaPkl.message = data['message'];
       konfirmasiDiterimaPkl.data.idPengajuan = data['id_pengajuan'];
-      konfirmasiDiterimaPkl.data.konfirmasiNamaPembimbing = data['konfirmasi_nama_pembimbing'];
-      konfirmasiDiterimaPkl.data.konfirmasiNikPembimbing = data['konfirmasiNikPembimbing'];
+      konfirmasiDiterimaPkl.data.konfirmasiNamaPembimbing =
+          data['konfirmasi_nama_pembimbing'];
+      konfirmasiDiterimaPkl.data.konfirmasiNikPembimbing =
+          data['konfirmasiNikPembimbing'];
       return konfirmasiDiterimaPkl;
     } else {
       throw Exception(
           'Failed to send confirmation data : Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<BiodataIndustri> getBiodataIndustri() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/biodata-industri/detail-user'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return BiodataIndustri.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get biodata industri: Response status code ${response.statusCode}");
     }
   }
 }

@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/models/biodata_industri_model.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
-class BiodataIndustriPage extends StatelessWidget {
+class BiodataIndustriPage extends StatefulWidget {
   const BiodataIndustriPage({Key? key}) : super(key: key);
+
+  @override
+  State<BiodataIndustriPage> createState() => _BiodataIndustriPageState();
+}
+
+class _BiodataIndustriPageState extends State<BiodataIndustriPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<BiodataIndustriCubit>().getBiodataIndustri();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,407 +31,487 @@ class BiodataIndustriPage extends StatelessWidget {
           style: kMedium.copyWith(color: blackColor),
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 10,
-              bottom: 20,
-              left: 20,
-              right: 20,
-            ),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: BlocBuilder<BiodataIndustriCubit, BiodataIndustriState>(
+        builder: (context, state) {
+          if (state is BiodataIndustriLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is BiodataIndustriLoaded) {
+            final biodataIndustri = state.biodataIndustri;
+            int jumlahTenagaKerja = biodataIndustri.data.jumlahTenagaKerjaSd +
+                biodataIndustri.data.jumlahTenagaKerjaSltp +
+                biodataIndustri.data.jumlahTenagaKerjaSmk +
+                biodataIndustri.data.jumlahTenagaKerjaSlta +
+                biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda +
+                biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister +
+                biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor;
+            return ListView(
               children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'IDENTITAS INDUSTRI',
-                        style: kBold.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Nama Industri',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Nama Direktur/Pimpinan',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Alamat Kantor',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'No. Telepon/FAX',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Contact Person',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                    ],
+                DataBiodataIndustriAktivitas(biodataIndustri: biodataIndustri),
+                DataTenagaKerja(
+                  biodataIndustri: biodataIndustri,
+                  jumlahTenagaKerja: jumlahTenagaKerja,
+                ),
+              ],
+            );
+          } else if (state is BiodataIndustriNoData) {
+            final message = state.message;
+            return Center(
+              child: NoDataAnimation(message: message),
+            );
+          } else if (state is BiodataIndustriNoConnection) {
+            final message = state.message;
+            return Center(
+              child: NoConnectionAnimation(message: message),
+            );
+          } else if (state is BiodataIndustriError) {
+            final message = state.message;
+            return Center(
+              child: NoDataAnimation(message: message),
+            );
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
+      ),
+      bottomNavigationBar: const Button(),
+    );
+  }
+}
+
+class Button extends StatelessWidget {
+  const Button({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(right: 5, bottom: 20, left: 20, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () =>
+                  Navigator.pushNamed(context, "/isi-biodata-industri"),
+              style: ElevatedButton.styleFrom(
+                primary: tertiaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                IconlyBold.editSquare,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Isi/Edit Data',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'AKTIVITAS',
-                        style: kBold.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Bidang Usaha / Jasa',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Spesialisasi Produksi / Jasa',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Kapasitas Produksi',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                      Text(
-                        'Jangkauan Pemasaran',
-                        style: kRegular.copyWith(
-                            fontSize: 12, color: backgroundColor),
-                      ),
-                    ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                Icons.picture_as_pdf_rounded,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Cetak PDF',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
                   ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DataTenagaKerja extends StatelessWidget {
+  const DataTenagaKerja({
+    Key? key,
+    required this.biodataIndustri,
+    required this.jumlahTenagaKerja,
+  }) : super(key: key);
+
+  final BiodataIndustri biodataIndustri;
+  final int jumlahTenagaKerja;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: accentColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'TENAGA KERJA',
+            style: kBold.copyWith(fontSize: 12, color: blackColor),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Table(
+              columnWidths: const {
+                0: FractionColumnWidth(0.75),
+                1: FractionColumnWidth(0.25),
+              },
+              border: TableBorder.all(),
+              children: [
+                TableRow(
+                  decoration: const BoxDecoration(
+                    color: tertiaryColor,
+                  ),
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Pendidikan',
+                          textAlign: TextAlign.center,
+                          style: kBold.copyWith(
+                              fontSize: 12, color: backgroundColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Jumlah',
+                          textAlign: TextAlign.center,
+                          style: kBold.copyWith(
+                              fontSize: 12, color: backgroundColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'SD',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSd.toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'SLTP',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSltp.toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'SMK/STM/SMEA/SMKK/SMTK',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSmk.toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'SLTA Non SMK',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSlta.toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Sarjana Muda',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda
+                              .toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Sarjana Magister',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister
+                              .toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Doktor',
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor
+                              .toString(),
+                          style: kRegular.copyWith(
+                              fontSize: 12, color: blackColor),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(
-              bottom: 20,
-              left: 20,
-              right: 20,
-            ),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: accentColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'TENAGA KERJA',
-                  style: kBold.copyWith(fontSize: 12, color: blackColor),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Table(
-                    columnWidths: const {
-                      0: FractionColumnWidth(0.75),
-                      1: FractionColumnWidth(0.25),
-                    },
-                    border: TableBorder.all(),
-                    children: [
-                      TableRow(
-                        decoration: const BoxDecoration(
-                          color: tertiaryColor,
-                        ),
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Pendidikan',
-                                textAlign: TextAlign.center,
-                                style: kBold.copyWith(
-                                    fontSize: 12, color: backgroundColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Jumlah',
-                                textAlign: TextAlign.center,
-                                style: kBold.copyWith(
-                                    fontSize: 12, color: backgroundColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'SD',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '50',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'SLTP',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '75',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'SMK/STM/SMEA/SMKK/SMTK',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '100',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'SLTA Non SMK',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '30',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Sarjana Muda',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '20',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Sarjana Magister',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '20',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Doktor',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                          TableCell(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                '20',
-                                style: kRegular.copyWith(
-                                    fontSize: 12, color: blackColor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Jumlah Tenaga Kerja',
-                  style: kRegular.copyWith(fontSize: 12, color: blackColor),
-                ),
-              ],
-            ),
-          )
+          const SizedBox(height: 10),
+          Text(
+            'Jumlah Tenaga Kerja : $jumlahTenagaKerja',
+            style: kRegular.copyWith(fontSize: 12, color: blackColor),
+          ),
         ],
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    );
+  }
+}
+
+class DataBiodataIndustriAktivitas extends StatelessWidget {
+  const DataBiodataIndustriAktivitas({
+    Key? key,
+    required this.biodataIndustri,
+  }) : super(key: key);
+
+  final BiodataIndustri biodataIndustri;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 10,
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 5, bottom: 20, left: 20, top: 20),
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pushNamed(context, "/isi-biodata-industri"),
-                style: ElevatedButton.styleFrom(
-                  primary: tertiaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.all(15),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: secondaryColor, borderRadius: BorderRadius.circular(16)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'IDENTITAS INDUSTRI',
+                  style: kBold.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-                icon: const Icon(
-                  IconlyBold.editSquare,
-                  color: backgroundColor,
+                const SizedBox(height: 5),
+                Text(
+                  'Nama Industri : ${biodataIndustri.data.namaIndustri}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-                label: FittedBox(
-                  child: Text(
-                    'Isi/Edit Data',
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: kSemiBold.copyWith(
-                      fontSize: 16,
-                      color: backgroundColor,
-                    ),
-                  ),
+                Text(
+                  'Nama Direktur/Pimpinan : ${biodataIndustri.data.namaPimpinan}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-              ),
+                Text(
+                  'Alamat Kantor : ${biodataIndustri.data.alamatKantor}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                ),
+                Text(
+                  'No. Telepon/FAX : ${biodataIndustri.data.noTelpFax}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                ),
+                Text(
+                  'Contact Person : ${biodataIndustri.data.contactPerson}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                ),
+              ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 20, bottom: 20, left: 5, top: 20),
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.all(15),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'AKTIVITAS',
+                  style: kBold.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-                icon: const Icon(
-                  Icons.picture_as_pdf_rounded,
-                  color: backgroundColor,
+                const SizedBox(height: 5),
+                Text(
+                  'Bidang Usaha / Jasa : ${biodataIndustri.data.bidangUsahaJasa}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-                label: FittedBox(
-                  child: Text(
-                    'Cetak PDF',
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: kSemiBold.copyWith(
-                      fontSize: 16,
-                      color: backgroundColor,
-                    ),
-                  ),
+                Text(
+                  'Spesialisasi Produksi / Jasa : ${biodataIndustri.data.spesialisasiProduksiJasa}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
                 ),
-              ),
+                Text(
+                  'Kapasitas Produksi : ${biodataIndustri.data.kapasitasProduksi}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                ),
+                Text(
+                  'Jangkauan Pemasaran : ${biodataIndustri.data.jangkauanPemasaran}',
+                  style:
+                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                ),
+              ],
             ),
           ),
         ],

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/login_model.dart';
-import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/provider/password_visibility_provider.dart';
 import 'package:provider/provider.dart';
 

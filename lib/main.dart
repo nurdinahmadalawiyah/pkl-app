@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => KonfirmasiDiterimaPklCubit(),
         ),
+        BlocProvider(
+          create: (_) => BiodataIndustriCubit(apiService: ApiService()),
+        )
       ],
       child: MaterialApp(
         title: 'PKL App',

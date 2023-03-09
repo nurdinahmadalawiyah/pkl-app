@@ -17,18 +17,11 @@ class KonfirmasiDiterimaPklPage extends StatefulWidget {
 
 class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
   final _formKey = GlobalKey<FormState>();
-  late final StatusPengajuanCubit statusPengajuanCubit;
 
   @override
   void initState() {
     super.initState();
-    statusPengajuanCubit = StatusPengajuanCubit(apiService: ApiService());
-  }
-
-  @override
-  void dispose() {
-    statusPengajuanCubit.close();
-    super.dispose();
+    context.read<StatusPengajuanCubit>().getStatusPengajuan();
   }
 
   @override
@@ -56,7 +49,8 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
                 FormConfirm(
                   formKey: _formKey,
                   cubit: cubit,
-                  statusPengajuanCubit: statusPengajuanCubit,
+                  statusPengajuanCubit:
+                      StatusPengajuanCubit(apiService: ApiService()),
                 ),
               ],
             );
@@ -236,8 +230,8 @@ class FormConfirm extends StatelessWidget {
                       ),
                     ),
                     iconSize: 0.0,
-                    value: pengajuan.data.isNotEmpty
-                        ? pengajuan.data[0].idPengajuan.toString()
+                    value: cubit.pengajuanController.text.isNotEmpty
+                        ? cubit.pengajuanController.text
                         : null,
                     onChanged: (newValue) {
                       cubit.pengajuanController.text = newValue!;
@@ -304,6 +298,12 @@ class FormConfirm extends StatelessWidget {
                   color: primaryColor,
                 ),
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Nama pembimbing tidak boleh kosong';
+                }
+                return null;
+              },
               style: const TextStyle(color: Colors.black),
             ),
             const SizedBox(
@@ -338,6 +338,12 @@ class FormConfirm extends StatelessWidget {
                   color: primaryColor,
                 ),
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'NIK pembimbing tidak boleh kosong';
+                }
+                return null;
+              },
               style: const TextStyle(color: Colors.black),
             ),
           ],

@@ -15,7 +15,6 @@ class AjukanTempatPklPage extends StatefulWidget {
 
 class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
   final _formKey = GlobalKey<FormState>();
-  DateTime? _selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +160,6 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
               labelText: "Tanggal Mulai",
               onDateSelected: (DateTime date) {
                 setState(() {
-                  _selectedDate = date;
                 });
               },
             ),
@@ -173,7 +171,6 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
               labelText: "Tanggal Selesai",
               onDateSelected: (DateTime date) {
                 setState(() {
-                  _selectedDate = date;
                 });
               },
             ),

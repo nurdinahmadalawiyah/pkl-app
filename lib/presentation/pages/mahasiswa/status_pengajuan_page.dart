@@ -38,9 +38,13 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
           } else if (state is StatusPengajuanLoaded) {
             final statusPengajuan = state.statusPengajuanPkl;
             final profilePengajuan = state.statusPengajuanPkl;
-            return CardStatusPengajuan(
-                statusPengajuan: statusPengajuan,
-                profilePengajuan: profilePengajuan);
+            return ListView(
+              children: [
+                CardStatusPengajuan(
+                    statusPengajuan: statusPengajuan,
+                    profilePengajuan: profilePengajuan),
+              ],
+            );
           } else if (state is StatusPengajuanNoData) {
             return Center(
               child: Text(
