@@ -12,7 +12,11 @@ class ProfileLoaded extends ProfileState {
   ProfileLoaded({required this.profile});
 }
 
-class ProfileNoConnection extends ProfileState {}
+class ProfileNoConnection extends ProfileState {
+  final String message;
+
+  ProfileNoConnection({required this.message});
+}
 
 class ProfileError extends ProfileState {
   final String message;

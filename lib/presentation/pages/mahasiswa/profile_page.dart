@@ -14,18 +14,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late final ProfileCubit _profileCubit;
-
   @override
   void initState() {
     super.initState();
-    _profileCubit = ProfileCubit(apiService: ApiService());
-  }
-
-  @override
-  void dispose() {
-    _profileCubit.close();
-    super.dispose();
+    context.read<ProfileCubit>().fetchProfile();
   }
 
   @override
@@ -39,38 +31,37 @@ class _ProfilePageState extends State<ProfilePage> {
           style: kMedium.copyWith(color: backgroundColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<ProfileState>(
-          stream: _profileCubit.stream,
-          initialData: ProfileInitial(),
-          builder: (context, snapshot) {
-            final state = snapshot.data;
-            if (state is ProfileLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is ProfileLoaded) {
-              final profile = state.profile;
-              return DataProfileMahasiswa(profile: profile);
-            } else if (state is ProfileNoConnection) {
-              return Center(
-                child: Text(
-                  'state.message',
-                  style: kMedium.copyWith(color: blackColor, fontSize: 23),
-                ),
-              );
-            } else if (state is ProfileError) {
-              return Center(
-                child: Text(
-                  state.message,
-                  style: kMedium.copyWith(color: blackColor, fontSize: 23),
-                ),
-              );
-            } else {
-              return const Text('Unknown Error');
-            }
-          },
-        ),
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ProfileLoaded) {
+            final profile = state.profile;
+            return ListView(
+              children: [
+                DataProfileMahasiswa(profile: profile),
+              ],
+            );
+          } else if (state is ProfileNoConnection) {
+            return Center(
+              child: Text(
+                state.message,
+                style: kMedium.copyWith(color: blackColor, fontSize: 23),
+              ),
+            );
+          } else if (state is ProfileError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: kMedium.copyWith(color: blackColor, fontSize: 23),
+              ),
+            );
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
       ),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

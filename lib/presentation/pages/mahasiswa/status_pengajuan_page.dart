@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
 
@@ -13,18 +13,10 @@ class StatusPengajuanPage extends StatefulWidget {
 }
 
 class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
-  late final StatusPengajuanCubit _statusPengajuanCubit;
-
-  @override
+@override
   void initState() {
     super.initState();
-    _statusPengajuanCubit = StatusPengajuanCubit(apiService: ApiService());
-  }
-
-  @override
-  void dispose() {
-    _statusPengajuanCubit.close();
-    super.dispose();
+    context.read<StatusPengajuanCubit>().getStatusPengajuan();
   }
 
   @override
@@ -37,46 +29,43 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
           style: kMedium.copyWith(color: blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<StatusPengajuanState>(
-          stream: _statusPengajuanCubit.stream,
-          initialData: StatusPengajuanInitial(),
-          builder: (context, snapshot) {
-            final state = snapshot.data;
-            if (state is StatusPengajuanLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is StatusPengajuanLoaded) {
-              final statusPengajuan = state.statusPengajuanPkl;
-              final profilePengajuan = state.statusPengajuanPkl;
-              return CardStatusPengajuan(statusPengajuan: statusPengajuan, profilePengajuan: profilePengajuan);
-            } else if (state is StatusPengajuanNoData) {
-              return Center(
-                child: Text(
-                  state.message,
-                  style: kMedium.copyWith(color: blackColor, fontSize: 23),
-                ),
-              );
-            } else if (state is StatusPengajuanNoConnection) {
-              return Center(
-                child: Text(
-                  state.message,
-                  style: kMedium.copyWith(color: blackColor, fontSize: 23),
-                ),
-              );
-            } else if (state is StatusPengajuanError) {
-              return Center(
-                child: Text(
-                  state.message,
-                  style: kMedium.copyWith(color: blackColor, fontSize: 23),
-                ),
-              );
-            } else {
-              return const Text('Unknown Error');
-            }
-          },
-        ),
+      body: BlocBuilder<StatusPengajuanCubit, StatusPengajuanState>(
+        builder: (context, state) {
+          if (state is StatusPengajuanLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is StatusPengajuanLoaded) {
+            final statusPengajuan = state.statusPengajuanPkl;
+            final profilePengajuan = state.statusPengajuanPkl;
+            return CardStatusPengajuan(
+                statusPengajuan: statusPengajuan,
+                profilePengajuan: profilePengajuan);
+          } else if (state is StatusPengajuanNoData) {
+            return Center(
+              child: Text(
+                state.message,
+                style: kMedium.copyWith(color: blackColor, fontSize: 23),
+              ),
+            );
+          } else if (state is StatusPengajuanNoConnection) {
+            return Center(
+              child: Text(
+                state.message,
+                style: kMedium.copyWith(color: blackColor, fontSize: 23),
+              ),
+            );
+          } else if (state is StatusPengajuanError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: kMedium.copyWith(color: blackColor, fontSize: 23),
+              ),
+            );
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
       ),
     );
   }
@@ -186,8 +175,7 @@ class CardStatusPengajuan extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               status.namaPerusahaan,
@@ -226,8 +214,8 @@ class CardStatusPengajuan extends StatelessWidget {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    DateFormat('dd MMMM y').format(
-                                        status.tanggalSelesai),
+                                    DateFormat('dd MMMM y')
+                                        .format(status.tanggalSelesai),
                                     overflow: TextOverflow.clip,
                                     style: kMedium.copyWith(
                                       color: backgroundColor,
@@ -252,8 +240,7 @@ class CardStatusPengajuan extends StatelessWidget {
                     onTap: () {},
                     title: Text(
                       'STATUS',
-                      style: kBold.copyWith(
-                          fontSize: 18, color: tertiaryColor),
+                      style: kBold.copyWith(fontSize: 18, color: tertiaryColor),
                     ),
                     trailing: Text(
                       status.status.toUpperCase(),

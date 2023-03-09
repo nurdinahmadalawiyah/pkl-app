@@ -19,7 +19,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       final profile = await apiService.getProfile();
       emit(ProfileLoaded(profile: profile));
     } on SocketException {
-      emit(ProfileNoConnection());
+      emit(ProfileNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
     }
