@@ -242,7 +242,9 @@ class FormConfirm extends StatelessWidget {
                     onChanged: (newValue) {
                       cubit.pengajuanController.text = newValue!;
                     },
-                    items: pengajuan.data.map((item) {
+                    items: pengajuan.data
+                        .where((item) => item.status == "disetujui")
+                        .map((item) {
                       return DropdownMenuItem<String>(
                         key: Key(item.idPengajuan.toString()),
                         value: item.idPengajuan.toString(),
