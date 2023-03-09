@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/common/result_state.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/presentation/provider/status_pengajuan_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
+import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
 
-class StatusPengajuanPage extends StatelessWidget {
+class StatusPengajuanPage extends StatefulWidget {
   const StatusPengajuanPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatusPengajuanPage> createState() => _StatusPengajuanPageState();
+}
+
+class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
+  late final StatusPengajuanCubit _statusPengajuanCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _statusPengajuanCubit = StatusPengajuanCubit(apiService: ApiService());
+  }
+
+  @override
+  void dispose() {
+    _statusPengajuanCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,217 +38,34 @@ class StatusPengajuanPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: ChangeNotifierProvider<StatusPengajuanProvider>(
-          create: (_) => StatusPengajuanProvider(apiService: ApiService()),
-          child:
-              Consumer<StatusPengajuanProvider>(builder: (context, state, _) {
-            if (state.state == ResultState.loading) {
+        child: StreamBuilder<StatusPengajuanState>(
+          stream: _statusPengajuanCubit.stream,
+          initialData: StatusPengajuanInitial(),
+          builder: (context, snapshot) {
+            final state = snapshot.data;
+            if (state is StatusPengajuanLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state.state == ResultState.hasData) {
-              return Column(
-                children: [
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: state.list.data.length,
-                      itemBuilder: (context, index) {
-                        var status = state.list.data[index];
-                        return Container(
-                          margin: const EdgeInsets.only(
-                              bottom: 7.5, top: 7.5, left: 20, right: 20),
-                          decoration: BoxDecoration(
-                            color: accentColor,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                decoration: const BoxDecoration(
-                                  color: secondaryColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                  ),
-                                ),
-                                child: ListTile(
-                                  title: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        state.list.user.nama,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: kSemiBold.copyWith(
-                                          color: backgroundColor,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            state.list.user.nim,
-                                            style: kRegular.copyWith(
-                                              color: backgroundColor,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          Text(
-                                            " - ",
-                                            style: kMedium.copyWith(
-                                              color: backgroundColor,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              state.list.user.namaProdi,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: kMedium.copyWith(
-                                                color: backgroundColor,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: IconButton(
-                                    icon: const Icon(
-                                        Icons.picture_as_pdf_rounded,
-                                        color: backgroundColor),
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: secondaryColor,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    bottomRight: Radius.circular(16),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            status.namaPerusahaan,
-                                            overflow: TextOverflow.clip,
-                                            style: kBold.copyWith(
-                                              color: backgroundColor,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            status.alamatPerusahaan,
-                                            overflow: TextOverflow.clip,
-                                            style: kMedium.copyWith(
-                                              color: backgroundColor,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Flexible(
-                                                child: Text(
-                                                  DateFormat('dd MMMM y')
-                                                      .format(
-                                                          status.tanggalMulai),
-                                                  style: kMedium.copyWith(
-                                                    color: backgroundColor,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                ' - ',
-                                                style: kMedium.copyWith(
-                                                  color: backgroundColor,
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  DateFormat('dd MMMM y')
-                                                      .format(status
-                                                          .tanggalSelesai),
-                                                  overflow: TextOverflow.clip,
-                                                  style: kMedium.copyWith(
-                                                    color: backgroundColor,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: accentColor,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: ListTile(
-                                  onTap: () {},
-                                  title: Text(
-                                    'STATUS',
-                                    style: kBold.copyWith(
-                                        fontSize: 18, color: tertiaryColor),
-                                  ),
-                                  trailing: Text(
-                                    status.status.toUpperCase(),
-                                    style: kBold.copyWith(
-                                        fontSize: 18,
-                                        color: status.status == 'menunggu'
-                                            ? Colors.orange
-                                            : status.status == 'disetujui'
-                                                ? const Color(0xFF008224)
-                                                : status.status == 'ditolak'
-                                                    ? Colors.red
-                                                    : tertiaryColor),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                ],
-              );
-            } else if (state.state == ResultState.noData) {
+            } else if (state is StatusPengajuanLoaded) {
+              final statusPengajuan = state.statusPengajuanPkl;
+              final profilePengajuan = state.statusPengajuanPkl;
+              return CardStatusPengajuan(statusPengajuan: statusPengajuan, profilePengajuan: profilePengajuan);
+            } else if (state is StatusPengajuanNoData) {
               return Center(
                 child: Text(
                   state.message,
                   style: kMedium.copyWith(color: blackColor, fontSize: 23),
                 ),
               );
-            } else if (state.state == ResultState.noConnection) {
+            } else if (state is StatusPengajuanNoConnection) {
               return Center(
                 child: Text(
                   state.message,
                   style: kMedium.copyWith(color: blackColor, fontSize: 23),
                 ),
               );
-            } else if (state.state == ResultState.error) {
+            } else if (state is StatusPengajuanError) {
               return Center(
                 child: Text(
                   state.message,
@@ -241,9 +75,203 @@ class StatusPengajuanPage extends StatelessWidget {
             } else {
               return const Text('Unknown Error');
             }
-          }),
+          },
         ),
       ),
     );
+  }
+}
+
+class CardStatusPengajuan extends StatelessWidget {
+  const CardStatusPengajuan({
+    Key? key,
+    required this.statusPengajuan,
+    required this.profilePengajuan,
+  }) : super(key: key);
+
+  final StatusPengajuanPkl statusPengajuan;
+  final StatusPengajuanPkl profilePengajuan;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemCount: statusPengajuan.data.length,
+        itemBuilder: (context, index) {
+          var status = statusPengajuan.data[index];
+          var profile = profilePengajuan.user;
+          return Container(
+            margin: const EdgeInsets.only(
+                bottom: 7.5, top: 7.5, left: 20, right: 20),
+            decoration: BoxDecoration(
+              color: accentColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: const BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          profile.nama,
+                          overflow: TextOverflow.ellipsis,
+                          style: kSemiBold.copyWith(
+                            color: backgroundColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              profile.nim,
+                              style: kRegular.copyWith(
+                                color: backgroundColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Text(
+                              " - ",
+                              style: kMedium.copyWith(
+                                color: backgroundColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                profile.namaProdi,
+                                overflow: TextOverflow.ellipsis,
+                                style: kMedium.copyWith(
+                                  color: backgroundColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.picture_as_pdf_rounded,
+                          color: backgroundColor),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              status.namaPerusahaan,
+                              overflow: TextOverflow.clip,
+                              style: kBold.copyWith(
+                                color: backgroundColor,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              status.alamatPerusahaan,
+                              overflow: TextOverflow.clip,
+                              style: kMedium.copyWith(
+                                color: backgroundColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    DateFormat('dd MMMM y')
+                                        .format(status.tanggalMulai),
+                                    style: kMedium.copyWith(
+                                      color: backgroundColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  ' - ',
+                                  style: kMedium.copyWith(
+                                    color: backgroundColor,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    DateFormat('dd MMMM y').format(
+                                        status.tanggalSelesai),
+                                    overflow: TextOverflow.clip,
+                                    style: kMedium.copyWith(
+                                      color: backgroundColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: ListTile(
+                    onTap: () {},
+                    title: Text(
+                      'STATUS',
+                      style: kBold.copyWith(
+                          fontSize: 18, color: tertiaryColor),
+                    ),
+                    trailing: Text(
+                      status.status.toUpperCase(),
+                      style: kBold.copyWith(
+                          fontSize: 18,
+                          color: status.status == 'menunggu'
+                              ? Colors.orange
+                              : status.status == 'disetujui'
+                                  ? const Color(0xFF008224)
+                                  : status.status == 'ditolak'
+                                      ? Colors.red
+                                      : tertiaryColor),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

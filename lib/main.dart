@@ -6,6 +6,7 @@ import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
+import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/isi_biodata_industri_page.dart';
@@ -58,11 +59,14 @@ class MyApp extends StatelessWidget {
           create: (_) => PengajuanPklCubit(),
         ),
         BlocProvider(
+          create: (_) => StatusPengajuanCubit(apiService: ApiService()),
+        ),
+        BlocProvider(
           create: (_) => EditProfileCubit(),
         ),
         BlocProvider(
           create: (_) => KonfirmasiDiterimaPklCubit(),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'PKL App',
@@ -85,13 +89,12 @@ class MyApp extends StatelessWidget {
           '/ganti-password': (context) => const GantiPasswordPage(),
           '/edit-profile': (context) => const EditProfilePage(),
           '/status-pengajuan': (context) => const StatusPengajuanPage(),
-          '/pengajuan-pkl': (context) =>  const AjukanTempatPklPage(),
+          '/pengajuan-pkl': (context) => const AjukanTempatPklPage(),
           '/konfirmasi-pkl': (context) => const KonfirmasiDiterimaPklPage(),
           '/biodata-industri': (context) => const BiodataIndustriPage(),
           '/isi-biodata-industri': (context) => const IsiBiodataIndustriPage(),
           '/jurnal-kegiatan': (context) => const JurnalKegiatanPage(),
-
-          '/dashboard-pembimbing':(context) => const PembimbingDashboardPage(),
+          '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
         },
       ),
     );

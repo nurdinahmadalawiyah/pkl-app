@@ -70,7 +70,6 @@ class _MahasiswaLoginPageState extends State<MahasiswaLoginPage> {
           ),
         );
       } else {
-        print(authProvider.token);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: const Duration(seconds: 3),

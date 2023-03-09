@@ -51,6 +51,7 @@ class _PencarianLowonganPageState extends State<PencarianLowonganPage> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 padding: const EdgeInsets.only(top: 10),
                 child: TextFormField(
+                  controller: _controller,
                   focusNode: _focusNode,
                   autofocus: true,
                   cursorColor: primaryColor,

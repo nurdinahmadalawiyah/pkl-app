@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
-import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
+import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class KonfirmasiDiterimaPklPage extends StatefulWidget {
@@ -17,12 +17,19 @@ class KonfirmasiDiterimaPklPage extends StatefulWidget {
 
 class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
   final _formKey = GlobalKey<FormState>();
-  
+  late final StatusPengajuanCubit statusPengajuanCubit;
 
-  // TextEditingController pengajuanController = TextEditingController();
-  // TextEditingController namaPembimbingController = TextEditingController();
-  // TextEditingController nikPembimbingController = TextEditingController();
-  // bool _isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    statusPengajuanCubit = StatusPengajuanCubit(apiService: ApiService());
+  }
+
+  @override
+  void dispose() {
+    statusPengajuanCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
       body: BlocBuilder<KonfirmasiDiterimaPklCubit, KonfirmasiDiterimaPklState>(
         builder: (context, state) {
           if (state is KonfirmasiDiterimaPklSuccess) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               context.read<KonfirmasiDiterimaPklCubit>().resetState();
               showSuccessDialog(context);
             });
@@ -49,7 +56,7 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
                 FormConfirm(
                   formKey: _formKey,
                   cubit: cubit,
-                  //konfirmasiDiterimaPklCubit: konfirmasiDiterimaPklCubit,
+                  statusPengajuanCubit: statusPengajuanCubit,
                 ),
               ],
             );
@@ -57,7 +64,8 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
           return Container();
         },
       ),
-      bottomNavigationBar: BlocBuilder<KonfirmasiDiterimaPklCubit, KonfirmasiDiterimaPklState>(
+      bottomNavigationBar:
+          BlocBuilder<KonfirmasiDiterimaPklCubit, KonfirmasiDiterimaPklState>(
         builder: (context, state) {
           if (state is KonfirmasiDiterimaPklLoading) {
             return const LoadingButton();
@@ -131,10 +139,12 @@ class ConfirmButton extends StatelessWidget {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             final idPengajuan = cubit.pengajuanController.text;
-            final konfirmasiNamaPembimbing = cubit.namaPembimbingController.text;
+            final konfirmasiNamaPembimbing =
+                cubit.namaPembimbingController.text;
             final konfirmasiNikPembimbing = cubit.nikPembimbingController.text;
 
-            cubit.konfirmasiDiterimaPkl(idPengajuan, konfirmasiNamaPembimbing, konfirmasiNikPembimbing);
+            cubit.konfirmasiDiterimaPkl(
+                idPengajuan, konfirmasiNamaPembimbing, konfirmasiNikPembimbing);
             cubit.resetForm();
           }
         },
@@ -169,12 +179,13 @@ class FormConfirm extends StatelessWidget {
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
-    // required this.konfirmasiDiterimaPklCubit,
-  }) : _formKey = formKey, super(key: key);
+    required this.statusPengajuanCubit,
+  })  : _formKey = formKey,
+        super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final KonfirmasiDiterimaPklCubit cubit;
-  // final StatusPengajuanPklCubit statusPengajuanPklCubit;
+  final StatusPengajuanCubit statusPengajuanCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -184,73 +195,71 @@ class FormConfirm extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              controller: cubit.pengajuanController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: accentColor,
-                labelText: 'Pilih Pengajuan',
-                labelStyle: const TextStyle(color: Color(0xFF585656)),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: primaryColor,
-                  ),
-                ),
-                prefixIcon: const Icon(
-                  Icons.business_rounded,
-                  color: primaryColor,
-                ),
-                suffixIcon: Transform.rotate(
-                  angle: 90 * 3.14 / 180,
-                  child: const Icon(
-                    Icons.chevron_right_rounded,
-                    color: primaryColor,
-                  ),
-                ),
-              ),
-              style: const TextStyle(color: tertiaryColor),
-              readOnly: true,
-              onTap: () async {
-                final selectedOption = await showMenu<String>(
-                  context: context,
-                  position: RelativeRect.fromLTRB(50, 180, 50, 50),
-                  items: [
-                    PopupMenuItem(
-                      value: '1',
-                      child: Text(
-                        'RIS.ID',
-                        style: kMedium.copyWith(color: tertiaryColor),
+            StreamBuilder<StatusPengajuanState>(
+              stream: statusPengajuanCubit.stream,
+              initialData: StatusPengajuanInitial(),
+              builder: (context, snapshot) {
+                final state = snapshot.data;
+                if (state is StatusPengajuanLoaded) {
+                  final pengajuan = state.statusPengajuanPkl;
+                  return DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: accentColor,
+                      labelText: 'Pilih Pengajuan',
+                      labelStyle: const TextStyle(color: Color(0xFF585656)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          width: 2,
+                          style: BorderStyle.solid,
+                          color: primaryColor,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.business_rounded,
+                        color: primaryColor,
+                      ),
+                      suffixIcon: Transform.rotate(
+                        angle: 90 * 3.14 / 180,
+                        child: const Icon(
+                          Icons.chevron_right_rounded,
+                          color: primaryColor,
+                        ),
                       ),
                     ),
-                    PopupMenuItem(
-                      value: '2',
-                      child: Text(
-                        'Mihoyo',
-                        style: kMedium.copyWith(color: tertiaryColor),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: '3',
-                      child: Text(
-                        'Codefu Studio',
-                        style: kMedium.copyWith(color: tertiaryColor),
-                      ),
-                    ),
-                  ],
-                );
-                if (selectedOption != null) {
-                  cubit.pengajuanController.text = selectedOption;
+                    iconSize: 0.0,
+                    value: pengajuan.data.isNotEmpty
+                        ? pengajuan.data[0].idPengajuan.toString()
+                        : null,
+                    onChanged: (newValue) {
+                      cubit.pengajuanController.text = newValue!;
+                    },
+                    items: pengajuan.data.map((item) {
+                      return DropdownMenuItem<String>(
+                        key: Key(item.idPengajuan.toString()),
+                        value: item.idPengajuan.toString(),
+                        child: Text(
+                          item.namaPerusahaan,
+                          style: kMedium.copyWith(color: tertiaryColor),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text(
+                    'No Data',
+                    style: kMedium.copyWith(color: tertiaryColor),
+                  );
+                } else {
+                  return const CircularProgressIndicator();
                 }
               },
             ),
