@@ -4,6 +4,9 @@ import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/common/result_state.dart';
 import 'package:magang_app/presentation/provider/pencarian_provider.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/pencarian_lowongan.dart';
@@ -94,7 +97,7 @@ class _PencarianLowonganPageState extends State<PencarianLowonganPage> {
                 builder: (context, state, _) {
                   if (state.state == ResultState.loading) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: LoadingAnimation(),
                     );
                   } else if (state.state == ResultState.hasData) {
                     return ListView.builder(
@@ -115,19 +118,11 @@ class _PencarianLowonganPageState extends State<PencarianLowonganPage> {
                       );
                     } else if (state.state == ResultState.noConnection) {
                       return Center(
-                        child: Text(
-                          state.message,
-                          style: kMedium.copyWith(
-                              color: blackColor, fontSize: 23),
-                        ),
+                        child: NoConnectionAnimation(message: state.message)
                       );
                     } else if (state.state == ResultState.error) {
                       return Center(
-                        child: Text(
-                          state.message,
-                          style: kMedium.copyWith(
-                              color: blackColor, fontSize: 23),
-                        ),
+                        child: ErrorAnimation(message: state.message),
                       );
                     } else {
                       return const Text('Unknown Error');

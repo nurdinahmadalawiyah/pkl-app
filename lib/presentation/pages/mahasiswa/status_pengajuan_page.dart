@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 
 class StatusPengajuanPage extends StatefulWidget {
   const StatusPengajuanPage({Key? key}) : super(key: key);
@@ -33,7 +36,7 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
         builder: (context, state) {
           if (state is StatusPengajuanLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: LoadingAnimation(),
             );
           } else if (state is StatusPengajuanLoaded) {
             final statusPengajuan = state.statusPengajuanPkl;
@@ -54,17 +57,11 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
             );
           } else if (state is StatusPengajuanNoConnection) {
             return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
+              child: NoConnectionAnimation(message: state.message)
             );
           } else if (state is StatusPengajuanError) {
             return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
+              child: ErrorAnimation(message: state.message)
             );
           } else {
             return const Text('Unknown Error');

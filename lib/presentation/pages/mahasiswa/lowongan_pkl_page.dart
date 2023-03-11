@@ -4,6 +4,10 @@ import 'package:magang_app/common/result_state.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/provider/lowongan_pkl_provider.dart';
 import 'package:magang_app/presentation/widgets/card_lowongan_pkl.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 import 'package:provider/provider.dart';
 
 class LowonganPklPage extends StatelessWidget {
@@ -30,7 +34,7 @@ class LowonganPklPage extends StatelessWidget {
                   builder: (context, state, _) {
                     if (state.state == ResultState.loading) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: LoadingAnimation(),
                       );
                     } else {
                       if (state.state == ResultState.hasData) {
@@ -44,27 +48,15 @@ class LowonganPklPage extends StatelessWidget {
                         );
                       } else if (state.state == ResultState.noData) {
                         return Center(
-                          child: Text(
-                            state.message,
-                            style: kMedium.copyWith(
-                                color: blackColor, fontSize: 23),
-                          ),
+                          child: NoDataAnimation(message: state.message,)
                         );
                       } else if (state.state == ResultState.noConnection) {
                         return Center(
-                          child: Text(
-                            state.message,
-                            style: kMedium.copyWith(
-                                color: blackColor, fontSize: 23),
-                          ),
+                          child: NoConnectionAnimation(message: state.message)
                         );
                       } else if (state.state == ResultState.error) {
                         return Center(
-                          child: Text(
-                            state.message,
-                            style: kMedium.copyWith(
-                                color: blackColor, fontSize: 23),
-                          ),
+                          child: ErrorAnimation(message: state.message),
                         );
                       } else {
                         return const Text('Unknown Error');

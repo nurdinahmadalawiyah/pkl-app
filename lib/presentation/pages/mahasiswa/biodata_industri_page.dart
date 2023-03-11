@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
@@ -34,18 +35,17 @@ class _BiodataIndustriPageState extends State<BiodataIndustriPage> {
       body: BlocBuilder<BiodataIndustriCubit, BiodataIndustriState>(
         builder: (context, state) {
           if (state is BiodataIndustriLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: LoadingAnimation());
           } else if (state is BiodataIndustriLoaded) {
             final biodataIndustri = state.biodataIndustri;
-            int jumlahTenagaKerja = biodataIndustri.data.jumlahTenagaKerjaSd +
-                biodataIndustri.data.jumlahTenagaKerjaSltp +
-                biodataIndustri.data.jumlahTenagaKerjaSmk +
-                biodataIndustri.data.jumlahTenagaKerjaSlta +
-                biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda +
-                biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister +
-                biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor;
+            int jumlahTenagaKerja = (biodataIndustri.data.jumlahTenagaKerjaSd ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSltp ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSmk ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSlta ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor ?? 0);
+
             return ListView(
               children: [
                 DataBiodataIndustriAktivitas(biodataIndustri: biodataIndustri),
@@ -188,7 +188,7 @@ class DataTenagaKerja extends StatelessWidget {
         children: [
           Text(
             'TENAGA KERJA',
-            style: kBold.copyWith(fontSize: 12, color: blackColor),
+            style: kBold.copyWith(fontSize: 12, color: tertiaryColor),
           ),
           const SizedBox(
             height: 10,
@@ -239,7 +239,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'SD',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -247,9 +247,9 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSd.toString(),
+                           biodataIndustri.data.jumlahTenagaKerjaSd == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSd.toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -263,7 +263,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'SLTP',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -271,9 +271,9 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSltp.toString(),
+                         biodataIndustri.data.jumlahTenagaKerjaSltp == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSltp.toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -287,7 +287,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'SMK/STM/SMEA/SMKK/SMTK',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -295,9 +295,9 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSmk.toString(),
+                          biodataIndustri.data.jumlahTenagaKerjaSmk == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSmk.toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -311,7 +311,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'SLTA Non SMK',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -319,9 +319,9 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSlta.toString(),
+                          biodataIndustri.data.jumlahTenagaKerjaSlta == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSlta.toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -335,7 +335,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'Sarjana Muda',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -343,10 +343,10 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda
                               .toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -360,7 +360,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'Sarjana Magister',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -368,10 +368,10 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister
                               .toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -385,7 +385,7 @@ class DataTenagaKerja extends StatelessWidget {
                         child: Text(
                           'Doktor',
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -393,10 +393,10 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor
+                          biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor == null ? "0" : biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor
                               .toString(),
                           style: kRegular.copyWith(
-                              fontSize: 12, color: blackColor),
+                              fontSize: 12, color: tertiaryColor),
                         ),
                       ),
                     ),
@@ -407,8 +407,8 @@ class DataTenagaKerja extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Jumlah Tenaga Kerja : $jumlahTenagaKerja',
-            style: kRegular.copyWith(fontSize: 12, color: blackColor),
+            'Jumlah Tenaga Kerja : $jumlahTenagaKerja Orang',
+            style: kRegular.copyWith(fontSize: 12, color: tertiaryColor),
           ),
         ],
       ),

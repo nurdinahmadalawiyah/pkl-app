@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
+import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
 import 'package:http/http.dart' as http;
@@ -226,13 +227,61 @@ class ApiService {
 
   Future<BiodataIndustri> getBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/biodata-industri/detail-user'),
+    final response = await http.get(
+        Uri.parse('$base_url/biodata-industri/detail-user'),
         headers: headers);
     if (response.statusCode == 200) {
       return BiodataIndustri.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get biodata industri: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<IsiBiodataIndustri> addBiodataIndustri(
+    String namaIndustri,
+    String namaPimpinan,
+    String alamatKantor,
+    String noTelpFax,
+    String contactPerson,
+    String bidangUsahaJasa,
+    String spesialisasiProduksiJasa,
+    String kapasitasProduksi,
+    String jangkauanPemasaran,
+    String jumlahTenagaKerjaSd,
+    String jumlahTenagaKerjaSltp,
+    String jumlahTenagaKerjaSlta,
+    String jumlahTenagaKerjaSmk,
+    String jumlahTenagaKerjaSarjanaMuda,
+    String jumlahTenagaKerjaSarjanaMagister,
+    String jumlahTenagaKerjaSarjanaDoktor,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(Uri.parse('$base_url/biodata-industri'),
+        headers: headers,
+        body: jsonEncode({
+          'nama_industri': namaIndustri,
+          'nama_pimpinan': namaPimpinan,
+          'alamat_kantor': alamatKantor,
+          'no_telp_fax': noTelpFax,
+          'contact_person': contactPerson,
+          'bidang_usaha_jasa': bidangUsahaJasa,
+          'spesialisasi_produksi_jasa': spesialisasiProduksiJasa,
+          'kapasitas_produksi': kapasitasProduksi,
+          'jangkauan_pemasaran': jangkauanPemasaran,
+          'jumlah_tenaga_kerja_sd': jumlahTenagaKerjaSd,
+          'jumlah_tenaga_kerja_sltp': jumlahTenagaKerjaSltp,
+          'jumlah_tenaga_kerja_slta': jumlahTenagaKerjaSlta,
+          'jumlah_tenaga_kerja_smk': jumlahTenagaKerjaSmk,
+          'jumlah_tenaga_kerja_sarjana_muda': jumlahTenagaKerjaSarjanaMuda,
+          'jumlah_tenaga_kerja_sarjana_magister': jumlahTenagaKerjaSarjanaMagister,
+          'jumlah_tenaga_kerja_sarjana_doktor': jumlahTenagaKerjaSarjanaDoktor,
+        }));
+    if (response.statusCode == 200) {
+      return IsiBiodataIndustri.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to post biodata industri: Response status code ${response.statusCode}");
     }
   }
 }

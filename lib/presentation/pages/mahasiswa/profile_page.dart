@@ -4,6 +4,9 @@ import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -34,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, state) {
           if (state is ProfileLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: LoadingAnimation(),
             );
           } else if (state is ProfileLoaded) {
             final profile = state.profile;
@@ -45,17 +48,11 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           } else if (state is ProfileNoConnection) {
             return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
+              child: NoConnectionAnimation(message: state.message)
             );
           } else if (state is ProfileError) {
             return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
+              child: ErrorAnimation(message: state.message),
             );
           } else {
             return const Text('Unknown Error');
