@@ -979,7 +979,7 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushReplacementNamed(context, '/biodata-industri');
+              Navigator.pushNamedAndRemoveUntil(context, '/biodata-industri', ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),
