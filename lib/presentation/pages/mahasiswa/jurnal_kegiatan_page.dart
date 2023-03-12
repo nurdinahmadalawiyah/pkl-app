@@ -38,7 +38,7 @@ class _JurnalKegiatanPageState extends State<JurnalKegiatanPage> {
               child: LoadingAnimation(),
             );
           } else if (state is JurnalKegiatanLoaded) {
-             final jurnalKegiatan = state.jurnalKegiatan;
+            final jurnalKegiatan = state.jurnalKegiatan;
             return CardJurnalKegiatan(jurnalKegiatan: jurnalKegiatan);
           } else if (state is JurnalKegiatanNoData) {
             return Center(
@@ -60,7 +60,6 @@ class _JurnalKegiatanPageState extends State<JurnalKegiatanPage> {
   }
 }
 
-
 class CardJurnalKegiatan extends StatelessWidget {
   const CardJurnalKegiatan({
     Key? key,
@@ -76,8 +75,16 @@ class CardJurnalKegiatan extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: jurnalKegiatan.data.length,
-      itemBuilder: (context, index) {
+      itemBuilder: (context, index,) {
         var jurnal = jurnalKegiatan.data[index];
+        var subindex = 0; // set subindex ke 0
+
+        if (jurnal.dataKegiatan.length > 0) {
+          subindex = jurnal.dataKegiatan.length - 1;
+        }
+
+        var detailJurnal = jurnal.dataKegiatan[subindex];
+
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Card(
@@ -85,7 +92,10 @@ class CardJurnalKegiatan extends StatelessWidget {
             margin: EdgeInsets.zero,
             elevation: 0,
             child: ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/jurnal-kegiatan-detail',
+                    arguments: jurnal);
+              },
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               title: Text(
