@@ -5,6 +5,7 @@ import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/isi_biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => IsiBiodataIndustriCubit(),
+        ),
+        BlocProvider(
+          create: (_) => JurnalKegiatanCubit(apiService: ApiService()),
         )
       ],
       child: MaterialApp(

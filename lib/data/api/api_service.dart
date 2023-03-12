@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
+import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
 import 'package:http/http.dart' as http;
@@ -282,6 +283,19 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to post biodata industri: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<JurnalKegiatan> getJurnalKegiatan() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/jurnal-kegiatan/index-user'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return JurnalKegiatan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
 }
