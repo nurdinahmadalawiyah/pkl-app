@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
@@ -65,6 +66,86 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: const BottomAddDataAndPrint(),
+    );
+  }
+}
+
+class BottomAddDataAndPrint extends StatelessWidget {
+  const BottomAddDataAndPrint({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Expanded(
+        flex: 1,
+        child: Padding(
+          padding:
+              const EdgeInsets.only(right: 5, bottom: 20, left: 20, top: 20),
+          child: ElevatedButton.icon(
+            onPressed: () => Navigator.pushNamed(context, '/tambah-jurnal-kegiatan'),
+            style: ElevatedButton.styleFrom(
+              primary: tertiaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              padding: const EdgeInsets.all(15),
+            ),
+            icon: const Icon(
+              IconlyBold.plus,
+              color: backgroundColor,
+            ),
+            label: FittedBox(
+              child: Text(
+                'Tambah Data',
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.clip,
+                style: kSemiBold.copyWith(
+                  fontSize: 16,
+                  color: backgroundColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 1,
+        child: Padding(
+          padding:
+              const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
+          child: ElevatedButton.icon(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              primary: primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              padding: const EdgeInsets.all(15),
+            ),
+            icon: const Icon(
+              Icons.picture_as_pdf_rounded,
+              color: backgroundColor,
+            ),
+            label: FittedBox(
+              child: Text(
+                'Cetak PDF',
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.clip,
+                style: kSemiBold.copyWith(
+                  fontSize: 16,
+                  color: backgroundColor,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
     );
   }
 }

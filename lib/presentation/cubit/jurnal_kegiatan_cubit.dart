@@ -20,12 +20,12 @@ class JurnalKegiatanCubit extends Cubit<JurnalKegiatanState> {
     try {
       final jurnalKegiatan = await apiService.getJurnalKegiatan();
       if (jurnalKegiatan == null ) {
-        emit(JurnalKegiatanNoData(message: "Tidak Ada Jurnal Kegiatan"));
+        emit(const JurnalKegiatanNoData(message: "Tidak Ada Jurnal Kegiatan"));
       } else {
         emit(JurnalKegiatanLoaded(jurnalKegiatan: jurnalKegiatan));
       }
     } on SocketException {
-      emit(JurnalKegiatanNoConnection(message: "Tidak Ada Koneksi Internet"));
+      emit(const JurnalKegiatanNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
       emit(JurnalKegiatanError(message: e.toString()));
     }

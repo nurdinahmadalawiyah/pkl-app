@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan_cubit.dart';
@@ -56,6 +57,45 @@ class _JurnalKegiatanPageState extends State<JurnalKegiatanPage> {
           }
         },
       ),
+      bottomNavigationBar: const ButtonAddData(),
+    );
+  }
+}
+
+class ButtonAddData extends StatelessWidget {
+  const ButtonAddData({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton.icon(
+        onPressed: () =>
+            Navigator.pushNamed(context, '/tambah-jurnal-kegiatan'),
+        style: ElevatedButton.styleFrom(
+            primary: tertiaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            padding: const EdgeInsets.all(15)),
+        icon: const Icon(
+          IconlyBold.plus,
+          color: backgroundColor,
+        ),
+        label: FittedBox(
+          child: Text(
+            'Tambah Data',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -75,7 +115,10 @@ class CardJurnalKegiatan extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: jurnalKegiatan.data.length,
-      itemBuilder: (context, index,) {
+      itemBuilder: (
+        context,
+        index,
+      ) {
         var jurnal = jurnalKegiatan.data[index];
         var subindex = 0; // set subindex ke 0
 
@@ -87,22 +130,26 @@ class CardJurnalKegiatan extends StatelessWidget {
 
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          child: Card(
-            color: accentColor,
-            margin: EdgeInsets.zero,
-            elevation: 0,
-            child: ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, '/jurnal-kegiatan-detail',
-                    arguments: jurnal);
-              },
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              title: Text(
-                "Minggu ${jurnal.minggu}",
-                style: kBold.copyWith(color: blackColor, fontSize: 16),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () {
+              Navigator.pushNamed(context, '/jurnal-kegiatan-detail',
+                  arguments: jurnal);
+            },
+            child: Ink(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: accentColor,
               ),
-              trailing: const Icon(Icons.chevron_right_rounded),
+              child: ListTile(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                title: Text(
+                  "Minggu ${jurnal.minggu}",
+                  style: kBold.copyWith(color: blackColor, fontSize: 16),
+                ),
+                trailing: const Icon(Icons.chevron_right_rounded),
+              ),
             ),
           ),
         );

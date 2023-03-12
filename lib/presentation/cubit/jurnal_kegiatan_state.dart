@@ -14,23 +14,23 @@ class JurnalKegiatanLoading extends JurnalKegiatanState {}
 class JurnalKegiatanLoaded extends JurnalKegiatanState {
   final JurnalKegiatan jurnalKegiatan;
 
-  JurnalKegiatanLoaded({required this.jurnalKegiatan});
+  const JurnalKegiatanLoaded({required this.jurnalKegiatan});
 }
 
 class JurnalKegiatanNoData extends JurnalKegiatanState {
   final String message;
 
-  JurnalKegiatanNoData({required this.message});
+  const JurnalKegiatanNoData({required this.message});
 }
 
 class JurnalKegiatanNoConnection extends JurnalKegiatanState {
   final String message;
 
-  JurnalKegiatanNoConnection({required this.message});
+  const JurnalKegiatanNoConnection({required this.message});
 }
 
 class JurnalKegiatanError extends JurnalKegiatanState {
   final String message;
 
-  JurnalKegiatanError({required this.message});
+  const JurnalKegiatanError({required this.message});
 }

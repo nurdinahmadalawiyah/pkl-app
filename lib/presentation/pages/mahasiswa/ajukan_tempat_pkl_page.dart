@@ -38,7 +38,7 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
           } else {
             return ListView(
               children: [
-                FormPengajuan(cubit), 
+                formPengajuan(cubit), 
               ],
             );
           }
@@ -68,7 +68,7 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
     );
   }
 
-  Container FormPengajuan(PengajuanPklCubit cubit) {
+  Container formPengajuan(PengajuanPklCubit cubit) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Form(

@@ -16,22 +16,22 @@ class StatusPengajuanLoading extends StatusPengajuanState {}
 class StatusPengajuanLoaded extends StatusPengajuanState {
   final StatusPengajuanPkl statusPengajuanPkl;
 
-  StatusPengajuanLoaded({required this.statusPengajuanPkl});
+  const StatusPengajuanLoaded({required this.statusPengajuanPkl});
 }
 class StatusPengajuanNoData extends StatusPengajuanState {
   final String message;
 
-  StatusPengajuanNoData({required this.message});
+  const StatusPengajuanNoData({required this.message});
 }
 
 class StatusPengajuanNoConnection extends StatusPengajuanState {
   final String message;
 
-  StatusPengajuanNoConnection({required this.message});
+  const StatusPengajuanNoConnection({required this.message});
 }
 
 class StatusPengajuanError extends StatusPengajuanState {
   final String message;
 
-  StatusPengajuanError({required this.message});
+  const StatusPengajuanError({required this.message});
 }

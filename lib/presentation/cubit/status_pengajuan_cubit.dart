@@ -20,12 +20,12 @@ class StatusPengajuanCubit extends Cubit<StatusPengajuanState> {
     try {
       final statusPengajuanPkl = await apiService.getStatusPengajuan();
       if (statusPengajuanPkl == null) {
-        emit(StatusPengajuanNoData(message: "Tidak ada Pengajuan yang diajukan"));
+        emit(const StatusPengajuanNoData(message: "Tidak ada Pengajuan yang diajukan"));
       } else {
         emit(StatusPengajuanLoaded(statusPengajuanPkl: statusPengajuanPkl));
       }
     } on SocketException {
-      emit(StatusPengajuanNoConnection(message: "Tidak Ada Koneksi Internet"));
+      emit(const StatusPengajuanNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
       emit(StatusPengajuanError(message: e.toString()));
     }

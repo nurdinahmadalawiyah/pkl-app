@@ -14,6 +14,7 @@ import 'package:magang_app/data/models/pencarian_lowongan.dart';
 import 'package:magang_app/data/models/pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
+import 'package:magang_app/data/models/tambah_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/update_profile_model.dart';
 
 class ApiService {
@@ -275,7 +276,8 @@ class ApiService {
           'jumlah_tenaga_kerja_slta': jumlahTenagaKerjaSlta,
           'jumlah_tenaga_kerja_smk': jumlahTenagaKerjaSmk,
           'jumlah_tenaga_kerja_sarjana_muda': jumlahTenagaKerjaSarjanaMuda,
-          'jumlah_tenaga_kerja_sarjana_magister': jumlahTenagaKerjaSarjanaMagister,
+          'jumlah_tenaga_kerja_sarjana_magister':
+              jumlahTenagaKerjaSarjanaMagister,
           'jumlah_tenaga_kerja_sarjana_doktor': jumlahTenagaKerjaSarjanaDoktor,
         }));
     if (response.statusCode == 200) {
@@ -296,6 +298,31 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<TambahJurnalKegiatan> addJurnalKegiatan(
+    String tanggal,
+    String minggu,
+    String bidangPekerjaan,
+    String keterangan,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(
+      Uri.parse('$base_url/jurnal-kegiatan'),
+      headers: headers,
+      body: jsonEncode({
+        'tanggal': tanggal,
+        'minggu': minggu,
+        'bidang_pekerjaan': bidangPekerjaan,
+        'keterangan': keterangan,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return TambahJurnalKegiatan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to post jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
@@ -11,6 +13,7 @@ import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart
 import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
+import 'package:magang_app/presentation/cubit/tambah_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/isi_biodata_industri_page.dart';
@@ -25,6 +28,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/mahasiswa_login_page.dar
 import 'package:magang_app/presentation/pages/mahasiswa/profile_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/status_pengajuan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/pencarian_lowongan_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/tambah_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
 import 'package:magang_app/presentation/pages/splash_page.dart';
@@ -80,6 +84,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => JurnalKegiatanCubit(apiService: ApiService()),
+        ),
+        BlocProvider(
+          create: (_) => TambahJurnalKegiatanCubit(),
         )
       ],
       child: MaterialApp(
@@ -109,6 +116,7 @@ class MyApp extends StatelessWidget {
           '/isi-biodata-industri': (context) => const IsiBiodataIndustriPage(),
           '/jurnal-kegiatan': (context) => const JurnalKegiatanPage(),
           '/jurnal-kegiatan-detail': (context) => const JurnalKegiatanDetailPage(),
+          '/tambah-jurnal-kegiatan': (context) => const TambahJurnalKegiatanPage(),
           '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
         },
       ),

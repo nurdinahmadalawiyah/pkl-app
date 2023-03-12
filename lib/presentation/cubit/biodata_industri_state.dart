@@ -14,23 +14,23 @@ class BiodataIndustriLoading extends BiodataIndustriState {}
 class BiodataIndustriLoaded extends BiodataIndustriState {
   final BiodataIndustri biodataIndustri;
 
-  BiodataIndustriLoaded({required this.biodataIndustri});
+  const BiodataIndustriLoaded({required this.biodataIndustri});
 }
 
 class BiodataIndustriNoConnection extends BiodataIndustriState {
   final String message;
 
-  BiodataIndustriNoConnection({required this.message});
+  const BiodataIndustriNoConnection({required this.message});
 }
 
 class BiodataIndustriNoData extends BiodataIndustriState {
   final String message;
 
-  BiodataIndustriNoData({required this.message});
+  const BiodataIndustriNoData({required this.message});
 }
 
 class BiodataIndustriError extends BiodataIndustriState {
   final String message;
 
-  BiodataIndustriError({required this.message});
+  const BiodataIndustriError({required this.message});
 }
