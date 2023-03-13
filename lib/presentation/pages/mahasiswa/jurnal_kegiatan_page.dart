@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -122,8 +124,6 @@ class CardJurnalKegiatan extends StatelessWidget {
         if (jurnal.dataKegiatan.length > 0) {
           subindex = jurnal.dataKegiatan.length - 1;
         }
-
-        var detailJurnal = jurnal.dataKegiatan[subindex];
 
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),

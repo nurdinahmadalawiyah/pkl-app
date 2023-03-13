@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
+import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
@@ -349,6 +350,22 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to update jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<HapusJurnalKegiatan> deleteJurnalKegiatan(
+    String idJurnalKegiatan,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.delete(
+      Uri.parse('$base_url/jurnal-kegiatan/$idJurnalKegiatan'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return HapusJurnalKegiatan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to delete jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
 }

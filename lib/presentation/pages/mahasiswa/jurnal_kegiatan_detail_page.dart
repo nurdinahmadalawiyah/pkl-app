@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
+import 'package:magang_app/presentation/cubit/hapus_jurnal_kegiatan_cubit.dart';
 
 class JurnalKegiatanDetailPage extends StatelessWidget {
   const JurnalKegiatanDetailPage({super.key});
@@ -12,12 +15,14 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final jurnalKegiatan =
         ModalRoute.of(context)?.settings.arguments as ListJurnalKegiatan;
+    final HapusJurnalKegiatanCubit hapusCubit = HapusJurnalKegiatanCubit();
+
 
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         title: Text(
-          "Minggu ${jurnalKegiatan.minggu}",
+          "Minggu",
           style: kMedium.copyWith(color: blackColor),
         ),
       ),
@@ -37,14 +42,47 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
                   caption: 'Edit Data',
                   color: accentColor,
                   icon: IconlyBold.editSquare,
-                  onTap: () => Navigator.pushNamed(context, '/edit-jurnal-kegiatan', arguments: jurnal),
+                  onTap: () => Navigator.pushNamed(
+                      context, '/edit-jurnal-kegiatan',
+                      arguments: jurnal),
                 ),
                 IconSlideAction(
                   caption: 'Hapus Data',
                   color: Colors.red,
                   icon: IconlyBold.delete,
                   onTap: () {
-                    // Tambahkan fungsi hapus di sini
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Konfirmasi Hapus Data",
+                              style: kMedium.copyWith(color: tertiaryColor)),
+                          content: Text(
+                              "Apakah Anda yakin ingin menghapus data pada tangal ${DateFormat('d MMMM y').format(jurnal.tanggal)} ini?",
+                              style: kMedium.copyWith(color: tertiaryColor)),
+                          actions: [
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                primary: Colors.red,
+                              ),
+                              onPressed: () async {
+                                await hapusCubit.deleteJurnalKegiatan(jurnal.idJurnalKegiatan.toString());
+                                Navigator.of(context).pop();
+                                Navigator.pushNamedAndRemoveUntil(context, '/jurnal-kegiatan', ModalRoute.withName('/dashboard'));
+                              },
+                              child: const Text("Hapus"),
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                primary: primaryColor,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text("Batal"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ],
