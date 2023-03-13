@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
@@ -93,9 +94,12 @@ class _FormUpdateJurnalKegiatanState extends State<FormUpdateJurnalKegiatan> {
     final jurnal = ModalRoute.of(context)?.settings.arguments as DataKegiatan;
 
     widget.cubit.mingguController.text = jurnal.minggu.toString();
-    widget.cubit.hariTanggalController.text = jurnal.tanggal.toString();
     widget.cubit.bidangPekerjaanController.text = jurnal.bidangPekerjaan;
     widget.cubit.keteranganController.text = jurnal.keterangan;
+
+    DateTime dateValue = jurnal.tanggal;
+    widget.cubit.hariTanggalController.text =
+        DateFormat('yyyy-MM-dd').format(dateValue);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -105,7 +109,7 @@ class _FormUpdateJurnalKegiatanState extends State<FormUpdateJurnalKegiatan> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Jurnal Kegiatan",
+              "Jurnal Kegiatan ${jurnal.idJurnalKegiatan}",
               style: kRegular.copyWith(
                 color: blackColor,
                 fontSize: 12,
@@ -156,11 +160,12 @@ class _FormUpdateJurnalKegiatanState extends State<FormUpdateJurnalKegiatan> {
             DatePickerFormField(
               controller: widget.cubit.hariTanggalController,
               labelText: "Hari/Tanggal",
-              initialDate: widget.cubit.hariTanggalController.text.isNotEmpty
-                  ? DateTime.parse(widget.cubit.hariTanggalController.text)
-                  : DateTime.now(),
+              initialDate: dateValue,
               onDateSelected: (DateTime date) {
-                setState(() {});
+                // setState(() {});
+                jurnal.tanggal = date;
+                widget.cubit.hariTanggalController.text =
+                    DateFormat('yyyy-MM-dd').format(date);
               },
             ),
             const SizedBox(
@@ -207,7 +212,7 @@ class _FormUpdateJurnalKegiatanState extends State<FormUpdateJurnalKegiatan> {
             ),
             TextFormField(
               controller: widget.cubit.keteranganController,
-              maxLines: 4,
+              maxLines: 6,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 filled: true,
@@ -275,8 +280,8 @@ class ButtonUpdate extends StatelessWidget {
             final keterangan = cubit.keteranganController.text;
             final idJurnalKegiatan = jurnal.idJurnalKegiatan.toString();
 
-            cubit.updateJurnalKegiatan(idJurnalKegiatan,
-                tanggal, minggu, bidangPekerjaan, keterangan);
+            cubit.updateJurnalKegiatan(
+                idJurnalKegiatan, tanggal, minggu, bidangPekerjaan, keterangan);
             cubit.resetForm();
           }
         },

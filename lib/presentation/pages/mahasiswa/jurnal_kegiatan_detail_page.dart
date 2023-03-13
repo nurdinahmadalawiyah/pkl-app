@@ -23,7 +23,6 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
       ),
       body: ListView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: jurnalKegiatan.dataKegiatan.length,
         itemBuilder: (context, index) {

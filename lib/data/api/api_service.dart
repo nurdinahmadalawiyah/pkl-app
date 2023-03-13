@@ -335,7 +335,7 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/jurnal-kegiatan/4?_method=PUT'),
+      Uri.parse('$base_url/jurnal-kegiatan/$idJurnalKegiatan?_method=PUT'),
       headers: headers,
       body: jsonEncode({
         'tanggal': tanggal,
