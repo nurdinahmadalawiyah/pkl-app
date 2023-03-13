@@ -9,12 +9,14 @@ class DatePickerFormField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final Function(DateTime) onDateSelected;
+  final DateTime? initialDate;
 
   const DatePickerFormField({
     Key? key,
     required this.controller,
     required this.labelText,
     required this.onDateSelected,
+    this.initialDate,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,16 @@ class DatePickerFormField extends StatefulWidget {
 class _DatePickerFormFieldState extends State<DatePickerFormField> {
   DateTime? _selectedDate;
 
+  @override
+  void initState() {
+    super.initState();
+    if (_selectedDate == null && widget.initialDate != null) {
+      _selectedDate = widget.initialDate;
+      widget.controller.text =
+          DateFormat('yyyy-MM-dd').format(widget.initialDate!);
+    }
+  }
+  
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,

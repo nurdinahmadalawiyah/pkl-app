@@ -342,13 +342,13 @@ class HeaderAndAvatar extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
-            color: tertiaryColor,
+            color: accentColor,
             shape: BoxShape.circle,
           ),
           child: const Icon(
             Icons.person_rounded,
             size: 150,
-            color: backgroundColor,
+            color: tertiaryColor,
           ),
         )
       ],

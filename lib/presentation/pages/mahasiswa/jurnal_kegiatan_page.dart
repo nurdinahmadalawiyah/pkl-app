@@ -115,12 +115,9 @@ class CardJurnalKegiatan extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: jurnalKegiatan.data.length,
-      itemBuilder: (
-        context,
-        index,
-      ) {
+      itemBuilder: (context, index) {
         var jurnal = jurnalKegiatan.data[index];
-        var subindex = 0; // set subindex ke 0
+        var subindex = 0;
 
         if (jurnal.dataKegiatan.length > 0) {
           subindex = jurnal.dataKegiatan.length - 1;

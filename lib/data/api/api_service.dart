@@ -325,4 +325,30 @@ class ApiService {
           "Failed to post jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
+
+  Future<TambahJurnalKegiatan> updateJurnalKegiatan(
+    String idJurnalKegiatan,
+    String tanggal,
+    String minggu,
+    String bidangPekerjaan,
+    String keterangan,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(
+      Uri.parse('$base_url/jurnal-kegiatan/4?_method=PUT'),
+      headers: headers,
+      body: jsonEncode({
+        'tanggal': tanggal,
+        'minggu': minggu,
+        'bidang_pekerjaan': bidangPekerjaan,
+        'keterangan': keterangan,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return TambahJurnalKegiatan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to update jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
 }
