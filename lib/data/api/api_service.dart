@@ -11,6 +11,7 @@ import 'package:magang_app/data/models/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:magang_app/data/models/logout_model.dart';
 import 'package:magang_app/data/models/lowongan_pkl_model.dart';
+import 'package:magang_app/data/models/nilai_pkl_model.dart';
 import 'package:magang_app/data/models/pencarian_lowongan.dart';
 import 'package:magang_app/data/models/pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/profile_model.dart';
@@ -366,6 +367,19 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to delete jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<NilaiPkl> getNilaiPkl() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/penilaian'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return NilaiPkl.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get nilai pkl: Response status code ${response.statusCode}");
     }
   }
 }

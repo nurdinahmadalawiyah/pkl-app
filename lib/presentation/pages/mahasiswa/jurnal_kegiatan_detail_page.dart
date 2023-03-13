@@ -22,7 +22,7 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         title: Text(
-          "Minggu",
+          "Minggu ${jurnalKegiatan.minggu}",
           style: kMedium.copyWith(color: blackColor),
         ),
       ),

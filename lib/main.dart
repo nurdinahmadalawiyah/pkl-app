@@ -11,6 +11,7 @@ import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/isi_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/nilai_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
@@ -27,6 +28,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/mahasiswa_dashboard_page
 import 'package:magang_app/presentation/pages/mahasiswa/edit_profile_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/ganti_password_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/mahasiswa_login_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/nilai_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/profile_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/status_pengajuan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/pencarian_lowongan_page.dart';
@@ -92,6 +94,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => EditJurnalKegiatanCubit(),
+        ),
+        BlocProvider(
+          create: (_) => NilaiPklCubit(apiService: ApiService()),
         )
       ],
       child: MaterialApp(
@@ -123,6 +128,7 @@ class MyApp extends StatelessWidget {
           '/jurnal-kegiatan-detail': (context) => const JurnalKegiatanDetailPage(),
           '/tambah-jurnal-kegiatan': (context) => const TambahJurnalKegiatanPage(),
           '/edit-jurnal-kegiatan': (context) => const EditJurnalKegiatanPage(),
+          '/nilai-pkl':(context) => const NilaiPklPage(),
           '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
         },
       ),

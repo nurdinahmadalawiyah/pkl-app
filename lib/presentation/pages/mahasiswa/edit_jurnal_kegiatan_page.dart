@@ -109,7 +109,7 @@ class _FormUpdateJurnalKegiatanState extends State<FormUpdateJurnalKegiatan> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Jurnal Kegiatan ${jurnal.idJurnalKegiatan}",
+              "Jurnal Kegiatan",
               style: kRegular.copyWith(
                 color: blackColor,
                 fontSize: 12,

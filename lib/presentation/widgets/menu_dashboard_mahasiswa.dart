@@ -154,7 +154,7 @@ class GridMenu extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, "/nilai-pkl"),
           child: GridTile(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
