@@ -66,7 +66,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                                 Navigator.of(context).pop();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
-                                    '/jurnal-kegiatan',
+                                    '/daftar-hadir',
                                     ModalRoute.withName('/dashboard'));
                               },
                               child: const Text("Hapus"),
@@ -119,6 +119,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
+                            height: 200,
                             imageUrl: hadir.tandaTangan,
                             fit: BoxFit.cover,
                             placeholder: (context, url) => const Center(

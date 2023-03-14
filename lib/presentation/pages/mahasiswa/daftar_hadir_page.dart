@@ -82,7 +82,7 @@ class ButtonAdd extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, '/tambah-daftar-hadir'),
         style: ElevatedButton.styleFrom(
           primary: tertiaryColor,
           shape: RoundedRectangleBorder(
@@ -178,7 +178,7 @@ class ButtonAddDataAndPrint extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 5, bottom: 20, left: 20, top: 20),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(context, '/tambah-daftar-hadir'),
               style: ElevatedButton.styleFrom(
                 primary: tertiaryColor,
                 shape: RoundedRectangleBorder(

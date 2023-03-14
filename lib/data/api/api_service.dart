@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
@@ -17,8 +19,10 @@ import 'package:magang_app/data/models/pencarian_lowongan.dart';
 import 'package:magang_app/data/models/pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
+import 'package:magang_app/data/models/tambah_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/tambah_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/update_profile_model.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiService {
   static const String base_url = "http://10.0.2.2:8000/api";
@@ -385,14 +389,45 @@ class ApiService {
 
   Future<DaftarHadir> getDaftarHadir() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(
-        Uri.parse('$base_url/daftar-hadir'),
-        headers: headers);
+    final response =
+        await http.get(Uri.parse('$base_url/daftar-hadir'), headers: headers);
     if (response.statusCode == 200) {
       return DaftarHadir.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get daftar hadir: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<TambahDaftarHadir> addDaftarHadir(
+    String hariTanggal,
+    String minggu,
+    File tandaTanganFile,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$base_url/daftar-hadir'),
+    );
+    request.headers.addAll(headers);
+    request.fields['hari_tanggal'] = hariTanggal;
+    request.fields['minggu'] = minggu;
+    request.files.add(http.MultipartFile(
+      'tanda_tangan',
+      tandaTanganFile.readAsBytes().asStream(),
+      tandaTanganFile.lengthSync(),
+      filename: tandaTanganFile.path.split('/').last,
+      contentType: MediaType.parse('image/png'),
+    ));
+
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      return TambahDaftarHadir.fromJson(json.decode(responseString));
+    } else {
+      throw Exception(
+          "Failed to post daftar hadir: Response status code ${response.statusCode}");
     }
   }
 }
