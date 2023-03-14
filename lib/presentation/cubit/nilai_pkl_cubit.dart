@@ -19,7 +19,7 @@ class NilaiPklCubit extends Cubit<NilaiPklState> {
   void getNilaiPkl() async {
     emit(NilaiPklLoading());
     try {
-      final nilaiPkl = await this.apiService.getNilaiPkl();
+      final nilaiPkl = await apiService.getNilaiPkl();
       if (nilaiPkl == null) {
         emit(const NilaiPklNoData(
             message: "Pembimbing dan Prodi Belum Memberikan Penilaian"));

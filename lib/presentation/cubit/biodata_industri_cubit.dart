@@ -31,4 +31,8 @@ class BiodataIndustriCubit extends Cubit<BiodataIndustriState> {
       emit(const BiodataIndustriError(message: "Biodata Industri Kosong"));
     }
   }
+
+  void resetCubit() {
+    emit(BiodataIndustriInitial());
+  }
 }

@@ -13,8 +13,7 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jurnalKegiatan =
-        ModalRoute.of(context)?.settings.arguments as ListJurnalKegiatan;
+    final jurnalKegiatan = ModalRoute.of(context)?.settings.arguments as ListJurnalKegiatan;
     final HapusJurnalKegiatanCubit hapusCubit = HapusJurnalKegiatanCubit();
 
 

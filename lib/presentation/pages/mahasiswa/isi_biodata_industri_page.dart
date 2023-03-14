@@ -106,24 +106,16 @@ class SaveButton extends StatelessWidget {
             final noTelpFax = cubit.noTelpFaxController.text;
             final contactPerson = cubit.contactPersonController.text;
             final bidangUsahaJasa = cubit.bidangUsahaJasaController.text;
-            final spesialisasiProduksiJasa =
-                cubit.spesialisasiProduksiJasaController.text;
+            final spesialisasiProduksiJasa = cubit.spesialisasiProduksiJasaController.text;
             final kapasitasProduksi = cubit.kapasitasProduksiController.text;
             final jangkauanPemasaran = cubit.jangkauanPemasaranController.text;
-            final jumlahTenagaKerjaSd =
-                cubit.jumlahTenagaKerjaSdController.text;
-            final jumlahTenagaKerjaSltp =
-                cubit.jumlahTenagaKerjaSltpController.text;
-            final jumlahTenagaKerjaSmk =
-                cubit.jumlahTenagaKerjaSmkController.text;
-            final jumlahTenagaKerjaSlta =
-                cubit.jumlahTenagaKerjaSltaController.text;
-            final jumlahTenagaKerjaSarjanaMuda =
-                cubit.jumlahTenagaKerjaSarjanaMudaController.text;
-            final jumlahTenagaKerjaSarjanaMagister =
-                cubit.jumlahTenagaKerjaSarjanaMudaController.text;
-            final jumlahTenagaKerjaSarjanaDoktor =
-                cubit.jumlahTenagaKerjaSarjanaDoktorController.text;
+            final jumlahTenagaKerjaSd =  cubit.jumlahTenagaKerjaSdController.text;
+            final jumlahTenagaKerjaSltp =  cubit.jumlahTenagaKerjaSltpController.text;
+            final jumlahTenagaKerjaSmk =  cubit.jumlahTenagaKerjaSmkController.text;
+            final jumlahTenagaKerjaSlta = cubit.jumlahTenagaKerjaSltaController.text;
+            final jumlahTenagaKerjaSarjanaMuda = cubit.jumlahTenagaKerjaSarjanaMudaController.text;
+            final jumlahTenagaKerjaSarjanaMagister = cubit.jumlahTenagaKerjaSarjanaMudaController.text;
+            final jumlahTenagaKerjaSarjanaDoktor = cubit.jumlahTenagaKerjaSarjanaDoktorController.text;
 
             cubit.addBiodataIndustri(
               namaIndustri,
@@ -143,6 +135,7 @@ class SaveButton extends StatelessWidget {
               jumlahTenagaKerjaSarjanaMagister,
               jumlahTenagaKerjaSarjanaDoktor,
             );
+            cubit.resetForm();
           }
         },
         style: ElevatedButton.styleFrom(
@@ -186,54 +179,33 @@ class FormBiodataIndustri extends StatelessWidget {
         stream: biodataIndustri.stream,
         builder: (context, snapshot) {
           final state = snapshot.data;
-
           if (state is BiodataIndustriLoaded) {
-            cubit.namaIndustriController.text =
-                state.biodataIndustri.data.namaIndustri;
-            cubit.alamatKantorController.text =
-                state.biodataIndustri.data.alamatKantor;
-            cubit.noTelpFaxController.text =
-                state.biodataIndustri.data.noTelpFax;
-            cubit.namaPimpinanController.text =
-                state.biodataIndustri.data.namaPimpinan;
-            cubit.contactPersonController.text =
-                state.biodataIndustri.data.contactPerson;
-            cubit.bidangUsahaJasaController.text =
-                state.biodataIndustri.data.bidangUsahaJasa;
-            cubit.spesialisasiProduksiJasaController.text =
-                state.biodataIndustri.data.spesialisasiProduksiJasa;
-            cubit.kapasitasProduksiController.text =
-                state.biodataIndustri.data.kapasitasProduksi?.toString() ?? '';
-            cubit.jangkauanPemasaranController.text =
-                state.biodataIndustri.data.jangkauanPemasaran;
-            cubit.jumlahTenagaKerjaSdController.text =
-                state.biodataIndustri.data.jumlahTenagaKerjaSd?.toString() ??
-                    '';
-            cubit.jumlahTenagaKerjaSltpController.text =
-                state.biodataIndustri.data.jumlahTenagaKerjaSltp?.toString() ??
-                    '';
-            cubit.jumlahTenagaKerjaSltaController.text =
-                state.biodataIndustri.data.jumlahTenagaKerjaSlta?.toString() ??
-                    '';
-            cubit.jumlahTenagaKerjaSmkController.text =
-                state.biodataIndustri.data.jumlahTenagaKerjaSmk?.toString() ??
-                    '';
-            cubit.jumlahTenagaKerjaSarjanaMudaController.text = state
-                    .biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda
-                    ?.toString() ??
-                '';
-            cubit.jumlahTenagaKerjaSarjanaMagisterController.text = state
-                    .biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister
-                    ?.toString() ??
-                '';
-            cubit.jumlahTenagaKerjaSarjanaDoktorController?.text = state
-                    .biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor
-                    ?.toString() ??
-                '';
+            var data = state.biodataIndustri.data;
 
+            cubit.namaIndustriController.text = data.namaIndustri;
+            cubit.alamatKantorController.text = data.alamatKantor;
+            cubit.noTelpFaxController.text = data.noTelpFax;
+            cubit.namaPimpinanController.text = data.namaPimpinan;
+            cubit.contactPersonController.text = data.contactPerson;
+            cubit.bidangUsahaJasaController.text = data.bidangUsahaJasa;
+            cubit.spesialisasiProduksiJasaController.text = data.spesialisasiProduksiJasa;
+            cubit.kapasitasProduksiController.text = data.kapasitasProduksi?.toString() ?? '';
+            cubit.jangkauanPemasaranController.text = data.jangkauanPemasaran;
+            cubit.jumlahTenagaKerjaSdController.text = data.jumlahTenagaKerjaSd?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSltpController.text = data.jumlahTenagaKerjaSltp?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSltaController.text = data.jumlahTenagaKerjaSlta?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSmkController.text = data.jumlahTenagaKerjaSmk?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSarjanaMudaController.text = data.jumlahTenagaKerjaSarjanaMuda?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSarjanaMagisterController.text = data.jumlahTenagaKerjaSarjanaMagister?.toString() ?? '';
+            cubit.jumlahTenagaKerjaSarjanaDoktorController.text = data.jumlahTenagaKerjaSarjanaDoktor?.toString() ?? '';
+            
+            return FormInput(formKey: _formKey, cubit: cubit);
+          } else if (state is BiodataIndustriError) {
+            return FormInput(formKey: _formKey, cubit: cubit);
+          } else if (state is BiodataIndustriNoData) {
             return FormInput(formKey: _formKey, cubit: cubit);
           }
-          return FormInput(formKey: _formKey, cubit: cubit);
+          return Container();
         });
   }
 }

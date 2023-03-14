@@ -110,7 +110,6 @@ class CardJurnalKegiatan extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: jurnalKegiatan.data.length,
       itemBuilder: (context, index) {

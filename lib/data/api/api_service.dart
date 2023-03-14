@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
+import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
@@ -372,14 +373,26 @@ class ApiService {
 
   Future<NilaiPkl> getNilaiPkl() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(
-        Uri.parse('$base_url/penilaian'),
-        headers: headers);
+    final response =
+        await http.get(Uri.parse('$base_url/penilaian'), headers: headers);
     if (response.statusCode == 200) {
       return NilaiPkl.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get nilai pkl: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<DaftarHadir> getDaftarHadir() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/daftar-hadir'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return DaftarHadir.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get daftar hadir: Response status code ${response.statusCode}");
     }
   }
 }
