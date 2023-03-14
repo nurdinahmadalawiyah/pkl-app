@@ -7,10 +7,10 @@ part 'hapus_jurnal_kegiatan_state.dart';
 
 class HapusJurnalKegiatanCubit extends Cubit<HapusJurnalKegiatanState> {
   final ApiService apiService = ApiService();
-  
+
   HapusJurnalKegiatanCubit() : super(HapusJurnalKegiatanInitial());
 
-    void resetState() {
+  void resetState() {
     emit(HapusJurnalKegiatanInitial());
   }
 

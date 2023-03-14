@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,6 +7,7 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
+import 'package:magang_app/presentation/cubit/hapus_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
 
 class DaftarHadirDetailPage extends StatelessWidget {
@@ -12,8 +15,8 @@ class DaftarHadirDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kehadiran =
-        ModalRoute.of(context)?.settings.arguments as ListDaftarHadir;
+    final kehadiran = ModalRoute.of(context)?.settings.arguments as ListDaftarHadir;
+    final HapusDaftarHadirCubit hapusCubit = HapusDaftarHadirCubit();
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +65,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                                 primary: Colors.red,
                               ),
                               onPressed: () async {
-                                // await hapusCubit.deleteJurnalKegiatan(jurnal.idJurnalKegiatan.toString());
+                                await hapusCubit.deleteDaftarHadir(hadir.idDaftarHadir.toString());
                                 Navigator.of(context).pop();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,

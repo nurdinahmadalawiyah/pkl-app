@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
+import 'package:magang_app/data/models/hapus_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
@@ -428,6 +429,20 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to post daftar hadir: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<HapusDaftarHadir> deleteDaftarHadir(String idDaftarHadir) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.delete(
+      Uri.parse('$base_url/daftar-hadir/$idDaftarHadir'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return HapusDaftarHadir.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to delete daftar hadir: Response status code ${response.statusCode}");
     }
   }
 }

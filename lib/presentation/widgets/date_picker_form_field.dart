@@ -35,7 +35,7 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
           DateFormat('yyyy-MM-dd').format(widget.initialDate!);
     }
   }
-  
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -89,6 +89,12 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
               color: primaryColor,
             ),
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Harap pilih tanggal';
+            }
+            return null;
+          },
           style: const TextStyle(color: Colors.black),
         ),
       ),
