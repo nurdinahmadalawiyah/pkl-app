@@ -60,37 +60,56 @@ class _NilaiPklPageState extends State<NilaiPklPage> {
           } else if (state is NilaiPklError) {
             final message = state.message;
             return Center(
-              child: ErrorAnimation(message: message),
+              child: NoDataAnimation(message: message),
             );
           } else {
             return const Text('Unknown Error');
           }
         },
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ElevatedButton.icon(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            primary: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            padding: const EdgeInsets.all(15),
+      bottomNavigationBar: BlocBuilder<NilaiPklCubit, NilaiPklState>(
+        builder: (context, state) {
+          if (state is NilaiPklLoaded) {
+            return const ButtonPrint();
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ButtonPrint extends StatelessWidget {
+  const ButtonPrint({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton.icon(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          primary: primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
           ),
-          icon: const Icon(
-            Icons.picture_as_pdf_rounded,
-            color: backgroundColor,
-          ),
-          label: FittedBox(
-            child: Text(
-              'Cetak PDF',
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.clip,
-              style: kSemiBold.copyWith(
-                fontSize: 16,
-                color: backgroundColor,
-              ),
+          padding: const EdgeInsets.all(15),
+        ),
+        icon: const Icon(
+          Icons.picture_as_pdf_rounded,
+          color: backgroundColor,
+        ),
+        label: FittedBox(
+          child: Text(
+            'Cetak PDF',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
             ),
           ),
         ),

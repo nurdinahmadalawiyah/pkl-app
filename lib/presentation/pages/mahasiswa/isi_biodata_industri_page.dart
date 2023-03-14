@@ -50,13 +50,11 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
               context.read<IsiBiodataIndustriCubit>().resetState();
               showSuccessDialog(context);
             });
-          } else {
-            return FormBiodataIndustri(
-                cubit: cubit,
-                biodataIndustri: biodataIndustri,
-                formKey: _formKey);
           }
-          return Container();
+          return FormBiodataIndustri(
+              cubit: cubit,
+              biodataIndustri: biodataIndustri,
+              formKey: _formKey);
         },
       ),
       bottomNavigationBar:
@@ -233,728 +231,748 @@ class FormBiodataIndustri extends StatelessWidget {
                     ?.toString() ??
                 '';
 
-            return Form(
-              key: _formKey,
-              child: ListView(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "IDENTITAS INDUSTRI",
-                          style: kRegular.copyWith(
-                            color: blackColor,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.namaIndustriController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Nama Industri',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.business_sharp,
-                              color: primaryColor,
-                              size: 35,
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Nama Industri tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.namaPimpinanController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Nama Direktur/Pimpinan',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: const Icon(
-                              IconlyBold.profile,
-                              color: primaryColor,
-                              size: 35,
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Nama Pimpinan tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.alamatKantorController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.streetAddress,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Alamat Kantor',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: const Icon(
-                              IconlyBold.location,
-                              color: primaryColor,
-                              size: 35,
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Alamat Kantor tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.noTelpFaxController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'No.Telepon/FAX',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/fax_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'No. Telp / FAX tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.contactPersonController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Contact Person',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/contact_person_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Contact Person tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "AKTIVITAS",
-                          style: kRegular.copyWith(
-                            color: blackColor,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.bidangUsahaJasaController,
-                          maxLines: 3,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Bidang Usaha / Jasa',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/bidang_usaha_jasa_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Bidang Usaha / Jasa tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.spesialisasiProduksiJasaController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Spesialisasi Produksi / Jasa',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/spesialisasi_produksi_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Spesialisasi Produksi / Jasa tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.kapasitasProduksiController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Kapasitas Produksi',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/kapasitas_produksi_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: cubit.jangkauanPemasaranController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Jangkauan Pemasaran',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
-                                color: primaryColor,
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SvgPicture.asset(
-                                'assets/jangkauan_pemasaran_icon.svg',
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "TENAGA KERJA",
-                              style: kRegular.copyWith(
-                                color: blackColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: cubit.jumlahTenagaKerjaSdController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'SD',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sd_smp_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: cubit.jumlahTenagaKerjaSltpController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'SLTP',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sd_smp_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: cubit.jumlahTenagaKerjaSmkController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'SMK/STM/SMEA/SMKK/SMTK',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sma_smk_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: cubit.jumlahTenagaKerjaSltaController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'SLTA Non SMK',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sma_smk_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller:
-                                        cubit.jumlahTenagaKerjaSarjanaMudaController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'Sarjana Muda',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sarjana_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: TextFormField(
-                                    controller:
-                                        cubit.jumlahTenagaKerjaSarjanaMagisterController,
-                                    cursorColor: primaryColor,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: accentColor,
-                                      labelText: 'Sarjana Magister',
-                                      labelStyle:
-                                          const TextStyle(color: Color(0xFF585656)),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 0,
-                                          style: BorderStyle.none,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: const BorderSide(
-                                          width: 2,
-                                          style: BorderStyle.solid,
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: SvgPicture.asset(
-                                          'assets/sarjana_icon.svg',
-                                          color: primaryColor,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            TextFormField(
-                              controller:
-                                  cubit.jumlahTenagaKerjaSarjanaDoktorController,
-                              cursorColor: primaryColor,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: accentColor,
-                                labelText: 'Doktor',
-                                labelStyle:
-                                    const TextStyle(color: Color(0xFF585656)),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(
-                                    width: 2,
-                                    style: BorderStyle.solid,
-                                    color: primaryColor,
-                                  ),
-                                ),
-                                prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: SvgPicture.asset(
-                                    'assets/doktor_icon.svg',
-                                    color: primaryColor,
-                                  ),
-                                ),
-                              ),
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return FormInput(formKey: _formKey, cubit: cubit);
           }
-          return Container();
+          return FormInput(formKey: _formKey, cubit: cubit);
         });
+  }
+}
+
+class FormInput extends StatelessWidget {
+  const FormInput({
+    Key? key,
+    required GlobalKey<FormState> formKey,
+    required this.cubit,
+  }) : _formKey = formKey, super(key: key);
+
+  final GlobalKey<FormState> _formKey;
+  final IsiBiodataIndustriCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "IDENTITAS INDUSTRI",
+                  style: kRegular.copyWith(
+                    color: blackColor,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.namaIndustriController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Nama Industri',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: const Icon(
+                      Icons.business_sharp,
+                      color: primaryColor,
+                      size: 35,
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Nama Industri tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.namaPimpinanController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Nama Direktur/Pimpinan',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: const Icon(
+                      IconlyBold.profile,
+                      color: primaryColor,
+                      size: 35,
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Nama Pimpinan tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.alamatKantorController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.streetAddress,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Alamat Kantor',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: const Icon(
+                      IconlyBold.location,
+                      color: primaryColor,
+                      size: 35,
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Alamat Kantor tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.noTelpFaxController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'No.Telepon/FAX',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/fax_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'No. Telp / FAX tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.contactPersonController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Contact Person',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/contact_person_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Contact Person tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 30),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "AKTIVITAS",
+                  style: kRegular.copyWith(
+                    color: blackColor,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.bidangUsahaJasaController,
+                  maxLines: 3,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Bidang Usaha / Jasa',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/bidang_usaha_jasa_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Bidang Usaha / Jasa tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.spesialisasiProduksiJasaController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Spesialisasi Produksi / Jasa',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/spesialisasi_produksi_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Spesialisasi Produksi / Jasa tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.kapasitasProduksiController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Kapasitas Produksi',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/kapasitas_produksi_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: cubit.jangkauanPemasaranController,
+                  cursorColor: primaryColor,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: accentColor,
+                    labelText: 'Jangkauan Pemasaran',
+                    labelStyle:
+                        const TextStyle(color: Color(0xFF585656)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        width: 2,
+                        style: BorderStyle.solid,
+                        color: primaryColor,
+                      ),
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SvgPicture.asset(
+                        'assets/jangkauan_pemasaran_icon.svg',
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 30),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "TENAGA KERJA",
+                      style: kRegular.copyWith(
+                        color: blackColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller:
+                                cubit.jumlahTenagaKerjaSdController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SD',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sd_smp_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            controller:
+                                cubit.jumlahTenagaKerjaSltpController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SLTP',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sd_smp_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller:
+                                cubit.jumlahTenagaKerjaSmkController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SMK/STM/SMEA/SMKK/SMTK',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sma_smk_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            controller:
+                                cubit.jumlahTenagaKerjaSltaController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SLTA Non SMK',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sma_smk_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: cubit
+                                .jumlahTenagaKerjaSarjanaMudaController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'Sarjana Muda',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sarjana_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            controller: cubit
+                                .jumlahTenagaKerjaSarjanaMagisterController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'Sarjana Magister',
+                              labelStyle: const TextStyle(
+                                  color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sarjana_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: cubit
+                          .jumlahTenagaKerjaSarjanaDoktorController,
+                      cursorColor: primaryColor,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: accentColor,
+                        labelText: 'Doktor',
+                        labelStyle:
+                            const TextStyle(color: Color(0xFF585656)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            style: BorderStyle.solid,
+                            color: primaryColor,
+                          ),
+                        ),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: SvgPicture.asset(
+                            'assets/doktor_icon.svg',
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -979,7 +997,8 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamedAndRemoveUntil(context, '/biodata-industri', ModalRoute.withName('/dashboard'));
+              Navigator.pushNamedAndRemoveUntil(context, '/biodata-industri',
+                  ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),

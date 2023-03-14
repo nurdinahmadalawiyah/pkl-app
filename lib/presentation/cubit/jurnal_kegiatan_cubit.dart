@@ -21,8 +21,8 @@ class JurnalKegiatanCubit extends Cubit<JurnalKegiatanState> {
     emit(JurnalKegiatanLoading());
     try {
       final jurnalKegiatan = await apiService.getJurnalKegiatan();
-      if (jurnalKegiatan == null ) {
-        emit(const JurnalKegiatanNoData(message: "Tidak Ada Jurnal Kegiatan"));
+      if (jurnalKegiatan.data.isEmpty) {
+        emit(const JurnalKegiatanNoData(message: "Jurnal Kegiatan Kosong"));
       } else {
         emit(JurnalKegiatanLoaded(jurnalKegiatan: jurnalKegiatan));
       }

@@ -9,6 +9,7 @@ import 'package:magang_app/presentation/cubit/jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
 class JurnalKegiatanPage extends StatefulWidget {
   const JurnalKegiatanPage({Key? key}) : super(key: key);
@@ -44,12 +45,7 @@ class _JurnalKegiatanPageState extends State<JurnalKegiatanPage> {
             final jurnalKegiatan = state.jurnalKegiatan;
             return CardJurnalKegiatan(jurnalKegiatan: jurnalKegiatan);
           } else if (state is JurnalKegiatanNoData) {
-            return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
-            );
+            return Center(child: NoDataAnimation(message: state.message));
           } else if (state is JurnalKegiatanNoConnection) {
             return Center(child: NoConnectionAnimation(message: state.message));
           } else if (state is JurnalKegiatanError) {

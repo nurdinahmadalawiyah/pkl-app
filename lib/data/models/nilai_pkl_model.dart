@@ -61,13 +61,13 @@ class Data {
     int idPenilaianPembimbing;
     double presentasi;
     double dokumen;
-    int integritas;
-    int profesionalitas;
-    int bahasaInggris;
-    int teknologiInformasi;
-    int komunikasi;
-    int kerjaSama;
-    int organisasi;
+    double integritas;
+    double profesionalitas;
+    double bahasaInggris;
+    double teknologiInformasi;
+    double komunikasi;
+    double kerjaSama;
+    double organisasi;
     double nilaiAkhir;
     String nilaiHuruf;
 
@@ -80,13 +80,13 @@ class Data {
         idPenilaianPembimbing: json["id_penilaian_pembimbing"],
         presentasi: json["presentasi"]?.toDouble(),
         dokumen: json["dokumen"]?.toDouble(),
-        integritas: json["integritas"],
-        profesionalitas: json["profesionalitas"],
-        bahasaInggris: json["bahasa_inggris"],
-        teknologiInformasi: json["teknologi_informasi"],
-        komunikasi: json["komunikasi"],
-        kerjaSama: json["kerja_sama"],
-        organisasi: json["organisasi"],
+        integritas: json["integritas"]?.toDouble(),
+        profesionalitas: json["profesionalitas"]?.toDouble(),
+        bahasaInggris: json["bahasa_inggris"]?.toDouble(),
+        teknologiInformasi: json["teknologi_informasi"]?.toDouble(),
+        komunikasi: json["komunikasi"]?.toDouble(),
+        kerjaSama: json["kerja_sama"]?.toDouble(),
+        organisasi: json["organisasi"]?.toDouble(),
         nilaiAkhir: json["nilai_akhir"]?.toDouble(),
         nilaiHuruf: json["nilai_huruf"],
     );

@@ -20,6 +20,7 @@ class NoDataAnimation extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           message,
+          textAlign: TextAlign.center,
           style: kMedium.copyWith(color: tertiaryColor, fontSize: 23),
         ),
       ],
