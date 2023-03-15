@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
@@ -23,6 +22,7 @@ import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/tambah_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/tambah_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/update_profile_model.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
 
 class ApiService {
@@ -429,6 +429,39 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to post daftar hadir: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<TambahDaftarHadir> updateDaftarHadir(
+    String idDaftarHadir,
+    String hariTanggal,
+    String minggu,
+    File tandaTanganFile,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$base_url/daftar-hadir/$idDaftarHadir??_method=PUT'),
+    );
+    request.headers.addAll(headers);
+    request.fields['hari_tanggal'] = hariTanggal;
+    request.fields['minggu'] = minggu;
+    request.files.add(http.MultipartFile(
+      'tanda_tangan',
+      tandaTanganFile.readAsBytes().asStream(),
+      tandaTanganFile.lengthSync(),
+      filename: tandaTanganFile.path.split('/').last,
+      contentType: MediaType.parse('image/png'),
+    ));
+
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      return TambahDaftarHadir.fromJson(json.decode(responseString));
+    } else {
+      throw Exception(
+          "Failed to update daftar hadir: Response status code ${response.statusCode}");
     }
   }
 

@@ -15,7 +15,8 @@ class DaftarHadirDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kehadiran = ModalRoute.of(context)?.settings.arguments as ListDaftarHadir;
+    final kehadiran =
+        ModalRoute.of(context)?.settings.arguments as ListDaftarHadir;
     final HapusDaftarHadirCubit hapusCubit = HapusDaftarHadirCubit();
 
     return Scaffold(
@@ -39,12 +40,13 @@ class DaftarHadirDetailPage extends StatelessWidget {
               actionExtentRatio: 0.3,
               secondaryActions: <Widget>[
                 IconSlideAction(
-                    caption: 'Edit Data',
-                    color: accentColor,
-                    icon: IconlyBold.editSquare,
-                    onTap: () {
-                      // Navigator.pushNamed(context, '/edit-daftar-hadir', arguments: hadir),
-                    }),
+                  caption: 'Edit Data',
+                  color: accentColor,
+                  icon: IconlyBold.editSquare,
+                  onTap: () => Navigator.pushNamed(
+                      context, '/edit-daftar-hadir',
+                      arguments: hadir),
+                ),
                 IconSlideAction(
                   caption: 'Hapus Data',
                   color: Colors.red,
@@ -65,7 +67,8 @@ class DaftarHadirDetailPage extends StatelessWidget {
                                 primary: Colors.red,
                               ),
                               onPressed: () async {
-                                await hapusCubit.deleteDaftarHadir(hadir.idDaftarHadir.toString());
+                                await hapusCubit.deleteDaftarHadir(
+                                    hadir.idDaftarHadir.toString());
                                 Navigator.of(context).pop();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,

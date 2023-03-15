@@ -7,6 +7,7 @@ import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir_cubit.dart';
+import 'package:magang_app/presentation/cubit/edit_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/isi_biodata_industri_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.d
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_detail_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/edit_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/edit_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/isi_biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/jurnal_kegiatan_detail_page.dart';
@@ -108,6 +110,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => TambahDaftarHadirCubit(),
+        ),
+        BlocProvider(
+          create: (_) => EditDaftarHadirCubit(),
         )
       ],
       child: MaterialApp(
@@ -136,13 +141,16 @@ class MyApp extends StatelessWidget {
           '/biodata-industri': (context) => const BiodataIndustriPage(),
           '/isi-biodata-industri': (context) => const IsiBiodataIndustriPage(),
           '/jurnal-kegiatan': (context) => const JurnalKegiatanPage(),
-          '/jurnal-kegiatan-detail': (context) =>  const JurnalKegiatanDetailPage(),
-          '/tambah-jurnal-kegiatan': (context) => const TambahJurnalKegiatanPage(),
+          '/jurnal-kegiatan-detail': (context) =>
+              const JurnalKegiatanDetailPage(),
+          '/tambah-jurnal-kegiatan': (context) =>
+              const TambahJurnalKegiatanPage(),
           '/edit-jurnal-kegiatan': (context) => const EditJurnalKegiatanPage(),
           '/nilai-pkl': (context) => const NilaiPklPage(),
           '/daftar-hadir': (context) => const DaftarHadirPage(),
           '/daftar-hadir-detail': (context) => const DaftarHadirDetailPage(),
           '/tambah-daftar-hadir': (context) => const TambahDaftarHadirPage(),
+          '/edit-daftar-hadir': (context) => const EditDaftarHadirPage(),
           '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
         },
       ),
