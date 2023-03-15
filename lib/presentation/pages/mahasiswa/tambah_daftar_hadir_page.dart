@@ -236,8 +236,18 @@ class ButtonAdd extends StatelessWidget {
             final hariTanggal = cubit.hariTanggalController.text;
             final signatureBytes =
                 await cubit.tandaTanganController.toPngBytes();
-            final decodedImage = img.decodeImage(signatureBytes!);
-
+            if (signatureBytes == null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.read<TambahDaftarHadirCubit>().resetState();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Tanda tangan tidak boleh kosong'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              });
+            } else {
+            final decodedImage = img.decodeImage(signatureBytes);
             final tempDir = await getTemporaryDirectory();
             final tempPath = tempDir.path;
             final tandaTangan = File('$tempPath/signature.png')
@@ -245,6 +255,7 @@ class ButtonAdd extends StatelessWidget {
 
             cubit.addDaftarHadir(hariTanggal, minggu, tandaTangan);
             cubit.resetForm();
+            }
           }
         },
         style: ElevatedButton.styleFrom(
