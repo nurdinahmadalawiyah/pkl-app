@@ -30,7 +30,7 @@ class GridMenu extends StatelessWidget {
       crossAxisCount: 4,
       mainAxisSpacing: 10.0,
       crossAxisSpacing: 10.0,
-      childAspectRatio: 6 / 8,
+      childAspectRatio: 5 / 8,
       physics: const NeverScrollableScrollPhysics(),
       children: [
         GestureDetector(
@@ -214,7 +214,7 @@ class GridMenu extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, '/upload-laporan'),
           child: GridTile(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

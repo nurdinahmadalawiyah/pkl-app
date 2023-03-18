@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/profile_model.dart';
-import 'package:magang_app/presentation/cubit/profile_cubit.dart';
+import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
@@ -47,9 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             );
           } else if (state is ProfileNoConnection) {
-            return Center(
-              child: NoConnectionAnimation(message: state.message)
-            );
+            return Center(child: NoConnectionAnimation(message: state.message));
           } else if (state is ProfileError) {
             return Center(
               child: ErrorAnimation(message: state.message),
@@ -59,76 +57,86 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         },
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 5, bottom: 20, left: 20, top: 20),
-              child: ElevatedButton.icon(
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/ganti-password'),
-                style: ElevatedButton.styleFrom(
-                  primary: tertiaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.all(15),
+      bottomNavigationBar: Button(),
+    );
+  }
+}
+
+class Button extends StatelessWidget {
+  const Button({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(right: 5, bottom: 20, left: 20, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () => Navigator.pushNamed(context, '/ganti-password'),
+              style: ElevatedButton.styleFrom(
+                primary: tertiaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                icon: const Icon(
-                  IconlyBold.password,
-                  color: backgroundColor,
-                ),
-                label: FittedBox(
-                  child: Text(
-                    'Ganti Password',
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: kSemiBold.copyWith(
-                      fontSize: 16,
-                      color: backgroundColor,
-                    ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                IconlyBold.password,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Ganti Password',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
                   ),
                 ),
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 20, bottom: 20, left: 5, top: 20),
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pushNamed(context, '/edit-profile'),
-                style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  padding: const EdgeInsets.all(15),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () => Navigator.pushNamed(context, '/edit-profile'),
+              style: ElevatedButton.styleFrom(
+                primary: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                icon: const Icon(
-                  IconlyBold.editSquare,
-                  color: backgroundColor,
-                ),
-                label: FittedBox(
-                  child: Text(
-                    'Edit Profile',
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: kSemiBold.copyWith(
-                      fontSize: 16,
-                      color: backgroundColor,
-                    ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                IconlyBold.editSquare,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Edit Profile',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
                   ),
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

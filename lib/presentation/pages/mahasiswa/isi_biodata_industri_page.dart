@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/presentation/cubit/biodata_industri_cubit.dart';
-import 'package:magang_app/presentation/cubit/isi_biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/isi_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class IsiBiodataIndustriPage extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
-import 'package:magang_app/presentation/cubit/hapus_daftar_hadir_cubit.dart';
+import 'package:magang_app/presentation/cubit/daftar_hadir/hapus_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
 
 class DaftarHadirDetailPage extends StatelessWidget {

@@ -24,6 +24,7 @@ import 'package:magang_app/data/models/tambah_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/update_profile_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
+import 'package:magang_app/data/models/upload_laporan_model.dart';
 
 class ApiService {
   static const String base_url = "http://10.0.2.2:8000/api";
@@ -478,4 +479,33 @@ class ApiService {
           "Failed to delete daftar hadir: Response status code ${response.statusCode}");
     }
   }
+
+  Future<UploadLaporan> uploadLaporan(
+    File file,
+  ) async {
+    Map<String, String> headers = await getHeaders();
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$base_url/upload-laporan'),
+    );
+    request.headers.addAll(headers);
+    request.files.add(http.MultipartFile(
+      'laporan',
+      file.readAsBytes().asStream(),
+      file.lengthSync(),
+      filename: file.path.split('/').last,
+      contentType: MediaType.parse('pdf/doc'),
+    ));
+
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      return UploadLaporan.fromJson(json.decode(responseString));
+    } else {
+      throw Exception(
+          "Failed to upload: Response status code ${response.statusCode}");
+    }
+  }
+
 }

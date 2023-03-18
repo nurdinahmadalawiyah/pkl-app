@@ -41,6 +41,7 @@ class Lowongan {
         required this.alamatPerusahaan,
         required this.gambar,
         this.url,
+        required this.sumber
     });
 
     int idLowongan;
@@ -50,6 +51,7 @@ class Lowongan {
     String alamatPerusahaan;
     String gambar;
     dynamic url;
+    String sumber;
 
     factory Lowongan.fromJson(Map<String, dynamic> json) => Lowongan(
         idLowongan: json["id_lowongan"],
@@ -59,6 +61,7 @@ class Lowongan {
         alamatPerusahaan: json["alamat_perusahaan"],
         gambar: json["gambar"],
         url: json["url"],
+        sumber: json["sumber"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class Lowongan {
         "alamat_perusahaan": alamatPerusahaan,
         "gambar": gambar,
         "url": url,
+        "sumber": sumber,
     };
 }

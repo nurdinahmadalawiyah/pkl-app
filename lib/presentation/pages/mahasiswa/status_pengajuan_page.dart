@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
-import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';

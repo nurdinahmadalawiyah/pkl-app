@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/presentation/cubit/konfirmasi_diterima_pkl_cubit.dart';
-import 'package:magang_app/presentation/cubit/status_pengajuan_cubit.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/konfirmasi_diterima_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class KonfirmasiDiterimaPklPage extends StatefulWidget {

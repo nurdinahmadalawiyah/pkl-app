@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/presentation/cubit/tambah_jurnal_kegiatan_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan/tambah_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/widgets/date_picker_form_field.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 

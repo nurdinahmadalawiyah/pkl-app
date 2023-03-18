@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/presentation/cubit/edit_profile_cubit.dart';
-import 'package:magang_app/presentation/cubit/profile_cubit.dart';
+import 'package:magang_app/presentation/cubit/profile/edit_profile_cubit.dart';
+import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class EditProfilePage extends StatefulWidget {

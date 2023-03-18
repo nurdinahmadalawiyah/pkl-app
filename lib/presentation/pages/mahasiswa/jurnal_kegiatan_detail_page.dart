@@ -6,7 +6,7 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
-import 'package:magang_app/presentation/cubit/hapus_jurnal_kegiatan_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan/hapus_jurnal_kegiatan_cubit.dart';
 
 class JurnalKegiatanDetailPage extends StatelessWidget {
   const JurnalKegiatanDetailPage({super.key});

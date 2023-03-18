@@ -18,6 +18,7 @@ class StatusPengajuanLoaded extends StatusPengajuanState {
 
   const StatusPengajuanLoaded({required this.statusPengajuanPkl});
 }
+
 class StatusPengajuanNoData extends StatusPengajuanState {
   final String message;
 

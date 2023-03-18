@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
-import 'package:magang_app/presentation/cubit/edit_jurnal_kegiatan_cubit.dart';
-import 'package:magang_app/presentation/cubit/jurnal_kegiatan_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/widgets/date_picker_form_field.dart';
 
 class EditJurnalKegiatanPage extends StatefulWidget {
