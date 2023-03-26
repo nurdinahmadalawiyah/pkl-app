@@ -7,6 +7,7 @@ import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.d
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
 class StatusPengajuanPage extends StatefulWidget {
   const StatusPengajuanPage({Key? key}) : super(key: key);
@@ -50,10 +51,7 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
             );
           } else if (state is StatusPengajuanNoData) {
             return Center(
-              child: Text(
-                state.message,
-                style: kMedium.copyWith(color: blackColor, fontSize: 23),
-              ),
+              child: NoDataAnimation(message: state.message),
             );
           } else if (state is StatusPengajuanNoConnection) {
             return Center(

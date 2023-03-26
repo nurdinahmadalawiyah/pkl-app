@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/common/result_state.dart';
-import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/lowongan_pkl_cubit.dart';
-import 'package:magang_app/presentation/provider/lowongan_pkl_provider.dart';
 import 'package:magang_app/presentation/widgets/card_lowongan_pkl.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';

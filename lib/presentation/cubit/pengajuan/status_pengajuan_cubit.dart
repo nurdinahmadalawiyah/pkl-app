@@ -21,7 +21,7 @@ class StatusPengajuanCubit extends Cubit<StatusPengajuanState> {
     emit(StatusPengajuanLoading());
     try {
       final statusPengajuanPkl = await apiService.getStatusPengajuan();
-      if (statusPengajuanPkl == null) {
+      if (statusPengajuanPkl.data.isEmpty) {
         emit(const StatusPengajuanNoData(message: "Tidak ada Pengajuan yang diajukan"));
       } else {
         emit(StatusPengajuanLoaded(statusPengajuanPkl: statusPengajuanPkl));

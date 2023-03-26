@@ -47,7 +47,6 @@ class CardLowonganPkl extends StatelessWidget {
                       ),
                     );
                   } catch (e) {
-                    // An exception is thrown if browser app is not installed on Android device.
                     debugPrint(e.toString());
                   }
                 }
@@ -69,7 +68,7 @@ class CardLowonganPkl extends StatelessWidget {
               title: Text(
                 lowongan.posisi,
                 overflow: TextOverflow.ellipsis,
-                style: kBold.copyWith(color: blackColor, fontSize: 14),
+                style: kBold.copyWith(color: tertiaryColor, fontSize: 14),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +76,7 @@ class CardLowonganPkl extends StatelessWidget {
                   Text(
                     lowongan.namaPerusahaan,
                     overflow: TextOverflow.ellipsis,
-                    style: kRegular.copyWith(color: blackColor, fontSize: 12),
+                    style: kRegular.copyWith(color: tertiaryColor, fontSize: 12),
                   ),
                   Container(
                     padding: const EdgeInsets.only(
@@ -86,10 +85,10 @@ class CardLowonganPkl extends StatelessWidget {
                         color: secondaryColor,
                         borderRadius: BorderRadius.circular(12)),
                     child: Text(
-                      lowongan.sumber,
+                      "Lamar di ${lowongan.sumber}",
                       overflow: TextOverflow.ellipsis,
                       style: kRegular.copyWith(
-                          color: backgroundColor, fontSize: 12),
+                          color: backgroundColor, fontSize: 10),
                     ),
                   ),
                 ],

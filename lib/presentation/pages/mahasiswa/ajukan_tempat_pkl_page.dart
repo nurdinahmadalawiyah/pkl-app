@@ -202,7 +202,7 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushReplacementNamed(context, '/dashboard');
+              Navigator.pushNamedAndRemoveUntil(context, '/status-pengajuan', ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),

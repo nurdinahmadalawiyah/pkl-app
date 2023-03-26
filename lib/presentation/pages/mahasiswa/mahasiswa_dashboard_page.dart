@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/logout_model.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/widgets/menu_dashboard_mahasiswa.dart';
 import 'package:provider/provider.dart';
@@ -205,7 +208,8 @@ class MahasiswaDashboardPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, '/pengajuan-pkl'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/pengajuan-pkl'),
                           child: Container(
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
@@ -230,7 +234,8 @@ class MahasiswaDashboardPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: ListTile(
-                      onTap: () => Navigator.pushNamed(context, '/status-pengajuan'),
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/status-pengajuan'),
                       title: Text(
                         'Status Pengajuan',
                         style: kMedium.copyWith(fontSize: 16),
@@ -244,10 +249,11 @@ class MahasiswaDashboardPage extends StatelessWidget {
                 ],
               ),
             ),
-            const MenuDashboardMahasiswa()
+            MenuDashboardMahasiswa(),
           ],
         ),
       ),
     );
   }
 }
+

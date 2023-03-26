@@ -108,7 +108,7 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-               Navigator.pushNamedAndRemoveUntil(context, '/profile', ModalRoute.withName('/dashboard'));
+              Navigator.pushNamedAndRemoveUntil(context, '/profile', ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),
