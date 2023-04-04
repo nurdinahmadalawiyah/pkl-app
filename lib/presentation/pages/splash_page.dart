@@ -22,10 +22,16 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> checkLoginStatus() async {
     String? token = await storage.read(key: 'token');
-    if (token != null) {
+    String? role = await storage.read(key: 'role');
+    if (token != null && role == 'Mahasiswa') {
       Timer(
         const Duration(seconds: 3),
         () => Navigator.of(context).pushReplacementNamed('/dashboard'),
+      );
+    } else if (token != null && role == 'Pembimbing') {
+      Timer(
+        const Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacementNamed('/dashboard-pembimbing'),
       );
     } else {
       Timer(

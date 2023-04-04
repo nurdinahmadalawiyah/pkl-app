@@ -33,6 +33,7 @@ class AuthProvider extends ChangeNotifier {
       Login login = await ApiService().loginMahasiswa(username, password);
       _login = login;
       storage.write(key: 'token', value: login.accessToken);
+      storage.write(key: 'role', value: login.role);
       notifyListeners();
       return true;
     } catch (e) {

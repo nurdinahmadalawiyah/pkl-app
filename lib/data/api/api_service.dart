@@ -508,4 +508,43 @@ class ApiService {
     }
   }
 
+  Future<Login> loginPembimbing(String username, String password) async {
+    final response = await http.post(
+      Uri.parse('$base_url/pembimbing/login'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({
+        'username': username,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      Login login = Login.fromJson(data);
+      login.accessToken = data['access_token'];
+      login.message = data['message'];
+      return login;
+    } else {
+      throw Exception(
+          'Failed to login: Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<Logout> logoutPembimbing() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(Uri.parse('$base_url/pembimbing/logout'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      Logout logout = Logout.fromJson(data);
+      logout.message = data['message'];
+      return logout;
+    } else {
+      throw Exception(
+          'Failed to logout: Response status code ${response.statusCode}');
+    }
+  }
 }
