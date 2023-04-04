@@ -21,6 +21,10 @@ class TambahDaftarHadirPage extends StatefulWidget {
 
 class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
   final _formKey = GlobalKey<FormState>();
+  final hariTanggalController = TextEditingController();
+  final mingguController = TextEditingController();
+  final tandaTanganController =
+      SignatureController(penStrokeWidth: 5, penColor: blackColor);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,13 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
             });
             return Container();
           } else {
-            return ButtonAdd(formKey: _formKey, cubit: cubit);
+            return ButtonAdd(
+              formKey: _formKey,
+              cubit: cubit,
+              hariTanggalController: hariTanggalController,
+              mingguController: mingguController,
+              tandaTanganController: tandaTanganController,
+            );
           }
         },
       ),
@@ -84,7 +94,7 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DatePickerFormField(
-              controller: cubit.hariTanggalController,
+              controller: hariTanggalController,
               labelText: "Hari/Tanggal",
               onDateSelected: (DateTime date) {
                 setState(() {});
@@ -94,7 +104,7 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
               height: 10,
             ),
             TextFormField(
-              controller: cubit.mingguController,
+              controller: mingguController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 filled: true,
@@ -145,7 +155,7 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
                 topRight: Radius.circular(12),
               ),
               child: Signature(
-                controller: cubit.tandaTanganController,
+                controller: tandaTanganController,
                 backgroundColor: accentColor,
                 height: 250,
                 width: double.infinity,
@@ -153,7 +163,7 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
               ),
             ),
             GestureDetector(
-              onTap: () => cubit.tandaTanganController.clear(),
+              onTap: () => tandaTanganController.clear(),
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
@@ -219,11 +229,17 @@ class ButtonAdd extends StatelessWidget {
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
+    required this.hariTanggalController,
+    required this.mingguController,
+    required this.tandaTanganController,
   })  : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final TambahDaftarHadirCubit cubit;
+  final hariTanggalController;
+  final mingguController;
+  final tandaTanganController;
 
   @override
   Widget build(BuildContext context) {
@@ -232,10 +248,9 @@ class ButtonAdd extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            final minggu = cubit.mingguController.text;
-            final hariTanggal = cubit.hariTanggalController.text;
-            final signatureBytes =
-                await cubit.tandaTanganController.toPngBytes();
+            final minggu = mingguController.text;
+            final hariTanggal = hariTanggalController.text;
+            final signatureBytes = await tandaTanganController.toPngBytes();
             if (signatureBytes == null) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 context.read<TambahDaftarHadirCubit>().resetState();
@@ -247,14 +262,13 @@ class ButtonAdd extends StatelessWidget {
                 );
               });
             } else {
-            final decodedImage = img.decodeImage(signatureBytes);
-            final tempDir = await getTemporaryDirectory();
-            final tempPath = tempDir.path;
-            final tandaTangan = File('$tempPath/signature.png')
-              ..writeAsBytesSync(img.encodePng(decodedImage!));
+              final decodedImage = img.decodeImage(signatureBytes);
+              final tempDir = await getTemporaryDirectory();
+              final tempPath = tempDir.path;
+              final tandaTangan = File('$tempPath/signature.png')
+                ..writeAsBytesSync(img.encodePng(decodedImage!));
 
-            cubit.addDaftarHadir(hariTanggal, minggu, tandaTangan);
-            cubit.resetForm();
+              cubit.addDaftarHadir(hariTanggal, minggu, tandaTangan);
             }
           }
         },

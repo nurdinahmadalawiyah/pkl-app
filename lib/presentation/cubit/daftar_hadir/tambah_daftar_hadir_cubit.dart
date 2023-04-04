@@ -13,9 +13,9 @@ part 'tambah_daftar_hadir_state.dart';
 class TambahDaftarHadirCubit extends Cubit<TambahDaftarHadirState> {
   final ApiService apiService = ApiService();
 
-  final hariTanggalController = TextEditingController();
-  final mingguController = TextEditingController();
-  final tandaTanganController = SignatureController(penStrokeWidth: 5, penColor: blackColor);
+  // final hariTanggalController = TextEditingController();
+  // final mingguController = TextEditingController();
+  // final tandaTanganController = SignatureController(penStrokeWidth: 5, penColor: blackColor);
 
   TambahDaftarHadirCubit() : super(TambahDaftarHadirInitial());
 
@@ -33,9 +33,9 @@ class TambahDaftarHadirCubit extends Cubit<TambahDaftarHadirState> {
     }
   }
 
-  void resetForm() {
-    hariTanggalController.clear();
-    mingguController.clear();
-    tandaTanganController.clear();
-  }
+  // void resetForm() {
+  //   hariTanggalController.clear();
+  //   mingguController.clear();
+  //   tandaTanganController.clear();
+  // }
 }
