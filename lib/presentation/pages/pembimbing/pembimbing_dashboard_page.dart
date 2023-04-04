@@ -31,7 +31,7 @@ class PembimbingDashboardPage extends StatelessWidget {
                 String? token = await storage.read(key: 'token');
                 if (token != null) {
                   await authCubit.logoutPembimbing(token);
-                  Navigator.pushReplacementNamed(context, '/login-mahasiswa');
+                  Navigator.pushReplacementNamed(context, '/login-pembimbing');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       duration: const Duration(seconds: 3),
@@ -44,7 +44,7 @@ class PembimbingDashboardPage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  Navigator.pushReplacementNamed(context, '/login-mahasiswa');
+                  Navigator.pushReplacementNamed(context, '/login-pembimbing');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       duration: const Duration(seconds: 3),

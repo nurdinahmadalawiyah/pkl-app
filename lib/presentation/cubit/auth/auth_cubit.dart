@@ -1,28 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/login_model.dart';
-import 'package:magang_app/data/models/logout_model.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-
   AuthCubit() : super(AuthInitial());
 
   void resetState() {
     emit(AuthInitial());
-  }
-
-  void resetForm() {
-    usernameController.clear();
-    passwordController.clear();
   }
 
   Future<void> loginPembimbing(String username, String password) async {
@@ -48,5 +38,4 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthFailure(message: e.toString()));
     }
   }
-  
 }

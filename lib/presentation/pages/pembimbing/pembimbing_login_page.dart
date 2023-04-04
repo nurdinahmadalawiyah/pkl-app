@@ -5,8 +5,6 @@ import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/provider/password_visibility_provider.dart';
-import 'package:magang_app/presentation/widgets/loading_animation.dart';
-import 'package:magang_app/presentation/widgets/loading_button.dart';
 import 'package:provider/provider.dart';
 
 class PembimbingLoginPage extends StatefulWidget {
@@ -18,13 +16,8 @@ class PembimbingLoginPage extends StatefulWidget {
 
 class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    context.read<AuthCubit>().resetState();
-    context.read<AuthCubit>().resetForm();
-  }
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +25,28 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
     return Scaffold(
       body: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
         if (state is AuthInitial) {
-          return FormLogin(cubit: cubit, formKey: _formKey);
+          return FormLogin(
+            cubit: cubit,
+            formKey: _formKey,
+            usernameController: usernameController,
+            passwordController: passwordController,
+          );
         } else if (state is AuthLoading) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showLoadingDialog(context);
+            cubit.resetState();
           });
-          return FormLogin(cubit: cubit, formKey: _formKey);
+          return FormLogin(
+            cubit: cubit,
+            formKey: _formKey,
+            usernameController: usernameController,
+            passwordController: passwordController,
+          );
         } else if (state is AuthLoginSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacementNamed(context, '/dashboard-pembimbing');
             showSuccessDialog(context);
+            cubit.resetState();
           });
         } else if (state is AuthFailure) {
           Navigator.pop(context);
@@ -59,7 +64,12 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
             );
             cubit.resetState();
           });
-          return FormLogin(cubit: cubit, formKey: _formKey);
+          return FormLogin(
+            cubit: cubit,
+            formKey: _formKey,
+            usernameController: usernameController,
+            passwordController: passwordController,
+          );
         }
         return Container();
       }),
@@ -68,15 +78,19 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
 }
 
 class FormLogin extends StatelessWidget {
-  const FormLogin({
+  FormLogin({
     Key? key,
     required this.cubit,
     required GlobalKey<FormState> formKey,
+    required this.usernameController,
+    required this.passwordController,
   })  : _formKey = formKey,
         super(key: key);
 
   final AuthCubit cubit;
   final GlobalKey<FormState> _formKey;
+  final usernameController;
+  final passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +155,7 @@ class FormLogin extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: cubit.usernameController,
+                        controller: usernameController,
                         cursorColor: primaryColor,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
@@ -184,7 +198,7 @@ class FormLogin extends StatelessWidget {
                           builder: (context, provider, _) {
                         return TextFormField(
                           obscureText: !provider.passwordVisible,
-                          controller: cubit.passwordController,
+                          controller: passwordController,
                           cursorColor: primaryColor,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
@@ -232,7 +246,11 @@ class FormLogin extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                      ButtonLogin(cubit: cubit, formKey: _formKey),
+                      ButtonLogin(
+                          cubit: cubit,
+                          formKey: _formKey,
+                          usernameController: usernameController,
+                          passwordController: passwordController),
                     ],
                   ),
                 ),
@@ -259,15 +277,19 @@ class FormLogin extends StatelessWidget {
 }
 
 class ButtonLogin extends StatelessWidget {
-  const ButtonLogin({
+  ButtonLogin({
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
+    required this.usernameController,
+    required this.passwordController,
   })  : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final AuthCubit cubit;
+  final usernameController;
+  final passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -276,8 +298,8 @@ class ButtonLogin extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            final username = cubit.usernameController.text;
-            final password = cubit.passwordController.text;
+            final username = usernameController.text;
+            final password = passwordController.text;
 
             cubit.loginPembimbing(username, password);
           }
