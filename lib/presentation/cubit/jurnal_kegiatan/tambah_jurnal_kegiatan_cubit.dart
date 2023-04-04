@@ -9,10 +9,10 @@ part 'tambah_jurnal_kegiatan_state.dart';
 class TambahJurnalKegiatanCubit extends Cubit<TambahJurnalKegiatanState> {
   final ApiService apiService = ApiService();
 
-  final mingguController = TextEditingController();
-  final hariTanggalController = TextEditingController();
-  final bidangPekerjaanController = TextEditingController();
-  final keteranganController = TextEditingController();
+  // final mingguController = TextEditingController();
+  // final hariTanggalController = TextEditingController();
+  // final bidangPekerjaanController = TextEditingController();
+  // final keteranganController = TextEditingController();
 
   TambahJurnalKegiatanCubit() : super(TambahJurnalKegiatanInitial());
 
@@ -30,12 +30,5 @@ class TambahJurnalKegiatanCubit extends Cubit<TambahJurnalKegiatanState> {
     } catch (e) {
       emit(TambahJurnalKegiatanError(message: e.toString()));
     }
-  }
-
-  void resetForm() {
-    mingguController.clear();
-    hariTanggalController.clear();
-    bidangPekerjaanController.clear();
-    keteranganController.clear();
   }
 }

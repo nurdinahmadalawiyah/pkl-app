@@ -16,6 +16,10 @@ class TambahJurnalKegiatanPage extends StatefulWidget {
 
 class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
   final _formKey = GlobalKey<FormState>();
+  final mingguController = TextEditingController();
+  final hariTanggalController = TextEditingController();
+  final bidangPekerjaanController = TextEditingController();
+  final keteranganController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,14 @@ class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
             });
             return Container();
           } else {
-            return ButtonAdd(cubit: cubit, formKey: _formKey);
+            return ButtonAdd(
+              cubit: cubit,
+              formKey: _formKey,
+              mingguController: mingguController,
+              hariTanggalController: hariTanggalController,
+              bidangPekerjaanController: bidangPekerjaanController,
+              keteranganController: keteranganController,
+            );
           }
         },
       ),
@@ -89,7 +100,7 @@ class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
               height: 10,
             ),
             TextFormField(
-              controller: cubit.mingguController,
+              controller: mingguController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 filled: true,
@@ -128,7 +139,7 @@ class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
               height: 10,
             ),
             DatePickerFormField(
-              controller: cubit.hariTanggalController,
+              controller: hariTanggalController,
               labelText: "Hari/Tanggal",
               onDateSelected: (DateTime date) {
                 setState(() {});
@@ -138,7 +149,7 @@ class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
               height: 10,
             ),
             TextFormField(
-              controller: cubit.bidangPekerjaanController,
+              controller: bidangPekerjaanController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 filled: true,
@@ -177,7 +188,7 @@ class _TambahJurnalKegiatanPageState extends State<TambahJurnalKegiatanPage> {
               height: 10,
             ),
             TextFormField(
-              controller: cubit.keteranganController,
+              controller: keteranganController,
               maxLines: 4,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
@@ -225,11 +236,19 @@ class ButtonAdd extends StatelessWidget {
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
+    required this.mingguController,
+    required this.hariTanggalController,
+    required this.bidangPekerjaanController,
+    required this.keteranganController,
   })  : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final TambahJurnalKegiatanCubit cubit;
+  final mingguController;
+  final hariTanggalController;
+  final bidangPekerjaanController;
+  final keteranganController;
 
   @override
   Widget build(BuildContext context) {
@@ -238,14 +257,13 @@ class ButtonAdd extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            final minggu = cubit.mingguController.text;
-            final tanggal = cubit.hariTanggalController.text;
-            final bidangPekerjaan = cubit.bidangPekerjaanController.text;
-            final keterangan = cubit.keteranganController.text;
+            final minggu = mingguController.text;
+            final tanggal = hariTanggalController.text;
+            final bidangPekerjaan = bidangPekerjaanController.text;
+            final keterangan = keteranganController.text;
 
             cubit.addJurnalKegiatan(
                 tanggal, minggu, bidangPekerjaan, keterangan);
-            cubit.resetForm();
           }
         },
         style: ElevatedButton.styleFrom(
