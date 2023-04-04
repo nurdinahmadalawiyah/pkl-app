@@ -1,12 +1,80 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 
 class PembimbingDashboardPage extends StatelessWidget {
   const PembimbingDashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AuthCubit authCubit = AuthCubit();
+    const storage = FlutterSecureStorage();
+
+    handleLogout() async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text('Konfirmasi Logout',
+              style: kMedium.copyWith(color: blackColor)),
+          content: Text('Apakah anda yakin ingin logout dari akun anda?',
+              style: kRegular.copyWith(color: blackColor)),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.red,
+              ),
+              onPressed: () async {
+                String? token = await storage.read(key: 'token');
+                if (token != null) {
+                  await authCubit.logoutPembimbing(token);
+                  Navigator.pushReplacementNamed(context, '/login-mahasiswa');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 3),
+                      content: Text(
+                        'Logout Berhasil',
+                        textAlign: TextAlign.center,
+                        style: kMedium.copyWith(color: backgroundColor),
+                      ),
+                      backgroundColor: tertiaryColor,
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacementNamed(context, '/login-mahasiswa');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 3),
+                      content: Text(
+                        'Terjadi Kesalahan Saat Proses Logout',
+                        textAlign: TextAlign.center,
+                        style: kMedium.copyWith(color: backgroundColor),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+                await storage.delete(key: 'token');
+              },
+              child: const Text('Ya'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: primaryColor,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Batalkan'),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -38,22 +106,9 @@ class PembimbingDashboardPage extends StatelessWidget {
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               PopupMenuItem(
                 child: ListTile(
-                  onTap: () => Navigator.pushNamed(context, '/profile'),
-                  trailing: const Icon(
-                    IconlyBold.user_2,
-                    color: primaryColor,
-                  ),
-                  title: Text(
-                    'Profile',
-                    style: kMedium.copyWith(
-                      color: blackColor,
-                    ),
-                  ),
-                ),
-              ),
-              PopupMenuItem(
-                child: ListTile(
-                  onTap: () {},
+                  onTap: () async {
+                    handleLogout();
+                  },
                   trailing: const Icon(
                     IconlyBold.logout,
                     color: primaryColor,
@@ -253,7 +308,7 @@ class GridMenu extends StatelessWidget {
             ),
           ),
         ),
-       ],
+      ],
     );
   }
 }

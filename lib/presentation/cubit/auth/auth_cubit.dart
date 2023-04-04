@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/login_model.dart';
+import 'package:magang_app/data/models/logout_model.dart';
 
 part 'auth_state.dart';
 
