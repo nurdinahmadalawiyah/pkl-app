@@ -20,6 +20,7 @@ import 'package:magang_app/presentation/cubit/pengajuan/konfirmasi_diterima_pkl_
 import 'package:magang_app/presentation/cubit/pengajuan/lowongan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/pengajuan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.dart';
+import 'package:magang_app/presentation/cubit/penilaian/list_nilai_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/penilaian/nilai_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
@@ -45,6 +46,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/pencarian_lowongan_page.
 import 'package:magang_app/presentation/pages/mahasiswa/tambah_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/tambah_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/upload_laporan_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/kelola_nilai_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
 import 'package:magang_app/presentation/pages/splash_page.dart';
@@ -127,6 +129,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => AuthCubit(),
+        ),
+        BlocProvider(
+          create: (_) => ListNilaiPklCubit(apiService: ApiService()),
         )
       ],
       child: MaterialApp(
@@ -167,6 +172,7 @@ class MyApp extends StatelessWidget {
           '/edit-daftar-hadir': (context) => const EditDaftarHadirPage(),
           '/upload-laporan': (context) => const UploadLaporanPage(),
           '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
+          '/kelola-nilai':(context) => const KelolaNilaiPage(),
         },
       ),
     );

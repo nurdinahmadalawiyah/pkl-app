@@ -160,7 +160,7 @@ class PembimbingDashboardPage extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(context, '/kelola-nilai'),
                         child: Container(
                           padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(

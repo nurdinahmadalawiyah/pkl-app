@@ -36,12 +36,6 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
             showLoadingDialog(context);
             cubit.resetState();
           });
-          return FormLogin(
-            cubit: cubit,
-            formKey: _formKey,
-            usernameController: usernameController,
-            passwordController: passwordController,
-          );
         } else if (state is AuthLoginSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacementNamed(context, '/dashboard-pembimbing');
@@ -49,8 +43,8 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
             cubit.resetState();
           });
         } else if (state is AuthFailure) {
-          Navigator.pop(context);
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 duration: const Duration(seconds: 3),
@@ -64,12 +58,12 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
             );
             cubit.resetState();
           });
-          return FormLogin(
-            cubit: cubit,
-            formKey: _formKey,
-            usernameController: usernameController,
-            passwordController: passwordController,
-          );
+          // return FormLogin(
+          //   cubit: cubit,
+          //   formKey: _formKey,
+          //   usernameController: usernameController,
+          //   passwordController: passwordController,
+          // );
         }
         return Container();
       }),

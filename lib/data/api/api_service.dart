@@ -10,6 +10,7 @@ import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
+import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:magang_app/data/models/logout_model.dart';
@@ -545,6 +546,18 @@ class ApiService {
     } else {
       throw Exception(
           'Failed to logout: Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<ListMahasiswa> getListNilaiPkl() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/penilaian-pembimbing'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return ListMahasiswa.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get nilai pkl: Response status code ${response.statusCode}");
     }
   }
 }
