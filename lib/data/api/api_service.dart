@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
+import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/hapus_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
@@ -558,6 +559,19 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get nilai pkl: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<DetailNilai> getDetailNilaiPkl(String idMahasiswa) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/penilaian-pembimbing/$idMahasiswa'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return DetailNilai.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get detail nilai pkl: Response status code ${response.statusCode}");
     }
   }
 }

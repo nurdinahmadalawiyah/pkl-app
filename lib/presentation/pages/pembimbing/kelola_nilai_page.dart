@@ -154,7 +154,10 @@ class CardListNilaiMahasiswa extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    // Navigator.pushNamed(context, '/edit-nilai');
+                    Navigator.pushNamed(context, '/detail-kelola-nilai', arguments: list);
+                  },
                   title: Text(
                     'Nilai PKL',
                     style: kMedium.copyWith(fontSize: 16),
