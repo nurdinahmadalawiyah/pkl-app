@@ -607,4 +607,16 @@ class ApiService {
           "Failed to post penilaian: Response status code ${response.statusCode}");
     }
   }
+
+    Future<ListMahasiswa> getListBiodataIndustri() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/biodata-industri'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return ListMahasiswa.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get list biodata industri: Response status code ${response.statusCode}");
+    }
+  }
 }

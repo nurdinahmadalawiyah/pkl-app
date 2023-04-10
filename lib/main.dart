@@ -9,6 +9,7 @@ import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/isi_biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/list_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/tambah_daftar_hadir_cubit.dart';
@@ -51,6 +52,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/upload_laporan_page.dart
 import 'package:magang_app/presentation/pages/pembimbing/detail_kelola_nilai_pkl_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/edit_nilai_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/kelola_nilai_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/list_biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
 import 'package:magang_app/presentation/pages/splash_page.dart';
@@ -142,6 +144,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => PenilaianPembimbingCubit()
+        ),
+        BlocProvider(
+          create: (_) => ListBiodataIndustriCubit(apiService: ApiService()),
         )
       ],
       child: MaterialApp(
@@ -185,6 +190,7 @@ class MyApp extends StatelessWidget {
           '/kelola-nilai': (context) => const KelolaNilaiPage(),
           '/edit-nilai': (context) => const EditNilaiPage(),
           '/detail-kelola-nilai': (context) => const DetailKelolaNilaiPklPage(),
+          '/list-biodata-industri':(context) => const ListBiodataIndustriPage()
         },
       ),
     );

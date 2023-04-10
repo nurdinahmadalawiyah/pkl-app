@@ -9,13 +9,6 @@ abstract class ListNilaiPklState extends Equatable {
 
 class ListNilaiPklInitial extends ListNilaiPklState {}
 
-abstract class NilaiPklState extends Equatable {
-  const NilaiPklState();
-
-  @override
-  List<Object> get props => [];
-}
-
 class ListNilaiPklLoading extends ListNilaiPklState {}
 
 class ListNilaiPklLoaded extends ListNilaiPklState {

@@ -219,7 +219,7 @@ class GridMenu extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, '/list-biodata-industri'),
           child: GridTile(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -29,5 +29,4 @@ class ListNilaiPklCubit extends Cubit<ListNilaiPklState> {
       emit(ListNilaiPklError(message: e.toString()));
     }
   }
-
 }
