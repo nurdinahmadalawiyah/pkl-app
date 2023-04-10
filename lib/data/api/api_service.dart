@@ -644,4 +644,17 @@ class ApiService {
           "Failed to get list jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
+
+  Future<JurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/jurnal-kegiatan/$idMahasiswa'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return JurnalKegiatan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get detail jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
 }

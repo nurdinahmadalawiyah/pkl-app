@@ -16,7 +16,6 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
     final jurnalKegiatan = ModalRoute.of(context)?.settings.arguments as ListJurnalKegiatan;
     final HapusJurnalKegiatanCubit hapusCubit = HapusJurnalKegiatanCubit();
 
-
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
