@@ -82,7 +82,7 @@ class CardDaftarHadir extends StatelessWidget {
         var kehadiran = daftarHadir.data[index];
         var subindex = 0;
 
-        if (kehadiran.dataKehadiran.length > 0) {
+        if (kehadiran.dataKehadiran.isNotEmpty) {
           subindex = kehadiran.dataKehadiran.length - 1;
         }
 
@@ -155,11 +155,9 @@ class CardDaftarHadir extends StatelessWidget {
                               TableCell(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: kehadiran.dataKehadiran[subindex]
-                                              .tandaTangan !=
-                                          null
+                                  child: kehadiranHarian.tandaTangan != null
                                       ? CachedNetworkImage(
-                                          height: 200,
+                                          height: 40,
                                           imageUrl: kehadiran
                                               .dataKehadiran[subindex]
                                               .tandaTangan,

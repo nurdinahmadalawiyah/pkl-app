@@ -72,7 +72,7 @@ class DataKehadiran {
         idMahasiswa: json["id_mahasiswa"],
         hariTanggal: DateTime.parse(json["hari_tanggal"]),
         minggu: json["minggu"],
-        tandaTangan: json["tanda-tangan"],
+        tandaTangan: json["tanda_tangan"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -80,6 +80,6 @@ class DataKehadiran {
         "id_mahasiswa": idMahasiswa,
         "hari_tanggal": "${hariTanggal.year.toString().padLeft(4, '0')}-${hariTanggal.month.toString().padLeft(2, '0')}-${hariTanggal.day.toString().padLeft(2, '0')}",
         "minggu": minggu,
-        "tanda-tangan": tandaTangan,
+        "tanda_tangan": tandaTangan,
     };
 }
