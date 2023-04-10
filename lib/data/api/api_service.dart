@@ -19,6 +19,7 @@ import 'package:magang_app/data/models/lowongan_pkl_model.dart';
 import 'package:magang_app/data/models/nilai_pkl_model.dart';
 import 'package:magang_app/data/models/pencarian_lowongan.dart';
 import 'package:magang_app/data/models/pengajuan_pkl_model.dart';
+import 'package:magang_app/data/models/penilaian_pembimbing.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/tambah_daftar_hadir_model.dart';
@@ -572,6 +573,38 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get detail nilai pkl: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<PenilaianPembimbing> penilaianPembimbing(
+      String idMahasiswa,
+      String integritas,
+      String profesionalitas,
+      String bahasaInggris,
+      String teknologiInformasi,
+      String komunikasi,
+      String kerjaSama,
+      String organisasi) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(
+      Uri.parse('$base_url/penilaian-pembimbing'),
+      headers: headers,
+      body: jsonEncode({
+        'id_mahasiswa': idMahasiswa,
+        'integritas': integritas,
+        'profesionalitas': profesionalitas,
+        'bahasa_inggris': bahasaInggris,
+        'teknologi_informasi': teknologiInformasi,
+        'komunikasi': komunikasi,
+        'kerja_sama': kerjaSama,
+        'organisasi': organisasi,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return PenilaianPembimbing.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to post penilaian: Response status code ${response.statusCode}");
     }
   }
 }

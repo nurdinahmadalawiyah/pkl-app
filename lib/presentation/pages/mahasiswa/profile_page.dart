@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         },
       ),
-      bottomNavigationBar: Button(),
+      bottomNavigationBar: const Button(),
     );
   }
 }

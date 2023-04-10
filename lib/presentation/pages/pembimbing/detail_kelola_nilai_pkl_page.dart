@@ -60,7 +60,47 @@ class _DetailKelolaNilaiPklPageState extends State<DetailKelolaNilaiPklPage> {
           }
         },
       ),
-      bottomNavigationBar: const ButtonEdit(),
+      bottomNavigationBar: ButtonEdit(list: list),
+    );
+  }
+}
+
+class ButtonEdit extends StatelessWidget {
+  const ButtonEdit({
+    Key? key,
+    required this.list,
+  }) : super(key: key);
+
+  final Datum list;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+    padding: const EdgeInsets.all(20),
+    child: ElevatedButton.icon(
+      onPressed: () => Navigator.pushNamed(context, '/edit-nilai', arguments: list),
+      style: ElevatedButton.styleFrom(
+          primary: tertiaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          padding: const EdgeInsets.all(15)),
+      icon: const Icon(
+        IconlyBold.plus,
+        color: backgroundColor,
+      ),
+      label: FittedBox(
+        child: Text(
+          'Edit Nilai',
+          textAlign: TextAlign.start,
+          overflow: TextOverflow.clip,
+          style: kSemiBold.copyWith(
+            fontSize: 16,
+            color: backgroundColor,
+          ),
+        ),
+      ),
+    ),
     );
   }
 }
@@ -366,43 +406,6 @@ class NilaiDariPembimbing extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ButtonEdit extends StatelessWidget {
-  const ButtonEdit({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: ElevatedButton.icon(
-        onPressed: () => Navigator.pushNamed(context, '/edit-nilai'),
-        style: ElevatedButton.styleFrom(
-            primary: tertiaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            padding: const EdgeInsets.all(15)),
-        icon: const Icon(
-          IconlyBold.plus,
-          color: backgroundColor,
-        ),
-        label: FittedBox(
-          child: Text(
-            'Edit Nilai',
-            textAlign: TextAlign.start,
-            overflow: TextOverflow.clip,
-            style: kSemiBold.copyWith(
-              fontSize: 16,
-              color: backgroundColor,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -23,6 +23,7 @@ import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.d
 import 'package:magang_app/presentation/cubit/penilaian/detail_nilai_cubit.dart';
 import 'package:magang_app/presentation/cubit/penilaian/list_nilai_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/penilaian/nilai_pkl_cubit.dart';
+import 'package:magang_app/presentation/cubit/penilaian/penilaian_pembimbing_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.dart';
@@ -139,6 +140,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => DetailNilaiCubit(apiService: ApiService()),
         ),
+        BlocProvider(
+          create: (_) => PenilaianPembimbingCubit()
+        )
       ],
       child: MaterialApp(
         title: 'PKL App',
