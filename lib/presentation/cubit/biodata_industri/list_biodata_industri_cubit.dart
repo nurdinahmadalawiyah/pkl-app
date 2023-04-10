@@ -17,7 +17,7 @@ class ListBiodataIndustriCubit extends Cubit<ListBiodataIndustriState> {
   void getListBiodataIndustri() async {
     emit(ListBiodataIndustriLoading());
     try {
-      final listMahasiswa = await this.apiService.getListBiodataIndustri();
+      final listMahasiswa = await apiService.getListBiodataIndustri();
       if (listMahasiswa.data.isEmpty) {
         emit(const ListBiodataIndustriNoData(message: "Data Kosong"));
       } else {

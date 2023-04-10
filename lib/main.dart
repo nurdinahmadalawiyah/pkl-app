@@ -16,6 +16,7 @@ import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cub
 import 'package:magang_app/presentation/cubit/daftar_hadir/tambah_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
+import 'package:magang_app/presentation/cubit/jurnal_kegiatan/list_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/tambah_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/pelaporan/upload_laporan_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/konfirmasi_diterima_pkl_cubit.dart';
@@ -55,6 +56,7 @@ import 'package:magang_app/presentation/pages/pembimbing/detail_kelola_nilai_pkl
 import 'package:magang_app/presentation/pages/pembimbing/edit_nilai_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/kelola_nilai_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/list_biodata_industri_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/list_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
 import 'package:magang_app/presentation/pages/splash_page.dart';
@@ -87,72 +89,29 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => GantiPasswordProvider(),
         ),
-        BlocProvider(
-          create: (_) => ProfileCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => LowonganPklCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => PengajuanPklCubit(),
-        ),
-        BlocProvider(
-          create: (_) => StatusPengajuanCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => EditProfileCubit(),
-        ),
-        BlocProvider(
-          create: (_) => KonfirmasiDiterimaPklCubit(),
-        ),
-        BlocProvider(
-          create: (_) => BiodataIndustriCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => IsiBiodataIndustriCubit(),
-        ),
-        BlocProvider(
-          create: (_) => JurnalKegiatanCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => TambahJurnalKegiatanCubit(),
-        ),
-        BlocProvider(
-          create: (_) => EditJurnalKegiatanCubit(),
-        ),
-        BlocProvider(
-          create: (_) => NilaiPklCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => DaftarHadirCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => TambahDaftarHadirCubit(),
-        ),
-        BlocProvider(
-          create: (_) => EditDaftarHadirCubit(),
-        ),
-        BlocProvider(
-          create: (_) => UploadLaporanCubit(),
-        ),
-        BlocProvider(
-          create: (_) => AuthCubit(),
-        ),
-        BlocProvider(
-          create: (_) => ListNilaiPklCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => DetailNilaiCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => PenilaianPembimbingCubit()
-        ),
-        BlocProvider(
-          create: (_) => ListBiodataIndustriCubit(apiService: ApiService()),
-        ),
-        BlocProvider(
-          create: (_) => DetailBiodataIndustriCubit(apiService: ApiService()),
-        )
+        BlocProvider(create: (_) => ProfileCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => LowonganPklCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => PengajuanPklCubit()),
+        BlocProvider(create: (_) => StatusPengajuanCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => EditProfileCubit()),
+        BlocProvider(create: (_) => KonfirmasiDiterimaPklCubit()),
+        BlocProvider(create: (_) => BiodataIndustriCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => IsiBiodataIndustriCubit()),
+        BlocProvider(create: (_) => JurnalKegiatanCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => TambahJurnalKegiatanCubit()),
+        BlocProvider(create: (_) => EditJurnalKegiatanCubit()),
+        BlocProvider(create: (_) => NilaiPklCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => DaftarHadirCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => TambahDaftarHadirCubit()),
+        BlocProvider(create: (_) => EditDaftarHadirCubit()),
+        BlocProvider(create: (_) => UploadLaporanCubit()),
+        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => ListNilaiPklCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => DetailNilaiCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => PenilaianPembimbingCubit()),
+        BlocProvider(create: (_) => ListBiodataIndustriCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => DetailBiodataIndustriCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => ListJurnalKegiatanCubit(apiService: ApiService())),
       ],
       child: MaterialApp(
         title: 'PKL App',
@@ -196,7 +155,8 @@ class MyApp extends StatelessWidget {
           '/edit-nilai': (context) => const EditNilaiPage(),
           '/detail-kelola-nilai': (context) => const DetailKelolaNilaiPklPage(),
           '/list-biodata-industri': (context) => const ListBiodataIndustriPage(),
-          '/detail-biodata-industri':(context) => const DetailBiodataIndustriPage(),
+          '/detail-biodata-industri': (context) => const DetailBiodataIndustriPage(),
+          '/list-jurnal-kegiatan': (context) => const ListJurnalKegiatanPage(),
         },
       ),
     );

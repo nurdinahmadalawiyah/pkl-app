@@ -632,4 +632,16 @@ class ApiService {
           "Failed to get detail biodata industri: Response status code ${response.statusCode}");
     }
   }
+
+  Future<ListMahasiswa> getListJurnalKegiatan() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/jurnal-kegiatan'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return ListMahasiswa.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get list jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
 }

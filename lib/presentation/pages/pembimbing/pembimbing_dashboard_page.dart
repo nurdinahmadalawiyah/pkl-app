@@ -249,7 +249,7 @@ class GridMenu extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, '/list-jurnal-kegiatan'),
           child: GridTile(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
