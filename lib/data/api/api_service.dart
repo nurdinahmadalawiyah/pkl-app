@@ -608,7 +608,7 @@ class ApiService {
     }
   }
 
-    Future<ListMahasiswa> getListBiodataIndustri() async {
+  Future<ListMahasiswa> getListBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(Uri.parse('$base_url/biodata-industri'),
         headers: headers);
@@ -617,6 +617,19 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get list biodata industri: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<BiodataIndustri> getDetailBiodataIndustri(String idMahasiswa) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/biodata-industri/$idMahasiswa'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return BiodataIndustri.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get detail biodata industri: Response status code ${response.statusCode}");
     }
   }
 }

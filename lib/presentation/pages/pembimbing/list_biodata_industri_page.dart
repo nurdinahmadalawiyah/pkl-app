@@ -81,7 +81,7 @@ class CardListBiodataIndustri extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, '/detail-biodata-industri', arguments: list),
             child: Ink(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
