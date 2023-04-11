@@ -155,6 +155,7 @@ class CardDaftarHadir extends StatelessWidget {
                               TableCell(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
+                                  // ignore: unnecessary_null_comparison
                                   child: kehadiranHarian.tandaTangan != null
                                       ? CachedNetworkImage(
                                           height: 40,

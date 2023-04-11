@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +20,22 @@ class IsiBiodataIndustriPage extends StatefulWidget {
 class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
   final _formKey = GlobalKey<FormState>();
   late final BiodataIndustriCubit biodataIndustri;
+  final namaIndustriController = TextEditingController();
+  final namaPimpinanController = TextEditingController();
+  final alamatKantorController = TextEditingController();
+  final noTelpFaxController = TextEditingController();
+  final contactPersonController = TextEditingController();
+  final bidangUsahaJasaController = TextEditingController();
+  final spesialisasiProduksiJasaController = TextEditingController();
+  final kapasitasProduksiController = TextEditingController();
+  final jangkauanPemasaranController = TextEditingController();
+  final jumlahTenagaKerjaSdController = TextEditingController();
+  final jumlahTenagaKerjaSltpController = TextEditingController();
+  final jumlahTenagaKerjaSltaController = TextEditingController();
+  final jumlahTenagaKerjaSmkController = TextEditingController();
+  final jumlahTenagaKerjaSarjanaMudaController = TextEditingController();
+  final jumlahTenagaKerjaSarjanaMagisterController = TextEditingController();
+  final jumlahTenagaKerjaSarjanaDoktorController = TextEditingController();
 
   @override
   void initState() {
@@ -52,9 +70,30 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
             });
           }
           return FormBiodataIndustri(
-              cubit: cubit,
-              biodataIndustri: biodataIndustri,
-              formKey: _formKey);
+            cubit: cubit,
+            biodataIndustri: biodataIndustri,
+            formKey: _formKey,
+            alamatKantorController: alamatKantorController,
+            bidangUsahaJasaController: bidangUsahaJasaController,
+            contactPersonController: contactPersonController,
+            jangkauanPemasaranController: jangkauanPemasaranController,
+            jumlahTenagaKerjaSarjanaDoktorController:
+                jumlahTenagaKerjaSarjanaDoktorController,
+            jumlahTenagaKerjaSarjanaMagisterController:
+                jumlahTenagaKerjaSarjanaMagisterController,
+            jumlahTenagaKerjaSarjanaMudaController:
+                jumlahTenagaKerjaSarjanaMudaController,
+            jumlahTenagaKerjaSdController: jumlahTenagaKerjaSdController,
+            jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
+            jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
+            jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+            kapasitasProduksiController: kapasitasProduksiController,
+            namaIndustriController: namaIndustriController,
+            namaPimpinanController: namaPimpinanController,
+            noTelpFaxController: noTelpFaxController,
+            spesialisasiProduksiJasaController:
+                spesialisasiProduksiJasaController,
+          );
         },
       ),
       bottomNavigationBar:
@@ -74,7 +113,30 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
             });
             return Container();
           } else {
-            return SaveButton(formKey: _formKey, cubit: cubit);
+            return SaveButton(
+              formKey: _formKey,
+              cubit: cubit,
+              alamatKantorController: alamatKantorController,
+              bidangUsahaJasaController: bidangUsahaJasaController,
+              contactPersonController: contactPersonController,
+              jangkauanPemasaranController: jangkauanPemasaranController,
+              jumlahTenagaKerjaSarjanaDoktorController:
+                  jumlahTenagaKerjaSarjanaDoktorController,
+              jumlahTenagaKerjaSarjanaMagisterController:
+                  jumlahTenagaKerjaSarjanaMagisterController,
+              jumlahTenagaKerjaSarjanaMudaController:
+                  jumlahTenagaKerjaSarjanaMudaController,
+              jumlahTenagaKerjaSdController: jumlahTenagaKerjaSdController,
+              jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
+              jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
+              jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              kapasitasProduksiController: kapasitasProduksiController,
+              namaIndustriController: namaIndustriController,
+              namaPimpinanController: namaPimpinanController,
+              noTelpFaxController: noTelpFaxController,
+              spesialisasiProduksiJasaController:
+                  spesialisasiProduksiJasaController,
+            );
           }
         },
       ),
@@ -87,11 +149,43 @@ class SaveButton extends StatelessWidget {
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
+    required this.namaIndustriController,
+    required this.namaPimpinanController,
+    required this.alamatKantorController,
+    required this.noTelpFaxController,
+    required this.contactPersonController,
+    required this.bidangUsahaJasaController,
+    required this.spesialisasiProduksiJasaController,
+    required this.kapasitasProduksiController,
+    required this.jangkauanPemasaranController,
+    required this.jumlahTenagaKerjaSdController,
+    required this.jumlahTenagaKerjaSltpController,
+    required this.jumlahTenagaKerjaSltaController,
+    required this.jumlahTenagaKerjaSmkController,
+    required this.jumlahTenagaKerjaSarjanaMudaController,
+    required this.jumlahTenagaKerjaSarjanaMagisterController,
+    required this.jumlahTenagaKerjaSarjanaDoktorController,
   })  : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final IsiBiodataIndustriCubit cubit;
+  final namaIndustriController;
+  final namaPimpinanController;
+  final alamatKantorController;
+  final noTelpFaxController;
+  final contactPersonController;
+  final bidangUsahaJasaController;
+  final spesialisasiProduksiJasaController;
+  final kapasitasProduksiController;
+  final jangkauanPemasaranController;
+  final jumlahTenagaKerjaSdController;
+  final jumlahTenagaKerjaSltpController;
+  final jumlahTenagaKerjaSltaController;
+  final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSarjanaMudaController;
+  final jumlahTenagaKerjaSarjanaMagisterController;
+  final jumlahTenagaKerjaSarjanaDoktorController;
 
   @override
   Widget build(BuildContext context) {
@@ -100,22 +194,26 @@ class SaveButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            final namaIndustri = cubit.namaIndustriController.text;
-            final namaPimpinan = cubit.namaPimpinanController.text;
-            final alamatKantor = cubit.alamatKantorController.text;
-            final noTelpFax = cubit.noTelpFaxController.text;
-            final contactPerson = cubit.contactPersonController.text;
-            final bidangUsahaJasa = cubit.bidangUsahaJasaController.text;
-            final spesialisasiProduksiJasa = cubit.spesialisasiProduksiJasaController.text;
-            final kapasitasProduksi = cubit.kapasitasProduksiController.text;
-            final jangkauanPemasaran = cubit.jangkauanPemasaranController.text;
-            final jumlahTenagaKerjaSd =  cubit.jumlahTenagaKerjaSdController.text;
-            final jumlahTenagaKerjaSltp =  cubit.jumlahTenagaKerjaSltpController.text;
-            final jumlahTenagaKerjaSmk =  cubit.jumlahTenagaKerjaSmkController.text;
-            final jumlahTenagaKerjaSlta = cubit.jumlahTenagaKerjaSltaController.text;
-            final jumlahTenagaKerjaSarjanaMuda = cubit.jumlahTenagaKerjaSarjanaMudaController.text;
-            final jumlahTenagaKerjaSarjanaMagister = cubit.jumlahTenagaKerjaSarjanaMudaController.text;
-            final jumlahTenagaKerjaSarjanaDoktor = cubit.jumlahTenagaKerjaSarjanaDoktorController.text;
+            final namaIndustri = namaIndustriController.text;
+            final namaPimpinan = namaPimpinanController.text;
+            final alamatKantor = alamatKantorController.text;
+            final noTelpFax = noTelpFaxController.text;
+            final contactPerson = contactPersonController.text;
+            final bidangUsahaJasa = bidangUsahaJasaController.text;
+            final spesialisasiProduksiJasa =
+                spesialisasiProduksiJasaController.text;
+            final kapasitasProduksi = kapasitasProduksiController.text;
+            final jangkauanPemasaran = jangkauanPemasaranController.text;
+            final jumlahTenagaKerjaSd = jumlahTenagaKerjaSdController.text;
+            final jumlahTenagaKerjaSltp = jumlahTenagaKerjaSltpController.text;
+            final jumlahTenagaKerjaSmk = jumlahTenagaKerjaSmkController.text;
+            final jumlahTenagaKerjaSlta = jumlahTenagaKerjaSltaController.text;
+            final jumlahTenagaKerjaSarjanaMuda =
+                jumlahTenagaKerjaSarjanaMudaController.text;
+            final jumlahTenagaKerjaSarjanaMagister =
+                jumlahTenagaKerjaSarjanaMudaController.text;
+            final jumlahTenagaKerjaSarjanaDoktor =
+                jumlahTenagaKerjaSarjanaDoktorController.text;
 
             cubit.addBiodataIndustri(
               namaIndustri,
@@ -135,7 +233,6 @@ class SaveButton extends StatelessWidget {
               jumlahTenagaKerjaSarjanaMagister,
               jumlahTenagaKerjaSarjanaDoktor,
             );
-            cubit.resetForm();
           }
         },
         style: ElevatedButton.styleFrom(
@@ -165,13 +262,45 @@ class FormBiodataIndustri extends StatelessWidget {
       {Key? key,
       required GlobalKey<FormState> formKey,
       required this.cubit,
-      required this.biodataIndustri})
+      required this.biodataIndustri,
+      required this.namaIndustriController,
+      required this.namaPimpinanController,
+      required this.alamatKantorController,
+      required this.noTelpFaxController,
+      required this.contactPersonController,
+      required this.bidangUsahaJasaController,
+      required this.spesialisasiProduksiJasaController,
+      required this.kapasitasProduksiController,
+      required this.jangkauanPemasaranController,
+      required this.jumlahTenagaKerjaSdController,
+      required this.jumlahTenagaKerjaSltpController,
+      required this.jumlahTenagaKerjaSltaController,
+      required this.jumlahTenagaKerjaSmkController,
+      required this.jumlahTenagaKerjaSarjanaMudaController,
+      required this.jumlahTenagaKerjaSarjanaMagisterController,
+      required this.jumlahTenagaKerjaSarjanaDoktorController})
       : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final IsiBiodataIndustriCubit cubit;
   final BiodataIndustriCubit biodataIndustri;
+  final namaIndustriController;
+  final namaPimpinanController;
+  final alamatKantorController;
+  final noTelpFaxController;
+  final contactPersonController;
+  final bidangUsahaJasaController;
+  final spesialisasiProduksiJasaController;
+  final kapasitasProduksiController;
+  final jangkauanPemasaranController;
+  final jumlahTenagaKerjaSdController;
+  final jumlahTenagaKerjaSltpController;
+  final jumlahTenagaKerjaSltaController;
+  final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSarjanaMudaController;
+  final jumlahTenagaKerjaSarjanaMagisterController;
+  final jumlahTenagaKerjaSarjanaDoktorController;
 
   @override
   Widget build(BuildContext context) {
@@ -182,28 +311,106 @@ class FormBiodataIndustri extends StatelessWidget {
           if (state is BiodataIndustriLoaded) {
             var data = state.biodataIndustri.data;
 
-            cubit.namaIndustriController.text = data.namaIndustri;
-            cubit.alamatKantorController.text = data.alamatKantor;
-            cubit.noTelpFaxController.text = data.noTelpFax;
-            cubit.namaPimpinanController.text = data.namaPimpinan;
-            cubit.contactPersonController.text = data.contactPerson;
-            cubit.bidangUsahaJasaController.text = data.bidangUsahaJasa;
-            cubit.spesialisasiProduksiJasaController.text = data.spesialisasiProduksiJasa;
-            cubit.kapasitasProduksiController.text = data.kapasitasProduksi?.toString() ?? '';
-            cubit.jangkauanPemasaranController.text = data.jangkauanPemasaran;
-            cubit.jumlahTenagaKerjaSdController.text = data.jumlahTenagaKerjaSd?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSltpController.text = data.jumlahTenagaKerjaSltp?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSltaController.text = data.jumlahTenagaKerjaSlta?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSmkController.text = data.jumlahTenagaKerjaSmk?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSarjanaMudaController.text = data.jumlahTenagaKerjaSarjanaMuda?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSarjanaMagisterController.text = data.jumlahTenagaKerjaSarjanaMagister?.toString() ?? '';
-            cubit.jumlahTenagaKerjaSarjanaDoktorController.text = data.jumlahTenagaKerjaSarjanaDoktor?.toString() ?? '';
-            
-            return FormInput(formKey: _formKey, cubit: cubit);
+            namaIndustriController.text = data.namaIndustri;
+            alamatKantorController.text = data.alamatKantor;
+            noTelpFaxController.text = data.noTelpFax;
+            namaPimpinanController.text = data.namaPimpinan;
+            contactPersonController.text = data.contactPerson;
+            bidangUsahaJasaController.text = data.bidangUsahaJasa;
+            spesialisasiProduksiJasaController.text =
+                data.spesialisasiProduksiJasa;
+            kapasitasProduksiController.text =
+                data.kapasitasProduksi?.toString() ?? '';
+            jangkauanPemasaranController.text = data.jangkauanPemasaran;
+            jumlahTenagaKerjaSdController.text =
+                data.jumlahTenagaKerjaSd?.toString() ?? '';
+            jumlahTenagaKerjaSltpController.text =
+                data.jumlahTenagaKerjaSltp?.toString() ?? '';
+            jumlahTenagaKerjaSltaController.text =
+                data.jumlahTenagaKerjaSlta?.toString() ?? '';
+            jumlahTenagaKerjaSmkController.text =
+                data.jumlahTenagaKerjaSmk?.toString() ?? '';
+            jumlahTenagaKerjaSarjanaMudaController.text =
+                data.jumlahTenagaKerjaSarjanaMuda?.toString() ?? '';
+            jumlahTenagaKerjaSarjanaMagisterController.text =
+                data.jumlahTenagaKerjaSarjanaMagister?.toString() ?? '';
+            jumlahTenagaKerjaSarjanaDoktorController.text =
+                data.jumlahTenagaKerjaSarjanaDoktor?.toString() ?? '';
+
+            return FormInput(
+              formKey: _formKey,
+              cubit: cubit,
+              alamatKantorController: alamatKantorController,
+              bidangUsahaJasaController: bidangUsahaJasaController,
+              contactPersonController: contactPersonController,
+              jangkauanPemasaranController: jangkauanPemasaranController,
+              jumlahTenagaKerjaSarjanaDoktorController:
+                  jumlahTenagaKerjaSarjanaDoktorController,
+              jumlahTenagaKerjaSarjanaMagisterController:
+                  jumlahTenagaKerjaSarjanaMagisterController,
+              jumlahTenagaKerjaSarjanaMudaController:
+                  jumlahTenagaKerjaSarjanaMudaController,
+              jumlahTenagaKerjaSdController: jumlahTenagaKerjaSdController,
+              jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
+              jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
+              jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              kapasitasProduksiController: kapasitasProduksiController,
+              namaIndustriController: namaIndustriController,
+              namaPimpinanController: namaPimpinanController,
+              noTelpFaxController: noTelpFaxController,
+              spesialisasiProduksiJasaController:
+                  spesialisasiProduksiJasaController,
+            );
           } else if (state is BiodataIndustriError) {
-            return FormInput(formKey: _formKey, cubit: cubit);
+            return FormInput(
+              formKey: _formKey,
+              cubit: cubit,
+              alamatKantorController: alamatKantorController,
+              bidangUsahaJasaController: bidangUsahaJasaController,
+              contactPersonController: contactPersonController,
+              jangkauanPemasaranController: jangkauanPemasaranController,
+              jumlahTenagaKerjaSarjanaDoktorController:
+                  jumlahTenagaKerjaSarjanaDoktorController,
+              jumlahTenagaKerjaSarjanaMagisterController:
+                  jumlahTenagaKerjaSarjanaMagisterController,
+              jumlahTenagaKerjaSarjanaMudaController:
+                  jumlahTenagaKerjaSarjanaMudaController,
+              jumlahTenagaKerjaSdController: jumlahTenagaKerjaSdController,
+              jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
+              jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
+              jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              kapasitasProduksiController: kapasitasProduksiController,
+              namaIndustriController: namaIndustriController,
+              namaPimpinanController: namaPimpinanController,
+              noTelpFaxController: noTelpFaxController,
+              spesialisasiProduksiJasaController:
+                  spesialisasiProduksiJasaController,
+            );
           } else if (state is BiodataIndustriNoData) {
-            return FormInput(formKey: _formKey, cubit: cubit);
+            return FormInput(
+              formKey: _formKey,
+              cubit: cubit,
+              alamatKantorController: alamatKantorController,
+              bidangUsahaJasaController: bidangUsahaJasaController,
+              contactPersonController: contactPersonController,
+              jangkauanPemasaranController: jangkauanPemasaranController,
+              jumlahTenagaKerjaSarjanaDoktorController:
+                  jumlahTenagaKerjaSarjanaDoktorController,
+              jumlahTenagaKerjaSarjanaMagisterController:
+                  jumlahTenagaKerjaSarjanaMagisterController,
+              jumlahTenagaKerjaSarjanaMudaController:
+                  jumlahTenagaKerjaSarjanaMudaController,
+              jumlahTenagaKerjaSdController: jumlahTenagaKerjaSdController,
+              jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
+              jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
+              jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              kapasitasProduksiController: kapasitasProduksiController,
+              namaIndustriController: namaIndustriController,
+              namaPimpinanController: namaPimpinanController,
+              noTelpFaxController: noTelpFaxController,
+              spesialisasiProduksiJasaController:
+                  spesialisasiProduksiJasaController,
+            );
           }
           return Container();
         });
@@ -215,10 +422,43 @@ class FormInput extends StatelessWidget {
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
-  }) : _formKey = formKey, super(key: key);
+    required this.namaIndustriController,
+    required this.namaPimpinanController,
+    required this.alamatKantorController,
+    required this.noTelpFaxController,
+    required this.contactPersonController,
+    required this.bidangUsahaJasaController,
+    required this.spesialisasiProduksiJasaController,
+    required this.kapasitasProduksiController,
+    required this.jangkauanPemasaranController,
+    required this.jumlahTenagaKerjaSdController,
+    required this.jumlahTenagaKerjaSltpController,
+    required this.jumlahTenagaKerjaSltaController,
+    required this.jumlahTenagaKerjaSmkController,
+    required this.jumlahTenagaKerjaSarjanaMudaController,
+    required this.jumlahTenagaKerjaSarjanaMagisterController,
+    required this.jumlahTenagaKerjaSarjanaDoktorController,
+  })  : _formKey = formKey,
+        super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final IsiBiodataIndustriCubit cubit;
+  final namaIndustriController;
+  final namaPimpinanController;
+  final alamatKantorController;
+  final noTelpFaxController;
+  final contactPersonController;
+  final bidangUsahaJasaController;
+  final spesialisasiProduksiJasaController;
+  final kapasitasProduksiController;
+  final jangkauanPemasaranController;
+  final jumlahTenagaKerjaSdController;
+  final jumlahTenagaKerjaSltpController;
+  final jumlahTenagaKerjaSltaController;
+  final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSarjanaMudaController;
+  final jumlahTenagaKerjaSarjanaMagisterController;
+  final jumlahTenagaKerjaSarjanaDoktorController;
 
   @override
   Widget build(BuildContext context) {
@@ -242,15 +482,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.namaIndustriController,
+                  controller: namaIndustriController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Nama Industri',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -284,15 +523,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.namaPimpinanController,
+                  controller: namaPimpinanController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Nama Direktur/Pimpinan',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -326,15 +564,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.alamatKantorController,
+                  controller: alamatKantorController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Alamat Kantor',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -368,15 +605,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.noTelpFaxController,
+                  controller: noTelpFaxController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'No.Telepon/FAX',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -412,15 +648,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.contactPersonController,
+                  controller: contactPersonController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Contact Person',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -472,7 +707,7 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.bidangUsahaJasaController,
+                  controller: bidangUsahaJasaController,
                   maxLines: 3,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.text,
@@ -480,8 +715,7 @@ class FormInput extends StatelessWidget {
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Bidang Usaha / Jasa',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -517,15 +751,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.spesialisasiProduksiJasaController,
+                  controller: spesialisasiProduksiJasaController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Spesialisasi Produksi / Jasa',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -561,15 +794,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.kapasitasProduksiController,
+                  controller: kapasitasProduksiController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Kapasitas Produksi',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -599,15 +831,14 @@ class FormInput extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
-                  controller: cubit.jangkauanPemasaranController,
+                  controller: jangkauanPemasaranController,
                   cursorColor: primaryColor,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
                     labelText: 'Jangkauan Pemasaran',
-                    labelStyle:
-                        const TextStyle(color: Color(0xFF585656)),
+                    labelStyle: const TextStyle(color: Color(0xFF585656)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: const BorderSide(
@@ -659,16 +890,15 @@ class FormInput extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller:
-                                cubit.jumlahTenagaKerjaSdController,
+                            controller: jumlahTenagaKerjaSdController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'SD',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -698,16 +928,15 @@ class FormInput extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextFormField(
-                            controller:
-                                cubit.jumlahTenagaKerjaSltpController,
+                            controller: jumlahTenagaKerjaSltpController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'SLTP',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -741,16 +970,15 @@ class FormInput extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller:
-                                cubit.jumlahTenagaKerjaSmkController,
+                            controller: jumlahTenagaKerjaSmkController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'SMK/STM/SMEA/SMKK/SMTK',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -780,16 +1008,15 @@ class FormInput extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextFormField(
-                            controller:
-                                cubit.jumlahTenagaKerjaSltaController,
+                            controller: jumlahTenagaKerjaSltaController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'SLTA Non SMK',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -823,16 +1050,15 @@ class FormInput extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: cubit
-                                .jumlahTenagaKerjaSarjanaMudaController,
+                            controller: jumlahTenagaKerjaSarjanaMudaController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'Sarjana Muda',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -862,16 +1088,16 @@ class FormInput extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextFormField(
-                            controller: cubit
-                                .jumlahTenagaKerjaSarjanaMagisterController,
+                            controller:
+                                jumlahTenagaKerjaSarjanaMagisterController,
                             cursorColor: primaryColor,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
                               labelText: 'Sarjana Magister',
-                              labelStyle: const TextStyle(
-                                  color: Color(0xFF585656)),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: const BorderSide(
@@ -902,16 +1128,14 @@ class FormInput extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
-                      controller: cubit
-                          .jumlahTenagaKerjaSarjanaDoktorController,
+                      controller: jumlahTenagaKerjaSarjanaDoktorController,
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: accentColor,
                         labelText: 'Doktor',
-                        labelStyle:
-                            const TextStyle(color: Color(0xFF585656)),
+                        labelStyle: const TextStyle(color: Color(0xFF585656)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: const BorderSide(

@@ -246,7 +246,7 @@ class MahasiswaDashboardPage extends StatelessWidget {
                 ],
               ),
             ),
-            MenuDashboardMahasiswa(),
+            const MenuDashboardMahasiswa(),
           ],
         ),
       ),

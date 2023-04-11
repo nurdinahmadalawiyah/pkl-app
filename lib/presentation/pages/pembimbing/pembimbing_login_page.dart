@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,12 +60,6 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
             );
             cubit.resetState();
           });
-          // return FormLogin(
-          //   cubit: cubit,
-          //   formKey: _formKey,
-          //   usernameController: usernameController,
-          //   passwordController: passwordController,
-          // );
         }
         return Container();
       }),
@@ -72,7 +68,7 @@ class _PembimbingLoginPageState extends State<PembimbingLoginPage> {
 }
 
 class FormLogin extends StatelessWidget {
-  FormLogin({
+  const FormLogin({
     Key? key,
     required this.cubit,
     required GlobalKey<FormState> formKey,
@@ -271,7 +267,7 @@ class FormLogin extends StatelessWidget {
 }
 
 class ButtonLogin extends StatelessWidget {
-  ButtonLogin({
+  const ButtonLogin({
     Key? key,
     required GlobalKey<FormState> formKey,
     required this.cubit,
