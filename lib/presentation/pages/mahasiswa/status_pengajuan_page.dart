@@ -17,7 +17,7 @@ class StatusPengajuanPage extends StatefulWidget {
 }
 
 class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
-@override
+  @override
   void initState() {
     super.initState();
     context.read<StatusPengajuanCubit>().getStatusPengajuan();
@@ -45,8 +45,10 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
             return ListView(
               children: [
                 CardStatusPengajuan(
-                    statusPengajuan: statusPengajuan,
-                    profilePengajuan: profilePengajuan),
+                  statusPengajuan: statusPengajuan,
+                  profilePengajuan: profilePengajuan,
+                ),
+                const SizedBox(height: 10)
               ],
             );
           } else if (state is StatusPengajuanNoData) {
@@ -54,13 +56,9 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
               child: NoDataAnimation(message: state.message),
             );
           } else if (state is StatusPengajuanNoConnection) {
-            return Center(
-              child: NoConnectionAnimation(message: state.message)
-            );
+            return Center(child: NoConnectionAnimation(message: state.message));
           } else if (state is StatusPengajuanError) {
-            return Center(
-              child: ErrorAnimation(message: state.message)
-            );
+            return Center(child: ErrorAnimation(message: state.message));
           } else {
             return const Text('Unknown Error');
           }

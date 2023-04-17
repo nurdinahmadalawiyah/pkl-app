@@ -65,7 +65,7 @@ class _GantiPasswordPageState
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Navigator.pushReplacementNamed(context, '/profile');
+                  Navigator.pushNamedAndRemoveUntil(context, '/profile', ModalRoute.withName('/dashboard'));
                 },
                 child: const Text('OK'),
               ),

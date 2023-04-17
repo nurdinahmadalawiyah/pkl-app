@@ -89,7 +89,7 @@ class ApiService {
   Future<LowonganPkl> getLowonganPkl() async {
     Map<String, String> headers = await getHeaders();
     final response =
-        await http.get(Uri.parse('$base_url/lowongan-pkl'), headers: headers);
+        await http.get(Uri.parse('$base_url/lowongan-pkl/mahasiswa'), headers: headers);
     if (response.statusCode == 200) {
       return LowonganPkl.fromJson(json.decode(response.body));
     } else {
@@ -101,7 +101,7 @@ class ApiService {
   Future<PencarianLowongan> getPencarianLowongan(String keyword) async {
     Map<String, String> headers = await getHeaders();
     final response = await http
-        .get(Uri.parse('$base_url/lowongan-pkl/search?q='), headers: headers);
+        .get(Uri.parse('$base_url/lowongan-pkl/mahasiswa/search?q='), headers: headers);
     if (response.statusCode == 200) {
       return PencarianLowongan.fromJson(json.decode(response.body));
     } else {
@@ -175,13 +175,13 @@ class ApiService {
 
   Future<StatusPengajuanPkl> getStatusPengajuan() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/pengajuan-pkl/status'),
+    final response = await http.get(Uri.parse('$base_url/pengajuan-pkl/mahasiswa/status'),
         headers: headers);
     if (response.statusCode == 200) {
       return StatusPengajuanPkl.fromJson(json.decode(response.body));
     } else {
       throw Exception(
-          "Failed to get lowongan: Response status code ${response.statusCode}");
+          "Failed to get status: Response status code ${response.statusCode}");
     }
   }
 
@@ -192,7 +192,7 @@ class ApiService {
       String tanggalSelesai) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/pengajuan-pkl'),
+      Uri.parse('$base_url/pengajuan-pkl/mahasiswa'),
       headers: headers,
       body: jsonEncode({
         'nama_perusahaan': namaPerusahaan,
@@ -213,7 +213,7 @@ class ApiService {
       String konfirmasiNamaPembimbing, String konfirmasiNikPembimbing) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/tempat-pkl'),
+      Uri.parse('$base_url/tempat-pkl/mahasiswa'),
       headers: headers,
       body: jsonEncode({
         'id_pengajuan': idPengajuan,
@@ -242,7 +242,7 @@ class ApiService {
   Future<BiodataIndustri> getBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/detail-user'),
+        Uri.parse('$base_url/biodata-industri/mahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return BiodataIndustri.fromJson(json.decode(response.body));
@@ -271,7 +271,7 @@ class ApiService {
     String jumlahTenagaKerjaSarjanaDoktor,
   ) async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.post(Uri.parse('$base_url/biodata-industri'),
+    final response = await http.post(Uri.parse('$base_url/biodata-industri/mahasiswa'),
         headers: headers,
         body: jsonEncode({
           'nama_industri': namaIndustri,
@@ -303,7 +303,7 @@ class ApiService {
   Future<JurnalKegiatan> getJurnalKegiatan() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/jurnal-kegiatan/index-user'),
+        Uri.parse('$base_url/jurnal-kegiatan/mahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return JurnalKegiatan.fromJson(json.decode(response.body));
@@ -321,7 +321,7 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/jurnal-kegiatan'),
+      Uri.parse('$base_url/jurnal-kegiatan/mahasiswa'),
       headers: headers,
       body: jsonEncode({
         'tanggal': tanggal,
@@ -347,7 +347,7 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/jurnal-kegiatan/$idJurnalKegiatan?_method=PUT'),
+      Uri.parse('$base_url/jurnal-kegiatan/mahasiswa/$idJurnalKegiatan?_method=PUT'),
       headers: headers,
       body: jsonEncode({
         'tanggal': tanggal,
@@ -369,7 +369,7 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.delete(
-      Uri.parse('$base_url/jurnal-kegiatan/$idJurnalKegiatan'),
+      Uri.parse('$base_url/jurnal-kegiatan/mahasiswa/$idJurnalKegiatan'),
       headers: headers,
     );
     if (response.statusCode == 200) {
@@ -383,7 +383,7 @@ class ApiService {
   Future<NilaiPkl> getNilaiPkl() async {
     Map<String, String> headers = await getHeaders();
     final response =
-        await http.get(Uri.parse('$base_url/penilaian'), headers: headers);
+        await http.get(Uri.parse('$base_url/penilaian/mahasiswa'), headers: headers);
     if (response.statusCode == 200) {
       return NilaiPkl.fromJson(json.decode(response.body));
     } else {
@@ -395,7 +395,7 @@ class ApiService {
   Future<DaftarHadir> getDaftarHadir() async {
     Map<String, String> headers = await getHeaders();
     final response =
-        await http.get(Uri.parse('$base_url/daftar-hadir'), headers: headers);
+        await http.get(Uri.parse('$base_url/daftar-hadir/mahasiswa'), headers: headers);
     if (response.statusCode == 200) {
       return DaftarHadir.fromJson(json.decode(response.body));
     } else {
@@ -412,7 +412,7 @@ class ApiService {
     Map<String, String> headers = await getHeaders();
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('$base_url/daftar-hadir'),
+      Uri.parse('$base_url/daftar-hadir/mahasiswa'),
     );
     request.headers.addAll(headers);
     request.fields['hari_tanggal'] = hariTanggal;
@@ -445,7 +445,7 @@ class ApiService {
     Map<String, String> headers = await getHeaders();
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('$base_url/daftar-hadir/$idDaftarHadir??_method=PUT'),
+      Uri.parse('$base_url/daftar-hadir/mahasiswa/$idDaftarHadir??_method=PUT'),
     );
     request.headers.addAll(headers);
     request.fields['hari_tanggal'] = hariTanggal;
@@ -472,7 +472,7 @@ class ApiService {
   Future<HapusDaftarHadir> deleteDaftarHadir(String idDaftarHadir) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.delete(
-      Uri.parse('$base_url/daftar-hadir/$idDaftarHadir'),
+      Uri.parse('$base_url/daftar-hadir/mahasiswa/$idDaftarHadir'),
       headers: headers,
     );
     if (response.statusCode == 200) {
@@ -489,7 +489,7 @@ class ApiService {
     Map<String, String> headers = await getHeaders();
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('$base_url/upload-laporan'),
+      Uri.parse('$base_url/laporan/mahasiswa/upload'),
     );
     request.headers.addAll(headers);
     request.files.add(http.MultipartFile(
@@ -553,7 +553,7 @@ class ApiService {
 
   Future<ListMahasiswa> getListNilaiPkl() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/penilaian-pembimbing'),
+    final response = await http.get(Uri.parse('$base_url/penilaian-pembimbing/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -566,7 +566,7 @@ class ApiService {
   Future<DetailNilai> getDetailNilaiPkl(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/penilaian-pembimbing/$idMahasiswa'),
+        Uri.parse('$base_url/penilaian-pembimbing/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return DetailNilai.fromJson(json.decode(response.body));
@@ -587,7 +587,7 @@ class ApiService {
       String organisasi) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/penilaian-pembimbing'),
+      Uri.parse('$base_url/penilaian-pembimbing/pembimbing'),
       headers: headers,
       body: jsonEncode({
         'id_mahasiswa': idMahasiswa,
@@ -610,7 +610,7 @@ class ApiService {
 
   Future<ListMahasiswa> getListBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/biodata-industri'),
+    final response = await http.get(Uri.parse('$base_url/biodata-industri/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -623,7 +623,7 @@ class ApiService {
   Future<BiodataIndustri> getDetailBiodataIndustri(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/$idMahasiswa'),
+        Uri.parse('$base_url/biodata-industri/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return BiodataIndustri.fromJson(json.decode(response.body));
@@ -635,7 +635,7 @@ class ApiService {
 
   Future<ListMahasiswa> getListJurnalKegiatan() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/jurnal-kegiatan'),
+    final response = await http.get(Uri.parse('$base_url/jurnal-kegiatan/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -648,7 +648,7 @@ class ApiService {
   Future<JurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/jurnal-kegiatan/$idMahasiswa'),
+        Uri.parse('$base_url/jurnal-kegiatan/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return JurnalKegiatan.fromJson(json.decode(response.body));
@@ -661,7 +661,7 @@ class ApiService {
   Future<ListMahasiswa> getListDaftarHadir() async {
     Map<String, String> headers = await getHeaders();
     final response =
-        await http.get(Uri.parse('$base_url/daftar-hadir'), headers: headers);
+        await http.get(Uri.parse('$base_url/daftar-hadir/pembimbing'), headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
     } else {
@@ -673,7 +673,7 @@ class ApiService {
   Future<DaftarHadir> getDetailDaftarHadir(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/daftar-hadir/$idMahasiswa'),
+        Uri.parse('$base_url/daftar-hadir/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return DaftarHadir.fromJson(json.decode(response.body));

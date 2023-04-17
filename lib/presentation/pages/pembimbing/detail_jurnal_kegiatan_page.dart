@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, prefer_is_empty
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
