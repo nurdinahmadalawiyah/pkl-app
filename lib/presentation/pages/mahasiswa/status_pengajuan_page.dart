@@ -151,7 +151,9 @@ class CardStatusPengajuan extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.picture_as_pdf_rounded,
                           color: backgroundColor),
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamed(
+                          context, '/download-surat-pengantar-pkl',
+                          arguments: status),
                     ),
                   ),
                 ),

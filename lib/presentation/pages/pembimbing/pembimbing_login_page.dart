@@ -185,56 +185,81 @@ class FormLogin extends StatelessWidget {
                         height: 20,
                       ),
                       Consumer<PasswordVisibilityProvider>(
-                          builder: (context, provider, _) {
-                        return TextFormField(
-                          obscureText: !provider.passwordVisible,
-                          controller: passwordController,
-                          cursorColor: primaryColor,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: accentColor,
-                            labelText: 'Password',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF585656)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
+                        builder: (context, provider, _) {
+                          return TextFormField(
+                            obscureText: !provider.passwordVisible,
+                            controller: passwordController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'Password',
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(
-                                width: 2,
-                                style: BorderStyle.solid,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: const Icon(
+                                IconlyBold.lock,
                                 color: primaryColor,
                               ),
+                              suffixIcon: IconButton(
+                                onPressed: () => provider.toogle(),
+                                icon: Icon(provider.passwordVisible
+                                    ? IconlyBold.show
+                                    : IconlyBold.hide),
+                                color: const Color(0xFFC3C5C8),
+                              ),
                             ),
-                            prefixIcon: const Icon(
-                              IconlyBold.lock,
-                              color: primaryColor,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () => provider.toogle(),
-                              icon: Icon(provider.passwordVisible
-                                  ? IconlyBold.show
-                                  : IconlyBold.hide),
-                              color: const Color(0xFFC3C5C8),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Password tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                            style: const TextStyle(color: Colors.black),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Tidak Punya Akun?',
+                            style: kRegular.copyWith(
+                              fontSize: 12,
+                              color: tertiaryColor,
                             ),
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Password tidak boleh kosong';
-                            }
-                            return null;
-                          },
-                          style: const TextStyle(color: Colors.black),
-                        );
-                      }),
+                          const SizedBox(width: 5),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/register-pembimbing'),
+                            child: Text(
+                              'Daftar Disini',
+                              style: kRegular.copyWith(
+                                fontSize: 12,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       ButtonLogin(
                           cubit: cubit,

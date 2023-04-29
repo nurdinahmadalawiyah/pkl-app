@@ -9,17 +9,17 @@ StatusPengajuanPkl statusPengajuanPklFromJson(String str) => StatusPengajuanPkl.
 String statusPengajuanPklToJson(StatusPengajuanPkl data) => json.encode(data.toJson());
 
 class StatusPengajuanPkl {
+    String status;
+    String message;
+    User user;
+    List<LitsStatus> data;
+
     StatusPengajuanPkl({
         required this.status,
         required this.message,
         required this.user,
         required this.data,
     });
-
-    String status;
-    String message;
-    User user;
-    List<LitsStatus> data;
 
     factory StatusPengajuanPkl.fromJson(Map<String, dynamic> json) => StatusPengajuanPkl(
         status: json["status"],
@@ -37,6 +37,17 @@ class StatusPengajuanPkl {
 }
 
 class LitsStatus {
+    int idPengajuan;
+    int idMahasiswa;
+    String namaPerusahaan;
+    String alamatPerusahaan;
+    DateTime tanggalMulai;
+    DateTime tanggalSelesai;
+    String status;
+    String? surat;
+    DateTime createdAt;
+    DateTime updatedAt;
+
     LitsStatus({
         required this.idPengajuan,
         required this.idMahasiswa,
@@ -45,19 +56,10 @@ class LitsStatus {
         required this.tanggalMulai,
         required this.tanggalSelesai,
         required this.status,
+        this.surat,
         required this.createdAt,
         required this.updatedAt,
     });
-
-    int idPengajuan;
-    int idMahasiswa;
-    String namaPerusahaan;
-    String alamatPerusahaan;
-    DateTime tanggalMulai;
-    DateTime tanggalSelesai;
-    String status;
-    DateTime createdAt;
-    DateTime updatedAt;
 
     factory LitsStatus.fromJson(Map<String, dynamic> json) => LitsStatus(
         idPengajuan: json["id_pengajuan"],
@@ -67,6 +69,7 @@ class LitsStatus {
         tanggalMulai: DateTime.parse(json["tanggal_mulai"]),
         tanggalSelesai: DateTime.parse(json["tanggal_selesai"]),
         status: json["status"],
+        surat: json["surat"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -79,21 +82,22 @@ class LitsStatus {
         "tanggal_mulai": "${tanggalMulai.year.toString().padLeft(4, '0')}-${tanggalMulai.month.toString().padLeft(2, '0')}-${tanggalMulai.day.toString().padLeft(2, '0')}",
         "tanggal_selesai": "${tanggalSelesai.year.toString().padLeft(4, '0')}-${tanggalSelesai.month.toString().padLeft(2, '0')}-${tanggalSelesai.day.toString().padLeft(2, '0')}",
         "status": status,
+        "surat": surat,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };
 }
 
 class User {
+    String nama;
+    String namaProdi;
+    String nim;
+
     User({
         required this.nama,
         required this.namaProdi,
         required this.nim,
     });
-
-    String nama;
-    String namaProdi;
-    String nim;
 
     factory User.fromJson(Map<String, dynamic> json) => User(
         nama: json["nama"],

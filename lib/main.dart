@@ -36,6 +36,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.d
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_detail_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/download_surat_pengantar_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/edit_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/edit_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/isi_biodata_industri_page.dart';
@@ -66,6 +67,7 @@ import 'package:magang_app/presentation/pages/pembimbing/list_daftar_hadir_page.
 import 'package:magang_app/presentation/pages/pembimbing/list_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/pembimbing_register_page.dart';
 import 'package:magang_app/presentation/pages/splash_page.dart';
 import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/provider/ganti_password_provider.dart';
@@ -138,12 +140,12 @@ class MyApp extends StatelessWidget {
           '/dashboard': (context) => const MahasiswaDashboardPage(),
           '/login-mahasiswa': (context) => const MahasiswaLoginPage(),
           '/lowongan-pkl': (context) => const LowonganPklPage(),
-          '/login-pembimbing': (context) => const PembimbingLoginPage(),
           '/pencarian': (context) => const PencarianLowonganPage(),
           '/profile': (context) => const ProfilePage(),
           '/ganti-password': (context) => const GantiPasswordPage(),
           '/edit-profile': (context) => const EditProfilePage(),
           '/status-pengajuan': (context) => const StatusPengajuanPage(),
+          '/download-surat-pengantar-pkl': (context) => const DownloadSuratPengantarPklPage(),
           '/pengajuan-pkl': (context) => const AjukanTempatPklPage(),
           '/konfirmasi-pkl': (context) => const KonfirmasiDiterimaPklPage(),
           '/biodata-industri': (context) => const BiodataIndustriPage(),
@@ -158,6 +160,8 @@ class MyApp extends StatelessWidget {
           '/tambah-daftar-hadir': (context) => const TambahDaftarHadirPage(),
           '/edit-daftar-hadir': (context) => const EditDaftarHadirPage(),
           '/upload-laporan': (context) => const UploadLaporanPage(),
+          '/login-pembimbing': (context) => const PembimbingLoginPage(),
+          '/register-pembimbing': (context) => const PembimbingRegisterPage(),
           '/dashboard-pembimbing': (context) => const PembimbingDashboardPage(),
           '/kelola-nilai': (context) => const KelolaNilaiPage(),
           '/edit-nilai': (context) => const EditNilaiPage(),
