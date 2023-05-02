@@ -23,10 +23,10 @@ final TextStyle kBlack = GoogleFonts.poppins(fontWeight: FontWeight.w900);
 
 // text theme
 final kTextTheme = TextTheme(
-  headline5: kSemiBold,
-  headline6: kMedium,
-  subtitle1: kRegular,
-  bodyText2: kLight,
+  headlineSmall: kSemiBold,
+  titleLarge: kMedium,
+  titleMedium: kRegular,
+  bodyMedium: kLight,
 );
 // box shadows
 var boxShadow = BoxShadow(

@@ -29,7 +29,7 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
       appBar: AppBar(
         leading: const BackButton(color: blackColor),
         title: Text(
-          'Status Pengajuan Magang',
+          'Status Pengajuan PKL',
           style: kMedium.copyWith(color: blackColor),
         ),
       ),
@@ -151,9 +151,37 @@ class CardStatusPengajuan extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.picture_as_pdf_rounded,
                           color: backgroundColor),
-                      onPressed: () => Navigator.pushNamed(
-                          context, '/download-surat-pengantar-pkl',
-                          arguments: status),
+                      onPressed: () {
+                        if (status.surat == null) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Keterangan",
+                                    style: kMedium.copyWith(color: blackColor)),
+                                content: Text(
+                                    "Surat pengantar PKL tidak tersedia karena pengajuan kamu masih dalam proses persetujuan dari pihak akademik",
+                                    style: kRegular.copyWith(color: blackColor)),
+                                actions: <Widget>[
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: primaryColor
+                                    ),
+                                    onPressed: () => Navigator.of(context).pop(),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          Navigator.pushNamed(
+                            context,
+                            '/download-surat-pengantar-pkl',
+                            arguments: status,
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -167,64 +195,71 @@ class CardStatusPengajuan extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              status.namaPerusahaan,
-                              overflow: TextOverflow.clip,
-                              style: kBold.copyWith(
-                                color: backgroundColor,
-                                fontSize: 20,
+                      GestureDetector(
+                        onTap: () {
+                          if (status.status == 'disetujui') {
+                            Navigator.pushNamed(context, '/konfirmasi-pkl');
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                status.namaPerusahaan,
+                                overflow: TextOverflow.clip,
+                                style: kBold.copyWith(
+                                  color: backgroundColor,
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
-                            Text(
-                              status.alamatPerusahaan,
-                              overflow: TextOverflow.clip,
-                              style: kMedium.copyWith(
-                                color: backgroundColor,
-                                fontSize: 14,
+                              Text(
+                                status.alamatPerusahaan,
+                                overflow: TextOverflow.clip,
+                                style: kMedium.copyWith(
+                                  color: backgroundColor,
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    DateFormat('dd MMMM y')
-                                        .format(status.tanggalMulai),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      DateFormat('dd MMMM y')
+                                          .format(status.tanggalMulai),
+                                      style: kMedium.copyWith(
+                                        color: backgroundColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    ' - ',
                                     style: kMedium.copyWith(
                                       color: backgroundColor,
                                       fontSize: 14,
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  ' - ',
-                                  style: kMedium.copyWith(
-                                    color: backgroundColor,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    DateFormat('dd MMMM y')
-                                        .format(status.tanggalSelesai),
-                                    overflow: TextOverflow.clip,
-                                    style: kMedium.copyWith(
-                                      color: backgroundColor,
-                                      fontSize: 14,
+                                  Flexible(
+                                    child: Text(
+                                      DateFormat('dd MMMM y')
+                                          .format(status.tanggalSelesai),
+                                      overflow: TextOverflow.clip,
+                                      style: kMedium.copyWith(
+                                        color: backgroundColor,
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

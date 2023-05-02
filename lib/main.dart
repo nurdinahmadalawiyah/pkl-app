@@ -1,11 +1,7 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
