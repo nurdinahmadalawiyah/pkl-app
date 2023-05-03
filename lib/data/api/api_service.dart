@@ -14,6 +14,7 @@ import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
+import 'package:magang_app/data/models/register_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:magang_app/data/models/logout_model.dart';
 import 'package:magang_app/data/models/lowongan_pkl_model.dart';
@@ -242,8 +243,8 @@ class ApiService {
   }
 
   Future<DataPembimbingPkl> getDataPembimbingPkl() async {
-    final response = await http.get(
-        Uri.parse('$base_url/pembimbing/list-pembimbing'));
+    final response =
+        await http.get(Uri.parse('$base_url/pembimbing/list-pembimbing'));
     if (response.statusCode == 200) {
       return DataPembimbingPkl.fromJson(json.decode(response.body));
     } else {
@@ -549,6 +550,30 @@ class ApiService {
     } else {
       throw Exception(
           'Failed to login: Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<Register> registerPembimbing(
+      String nama, String nik, String username, String password) async {
+    final response = await http.post(
+      Uri.parse('$base_url/pembimbing/register'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({
+        'nama': nama,
+        'nik': nik,
+        'username': username,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      return Register.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          'Failed to Register: Response status code ${response.statusCode}');
     }
   }
 

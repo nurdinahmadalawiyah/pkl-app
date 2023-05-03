@@ -247,7 +247,8 @@ class FormLogin extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           GestureDetector(
-                            onTap: () => Navigator.pushNamed(context, '/register-pembimbing'),
+                            onTap: () => Navigator.pushNamed(
+                                context, '/register-pembimbing'),
                             child: Text(
                               'Daftar Disini',
                               style: kRegular.copyWith(
@@ -320,7 +321,7 @@ class ButtonLogin extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          primary: primaryColor,
+          backgroundColor: primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -356,12 +357,10 @@ void showSuccessDialog(BuildContext context) {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              // Navigator.pushNamedAndRemoveUntil(context, '/jurnal-kegiatan',
-              //     ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/login_model.dart';
+import 'package:magang_app/data/models/register_model.dart';
 
 part 'auth_state.dart';
 
@@ -36,6 +37,16 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLogoutSuccess());
     } catch (e) {
       emit(AuthFailure(message: e.toString()));
+    }
+  }
+
+  Future<void> registerPembimbing(String nama, String nik, String username, String password) async {
+    emit(AuthRegisterLoading());
+    try {
+      final register = await ApiService().registerPembimbing(nama, nik, username, password);
+      emit(AuthRegisterSuccess(register: register));
+    } catch (e) {
+      emit(AuthRegisterFailure(message: e.toString()));
     }
   }
 }

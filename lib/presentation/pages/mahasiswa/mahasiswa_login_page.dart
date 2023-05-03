@@ -5,6 +5,7 @@ import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/login_model.dart';
 import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/provider/password_visibility_provider.dart';
+import 'package:magang_app/presentation/widgets/auth_button_loading.dart';
 import 'package:provider/provider.dart';
 
 class MahasiswaLoginPage extends StatefulWidget {
@@ -228,33 +229,7 @@ class _MahasiswaLoginPageState extends State<MahasiswaLoginPage> {
                         height: 40,
                       ),
                       _isLoading
-                          ? SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    primary: primaryColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    padding: const EdgeInsets.all(15)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    SizedBox(
-                                      width: 30,
-                                      height: 30,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 4,
-                                        valueColor: AlwaysStoppedAnimation(
-                                          backgroundColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
+                          ? const AuthButtonLoading()
                           : SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
@@ -262,7 +237,7 @@ class _MahasiswaLoginPageState extends State<MahasiswaLoginPage> {
                                   handleLogin();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: primaryColor,
+                                  backgroundColor: primaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
