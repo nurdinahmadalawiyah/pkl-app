@@ -710,7 +710,7 @@ class FormInput extends StatelessWidget {
                   controller: bidangUsahaJasaController,
                   maxLines: 3,
                   cursorColor: primaryColor,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,

@@ -115,7 +115,7 @@ class ButtonAddDataAndPrint extends StatelessWidget {
               onPressed: () =>
                   Navigator.pushNamed(context, "/isi-biodata-industri"),
               style: ElevatedButton.styleFrom(
-                primary: tertiaryColor,
+                backgroundColor: tertiaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -145,9 +145,9 @@ class ButtonAddDataAndPrint extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(context, '/download-biodata-industri'),
               style: ElevatedButton.styleFrom(
-                primary: primaryColor,
+                backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),

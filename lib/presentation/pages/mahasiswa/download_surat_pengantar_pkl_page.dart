@@ -19,7 +19,6 @@ class DownloadSuratPengantarPklPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: tertiaryColor.withOpacity(0.1),
