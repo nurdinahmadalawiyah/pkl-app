@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/data_pembimbing_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/konfirmasi_diterima_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/status_pengajuan_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
@@ -22,6 +23,7 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
   void initState() {
     super.initState();
     context.read<StatusPengajuanCubit>().getStatusPengajuan();
+    context.read<DataPembimbingPklCubit>().getDataPembimbingPkl();
   }
 
   @override
@@ -49,8 +51,12 @@ class _KonfirmasiDiterimaPklPageState extends State<KonfirmasiDiterimaPklPage> {
                 FormConfirm(
                   formKey: _formKey,
                   cubit: cubit,
-                  statusPengajuanCubit:
-                      StatusPengajuanCubit(apiService: ApiService()),
+                  statusPengajuanCubit: StatusPengajuanCubit(
+                    apiService: ApiService(),
+                  ),
+                  dataPembimbingPklCubit: DataPembimbingPklCubit(
+                    apiService: ApiService(),
+                  ),
                 ),
               ],
             );
@@ -94,13 +100,13 @@ void showSuccessDialog(BuildContext context) {
           style: kSemiBold.copyWith(color: tertiaryColor),
         ),
         content: Text(
-          'Pengiriman Data Konfirmasi diterima PKL berhasil terkirim, sekarang anda terdata sedang melaksanakan PKL di Perusahaan yang anda input',
+          'Pengiriman Data Konfirmasi diterima PKL berhasil terkirim, sekarang kamu terdata sedang melaksanakan PKL di Perusahaan yang di input',
           style: kRegular.copyWith(color: tertiaryColor),
         ),
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -133,17 +139,14 @@ class ConfirmButton extends StatelessWidget {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             final idPengajuan = cubit.pengajuanController.text;
-            final konfirmasiNamaPembimbing =
-                cubit.namaPembimbingController.text;
-            final konfirmasiNikPembimbing = cubit.nikPembimbingController.text;
+            final idPembimbing = cubit.pembimbingController.text;
 
-            cubit.konfirmasiDiterimaPkl(
-                idPengajuan, konfirmasiNamaPembimbing, konfirmasiNikPembimbing);
+            cubit.konfirmasiDiterimaPkl(idPengajuan, idPembimbing);
             cubit.resetForm();
           }
         },
         style: ElevatedButton.styleFrom(
-            primary: tertiaryColor,
+            backgroundColor: tertiaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),
@@ -174,12 +177,14 @@ class FormConfirm extends StatelessWidget {
     required GlobalKey<FormState> formKey,
     required this.cubit,
     required this.statusPengajuanCubit,
+    required this.dataPembimbingPklCubit,
   })  : _formKey = formKey,
         super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final KonfirmasiDiterimaPklCubit cubit;
   final StatusPengajuanCubit statusPengajuanCubit;
+  final DataPembimbingPklCubit dataPembimbingPklCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -262,89 +267,87 @@ class FormConfirm extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Text(
-              'Isi data pembimbing untuk dibuatkan akun pembimbing oleh prodi',
-              style: kRegular.copyWith(color: tertiaryColor, fontSize: 11),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              controller: cubit.namaPembimbingController,
-              cursorColor: primaryColor,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: accentColor,
-                labelText: 'Nama Pembimbing',
-                labelStyle: const TextStyle(color: Color(0xFF585656)),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: primaryColor,
-                  ),
-                ),
-                prefixIcon: const Icon(
-                  IconlyBold.profile,
-                  color: primaryColor,
-                ),
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Nama pembimbing tidak boleh kosong';
+            StreamBuilder<DataPembimbingPklState>(
+              stream: dataPembimbingPklCubit.stream,
+              initialData: DataPembimbingPklInitial(),
+              builder: (context, snapshot) {
+                final state = snapshot.data;
+                if (state is DataPembimbingPklLoaded) {
+                  final pembimbing = state.dataPembimbingPkl;
+                  return DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: accentColor,
+                      labelText: 'Pilih Pembimbing Sesuai Tempat PKL',
+                      labelStyle: const TextStyle(color: Color(0xFF585656)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          width: 2,
+                          style: BorderStyle.solid,
+                          color: primaryColor,
+                        ),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.business_rounded,
+                        color: primaryColor,
+                      ),
+                      suffixIcon: Transform.rotate(
+                        angle: 90 * 3.14 / 180,
+                        child: const Icon(
+                          Icons.chevron_right_rounded,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+                    iconSize: 0.0,
+                    value: cubit.pembimbingController.text.isNotEmpty
+                        ? cubit.pembimbingController.text
+                        : null,
+                    onChanged: (newValue) {
+                      cubit.pembimbingController.text = newValue!;
+                    },
+                    items: pembimbing.data.map((item) {
+                      return DropdownMenuItem<String>(
+                        key: Key(item.idPembimbing.toString()),
+                        value: item.idPembimbing.toString(),
+                        child: Text(
+                          item.nama,
+                          semanticsLabel: item.nik,
+                          style: kMedium.copyWith(color: tertiaryColor),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text(
+                    'No Data',
+                    style: kMedium.copyWith(color: tertiaryColor),
+                  );
+                } else {
+                  return const CircularProgressIndicator();
                 }
-                return null;
               },
-              style: const TextStyle(color: Colors.black),
             ),
             const SizedBox(
               height: 20,
             ),
-            TextFormField(
-              controller: cubit.nikPembimbingController,
-              cursorColor: primaryColor,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: accentColor,
-                labelText: 'NIK Pembimbing',
-                labelStyle: const TextStyle(color: Color(0xFF585656)),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    style: BorderStyle.solid,
-                    color: primaryColor,
-                  ),
-                ),
-                prefixIcon: const Icon(
-                  IconlyBold.more_square,
-                  color: primaryColor,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Jika Pembimbing kamu belum memiliki akun, beritahukan kepada pembimbing PKL kamu untuk membuat akun di aplikasi PKL TEDC.',
+                style: kRegular.copyWith(
+                  fontSize: 11,
+                  color: blackColor,
                 ),
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'NIK pembimbing tidak boleh kosong';
-                }
-                return null;
-              },
-              style: const TextStyle(color: Colors.black),
             ),
           ],
         ),

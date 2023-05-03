@@ -160,8 +160,8 @@ class CardStatusPengajuan extends StatelessWidget {
                                 title: Text("Keterangan",
                                     style: kMedium.copyWith(color: blackColor)),
                                 content: Text(
-                                    "Surat pengantar PKL tidak tersedia karena pengajuan kamu masih dalam proses persetujuan dari pihak akademik",
-                                    style: kRegular.copyWith(color: blackColor)),
+                                    "Surat pengantar PKL saat ini tidak tersedia karena pengajuan kamu masih dalam proses persetujuan dari pihak akademik. Tunggu hingga pengajuan kamu disetujui akademik.",
+                                    style: kRegular.copyWith(color: blackColor, fontSize: 13)),
                                 actions: <Widget>[
                                   TextButton(
                                     style: TextButton.styleFrom(

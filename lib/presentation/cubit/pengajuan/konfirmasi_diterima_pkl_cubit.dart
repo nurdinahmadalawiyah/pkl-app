@@ -10,8 +10,7 @@ class KonfirmasiDiterimaPklCubit extends Cubit<KonfirmasiDiterimaPklState> {
   final ApiService _apiService = ApiService();
 
   final pengajuanController = TextEditingController();
-  final namaPembimbingController = TextEditingController();
-  final nikPembimbingController = TextEditingController();
+  final pembimbingController = TextEditingController();
 
   KonfirmasiDiterimaPklCubit() : super(KonfirmasiDiterimaPklInitial());
 
@@ -21,12 +20,11 @@ class KonfirmasiDiterimaPklCubit extends Cubit<KonfirmasiDiterimaPklState> {
 
   Future<void> konfirmasiDiterimaPkl(
     String idPengajuan,
-    String konfirmasiNamaPembimbing,
-    String konfirmasiNikPembimbing,
+    String idPembimbing,
   ) async {
     try {
       emit(KonfirmasiDiterimaPklLoading());
-      final response = await _apiService.konfirmasiDiterimaPkl(idPengajuan, konfirmasiNamaPembimbing, konfirmasiNikPembimbing);
+      final response = await _apiService.konfirmasiDiterimaPkl(idPengajuan, idPembimbing);
       emit(KonfirmasiDiterimaPklSuccess(konfirmasiDiterimaPkl: response));
     } catch (e) {
       emit(KonfirmasiDiterimaPklError(message: e.toString()));
@@ -35,7 +33,6 @@ class KonfirmasiDiterimaPklCubit extends Cubit<KonfirmasiDiterimaPklState> {
 
   void resetForm() {
     pengajuanController.clear();
-    namaPembimbingController.clear();
-    nikPembimbingController.clear();
+    pembimbingController.clear();
   }
 }

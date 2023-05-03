@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
+import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/hapus_daftar_hadir_model.dart';
@@ -88,8 +89,8 @@ class ApiService {
 
   Future<LowonganPkl> getLowonganPkl() async {
     Map<String, String> headers = await getHeaders();
-    final response =
-        await http.get(Uri.parse('$base_url/lowongan-pkl/mahasiswa'), headers: headers);
+    final response = await http
+        .get(Uri.parse('$base_url/lowongan-pkl/mahasiswa'), headers: headers);
     if (response.statusCode == 200) {
       return LowonganPkl.fromJson(json.decode(response.body));
     } else {
@@ -100,8 +101,9 @@ class ApiService {
 
   Future<PencarianLowongan> getPencarianLowongan(String keyword) async {
     Map<String, String> headers = await getHeaders();
-    final response = await http
-        .get(Uri.parse('$base_url/lowongan-pkl/mahasiswa/search?q='), headers: headers);
+    final response = await http.get(
+        Uri.parse('$base_url/lowongan-pkl/mahasiswa/search?q='),
+        headers: headers);
     if (response.statusCode == 200) {
       return PencarianLowongan.fromJson(json.decode(response.body));
     } else {
@@ -175,7 +177,8 @@ class ApiService {
 
   Future<StatusPengajuanPkl> getStatusPengajuan() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/pengajuan-pkl/mahasiswa/status'),
+    final response = await http.get(
+        Uri.parse('$base_url/pengajuan-pkl/mahasiswa/status'),
         headers: headers);
     if (response.statusCode == 200) {
       return StatusPengajuanPkl.fromJson(json.decode(response.body));
@@ -209,16 +212,15 @@ class ApiService {
     }
   }
 
-  Future<KonfirmasiDiterimaPkl> konfirmasiDiterimaPkl(String idPengajuan,
-      String konfirmasiNamaPembimbing, String konfirmasiNikPembimbing) async {
+  Future<KonfirmasiDiterimaPkl> konfirmasiDiterimaPkl(
+      String idPengajuan, String idPembimbing) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
       Uri.parse('$base_url/tempat-pkl/mahasiswa'),
       headers: headers,
       body: jsonEncode({
         'id_pengajuan': idPengajuan,
-        'konfirmasi_nama_pembimbing': konfirmasiNamaPembimbing,
-        'konfirmasi_nik_pembimbing': konfirmasiNikPembimbing,
+        'id_pembimbing': idPembimbing,
       }),
     );
 
@@ -236,6 +238,17 @@ class ApiService {
     } else {
       throw Exception(
           'Failed to send confirmation data : Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<DataPembimbingPkl> getDataPembimbingPkl() async {
+    final response = await http.get(
+        Uri.parse('$base_url/pembimbing/list-pembimbing'));
+    if (response.statusCode == 200) {
+      return DataPembimbingPkl.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get data pembimbing PKL: Response status code ${response.statusCode}");
     }
   }
 
@@ -271,27 +284,29 @@ class ApiService {
     String jumlahTenagaKerjaSarjanaDoktor,
   ) async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.post(Uri.parse('$base_url/biodata-industri/mahasiswa'),
-        headers: headers,
-        body: jsonEncode({
-          'nama_industri': namaIndustri,
-          'nama_pimpinan': namaPimpinan,
-          'alamat_kantor': alamatKantor,
-          'no_telp_fax': noTelpFax,
-          'contact_person': contactPerson,
-          'bidang_usaha_jasa': bidangUsahaJasa,
-          'spesialisasi_produksi_jasa': spesialisasiProduksiJasa,
-          'kapasitas_produksi': kapasitasProduksi,
-          'jangkauan_pemasaran': jangkauanPemasaran,
-          'jumlah_tenaga_kerja_sd': jumlahTenagaKerjaSd,
-          'jumlah_tenaga_kerja_sltp': jumlahTenagaKerjaSltp,
-          'jumlah_tenaga_kerja_slta': jumlahTenagaKerjaSlta,
-          'jumlah_tenaga_kerja_smk': jumlahTenagaKerjaSmk,
-          'jumlah_tenaga_kerja_sarjana_muda': jumlahTenagaKerjaSarjanaMuda,
-          'jumlah_tenaga_kerja_sarjana_magister':
-              jumlahTenagaKerjaSarjanaMagister,
-          'jumlah_tenaga_kerja_sarjana_doktor': jumlahTenagaKerjaSarjanaDoktor,
-        }));
+    final response =
+        await http.post(Uri.parse('$base_url/biodata-industri/mahasiswa'),
+            headers: headers,
+            body: jsonEncode({
+              'nama_industri': namaIndustri,
+              'nama_pimpinan': namaPimpinan,
+              'alamat_kantor': alamatKantor,
+              'no_telp_fax': noTelpFax,
+              'contact_person': contactPerson,
+              'bidang_usaha_jasa': bidangUsahaJasa,
+              'spesialisasi_produksi_jasa': spesialisasiProduksiJasa,
+              'kapasitas_produksi': kapasitasProduksi,
+              'jangkauan_pemasaran': jangkauanPemasaran,
+              'jumlah_tenaga_kerja_sd': jumlahTenagaKerjaSd,
+              'jumlah_tenaga_kerja_sltp': jumlahTenagaKerjaSltp,
+              'jumlah_tenaga_kerja_slta': jumlahTenagaKerjaSlta,
+              'jumlah_tenaga_kerja_smk': jumlahTenagaKerjaSmk,
+              'jumlah_tenaga_kerja_sarjana_muda': jumlahTenagaKerjaSarjanaMuda,
+              'jumlah_tenaga_kerja_sarjana_magister':
+                  jumlahTenagaKerjaSarjanaMagister,
+              'jumlah_tenaga_kerja_sarjana_doktor':
+                  jumlahTenagaKerjaSarjanaDoktor,
+            }));
     if (response.statusCode == 200) {
       return IsiBiodataIndustri.fromJson(json.decode(response.body));
     } else {
@@ -347,7 +362,8 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
-      Uri.parse('$base_url/jurnal-kegiatan/mahasiswa/$idJurnalKegiatan?_method=PUT'),
+      Uri.parse(
+          '$base_url/jurnal-kegiatan/mahasiswa/$idJurnalKegiatan?_method=PUT'),
       headers: headers,
       body: jsonEncode({
         'tanggal': tanggal,
@@ -382,8 +398,8 @@ class ApiService {
 
   Future<NilaiPkl> getNilaiPkl() async {
     Map<String, String> headers = await getHeaders();
-    final response =
-        await http.get(Uri.parse('$base_url/penilaian/mahasiswa'), headers: headers);
+    final response = await http.get(Uri.parse('$base_url/penilaian/mahasiswa'),
+        headers: headers);
     if (response.statusCode == 200) {
       return NilaiPkl.fromJson(json.decode(response.body));
     } else {
@@ -394,8 +410,8 @@ class ApiService {
 
   Future<DaftarHadir> getDaftarHadir() async {
     Map<String, String> headers = await getHeaders();
-    final response =
-        await http.get(Uri.parse('$base_url/daftar-hadir/mahasiswa'), headers: headers);
+    final response = await http
+        .get(Uri.parse('$base_url/daftar-hadir/mahasiswa'), headers: headers);
     if (response.statusCode == 200) {
       return DaftarHadir.fromJson(json.decode(response.body));
     } else {
@@ -553,7 +569,8 @@ class ApiService {
 
   Future<ListMahasiswa> getListNilaiPkl() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/penilaian-pembimbing/pembimbing'),
+    final response = await http.get(
+        Uri.parse('$base_url/penilaian-pembimbing/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -610,7 +627,8 @@ class ApiService {
 
   Future<ListMahasiswa> getListBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/biodata-industri/pembimbing'),
+    final response = await http.get(
+        Uri.parse('$base_url/biodata-industri/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -635,7 +653,8 @@ class ApiService {
 
   Future<ListMahasiswa> getListJurnalKegiatan() async {
     Map<String, String> headers = await getHeaders();
-    final response = await http.get(Uri.parse('$base_url/jurnal-kegiatan/pembimbing'),
+    final response = await http.get(
+        Uri.parse('$base_url/jurnal-kegiatan/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
@@ -660,8 +679,8 @@ class ApiService {
 
   Future<ListMahasiswa> getListDaftarHadir() async {
     Map<String, String> headers = await getHeaders();
-    final response =
-        await http.get(Uri.parse('$base_url/daftar-hadir/pembimbing'), headers: headers);
+    final response = await http
+        .get(Uri.parse('$base_url/daftar-hadir/pembimbing'), headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
     } else {

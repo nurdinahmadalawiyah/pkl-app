@@ -46,6 +46,7 @@ class AuthProvider extends ChangeNotifier {
       Logout logout = await ApiService().logoutMahasiswa();
       _logout = logout;
       await storage.delete(key: 'token');
+      await storage.delete(key: 'role');
       _token = null;
       notifyListeners();
       return true;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
+import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
@@ -18,6 +19,7 @@ import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cu
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/list_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/tambah_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/pelaporan/upload_laporan_cubit.dart';
+import 'package:magang_app/presentation/cubit/pengajuan/data_pembimbing_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/konfirmasi_diterima_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/lowongan_pkl_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/pengajuan_pkl_cubit.dart';
@@ -98,6 +100,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LowonganPklCubit(apiService: ApiService())),
         BlocProvider(create: (_) => PengajuanPklCubit()),
         BlocProvider(create: (_) => StatusPengajuanCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => DataPembimbingPklCubit(apiService: ApiService())),
         BlocProvider(create: (_) => EditProfileCubit()),
         BlocProvider(create: (_) => KonfirmasiDiterimaPklCubit()),
         BlocProvider(create: (_) => BiodataIndustriCubit(apiService: ApiService())),
