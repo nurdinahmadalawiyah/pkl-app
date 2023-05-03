@@ -125,63 +125,65 @@ class PembimbingDashboardPage extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 10,
-              bottom: 20,
-              left: 20,
-              right: 20,
-            ),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'Kelola Nilai PKL',
-                          style: kSemiBold.copyWith(
-                            fontSize: 20,
-                          ),
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/kelola-nilai'),
-                        child: Container(
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Icon(
-                            IconlyBold.editSquare,
-                            color: backgroundColor,
-                            size: 30,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 10,
+                bottom: 20,
+                left: 20,
+                right: 20,
+              ),
+              decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(30),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: secondaryColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Kelola Nilai PKL',
+                            style: kSemiBold.copyWith(
+                              fontSize: 20,
+                            ),
+                            overflow: TextOverflow.clip,
                           ),
                         ),
-                      )
-                    ],
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/kelola-nilai'),
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: const Icon(
+                              IconlyBold.editSquare,
+                              color: backgroundColor,
+                              size: 30,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const MenuDashboardPembimbing()
-        ],
+            const MenuDashboardPembimbing()
+          ],
+        ),
       ),
     );
   }
