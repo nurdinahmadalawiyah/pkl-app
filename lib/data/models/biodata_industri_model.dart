@@ -53,6 +53,8 @@ class Data {
     int jumlahTenagaKerjaSltp;
     int jumlahTenagaKerjaSlta;
     int jumlahTenagaKerjaSmk;
+    int jumlahTenagaKerjaSmea;
+    int jumlahTenagaKerjaSmkk;
     int jumlahTenagaKerjaSarjanaMuda;
     int jumlahTenagaKerjaSarjanaMagister;
     int jumlahTenagaKerjaSarjanaDoktor;
@@ -80,6 +82,8 @@ class Data {
         required this.jumlahTenagaKerjaSltp,
         required this.jumlahTenagaKerjaSlta,
         required this.jumlahTenagaKerjaSmk,
+        required this.jumlahTenagaKerjaSmea,
+        required this.jumlahTenagaKerjaSmkk,
         required this.jumlahTenagaKerjaSarjanaMuda,
         required this.jumlahTenagaKerjaSarjanaMagister,
         required this.jumlahTenagaKerjaSarjanaDoktor,
@@ -108,6 +112,8 @@ class Data {
         jumlahTenagaKerjaSltp: json["jumlah_tenaga_kerja_sltp"],
         jumlahTenagaKerjaSlta: json["jumlah_tenaga_kerja_slta"],
         jumlahTenagaKerjaSmk: json["jumlah_tenaga_kerja_smk"],
+        jumlahTenagaKerjaSmea: json["jumlah_tenaga_kerja_smea"],
+        jumlahTenagaKerjaSmkk: json["jumlah_tenaga_kerja_smkk"],
         jumlahTenagaKerjaSarjanaMuda: json["jumlah_tenaga_kerja_sarjana_muda"],
         jumlahTenagaKerjaSarjanaMagister: json["jumlah_tenaga_kerja_sarjana_magister"],
         jumlahTenagaKerjaSarjanaDoktor: json["jumlah_tenaga_kerja_sarjana_doktor"],
@@ -136,6 +142,8 @@ class Data {
         "jumlah_tenaga_kerja_sltp": jumlahTenagaKerjaSltp,
         "jumlah_tenaga_kerja_slta": jumlahTenagaKerjaSlta,
         "jumlah_tenaga_kerja_smk": jumlahTenagaKerjaSmk,
+        "jumlah_tenaga_kerja_smea": jumlahTenagaKerjaSmea,
+        "jumlah_tenaga_kerja_smkk": jumlahTenagaKerjaSmkk,
         "jumlah_tenaga_kerja_sarjana_muda": jumlahTenagaKerjaSarjanaMuda,
         "jumlah_tenaga_kerja_sarjana_magister": jumlahTenagaKerjaSarjanaMagister,
         "jumlah_tenaga_kerja_sarjana_doktor": jumlahTenagaKerjaSarjanaDoktor,

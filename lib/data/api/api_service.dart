@@ -42,6 +42,7 @@ class ApiService {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
+        "Connection": "Keep-Alive",
       };
     } else {
       throw Exception('Token not found in storage');
@@ -280,6 +281,8 @@ class ApiService {
     String jumlahTenagaKerjaSltp,
     String jumlahTenagaKerjaSlta,
     String jumlahTenagaKerjaSmk,
+    String jumlahTenagaKerjaSmea,
+    String jumlahTenagaKerjaSmkk,
     String jumlahTenagaKerjaSarjanaMuda,
     String jumlahTenagaKerjaSarjanaMagister,
     String jumlahTenagaKerjaSarjanaDoktor,
@@ -302,6 +305,8 @@ class ApiService {
               'jumlah_tenaga_kerja_sltp': jumlahTenagaKerjaSltp,
               'jumlah_tenaga_kerja_slta': jumlahTenagaKerjaSlta,
               'jumlah_tenaga_kerja_smk': jumlahTenagaKerjaSmk,
+              'jumlah_tenaga_kerja_smea': jumlahTenagaKerjaSmea,
+              'jumlah_tenaga_kerja_smkk': jumlahTenagaKerjaSmkk,
               'jumlah_tenaga_kerja_sarjana_muda': jumlahTenagaKerjaSarjanaMuda,
               'jumlah_tenaga_kerja_sarjana_magister':
                   jumlahTenagaKerjaSarjanaMagister,

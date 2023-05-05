@@ -28,7 +28,7 @@ class DownloadSuratPengantarPklPage extends StatelessWidget {
           ),
         ]),
         child: SfPdfViewer.network(
-          statusPengajuan.surat!,
+          statusPengajuan.surat,
           canShowPaginationDialog: true,
         ),
       ),

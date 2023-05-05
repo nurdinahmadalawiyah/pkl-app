@@ -44,6 +44,8 @@ class _BiodataIndustriPageState extends State<BiodataIndustriPage> {
                     0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSltp ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSmk ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSmkk ?? 0) +
+                (biodataIndustri.data.jumlahTenagaKerjaSmea ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSlta ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaMuda ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister ?? 0) +
@@ -145,7 +147,8 @@ class ButtonAddDataAndPrint extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
             child: ElevatedButton.icon(
-              onPressed: () => Navigator.pushNamed(context, '/download-biodata-industri'),
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/download-biodata-industri'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
@@ -188,7 +191,7 @@ class ButtonAdd extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () => Navigator.pushNamed(context, "/isi-biodata-industri"),
         style: ElevatedButton.styleFrom(
-          primary: tertiaryColor,
+          backgroundColor: tertiaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -226,6 +229,10 @@ class DataTenagaKerja extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var jumlahSmk = biodataIndustri.data.jumlahTenagaKerjaSmk +
+        biodataIndustri.data.jumlahTenagaKerjaSmea +
+        biodataIndustri.data.jumlahTenagaKerjaSmkk;
+
     return Container(
       margin: const EdgeInsets.only(
         bottom: 20,
@@ -355,10 +362,7 @@ class DataTenagaKerja extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          biodataIndustri.data.jumlahTenagaKerjaSmk == null
-                              ? "0"
-                              : biodataIndustri.data.jumlahTenagaKerjaSmk
-                                  .toString(),
+                          jumlahSmk == null ? "0" : jumlahSmk.toString(),
                           style: kRegular.copyWith(
                               fontSize: 12, color: tertiaryColor),
                         ),
@@ -570,10 +574,23 @@ class DataBiodataIndustriAktivitas extends StatelessWidget {
                   style: kBold.copyWith(fontSize: 12, color: backgroundColor),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  'Bidang Usaha / Jasa : ${biodataIndustri.data.bidangUsahaJasa}',
-                  style:
-                      kRegular.copyWith(fontSize: 12, color: backgroundColor),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bidang Usaha / Jasa : ',
+                      style: kRegular.copyWith(
+                          fontSize: 12, color: backgroundColor),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '● ${biodataIndustri.data.bidangUsahaJasa.replaceAll('\n', '\n● ')}',
+                        overflow: TextOverflow.clip,
+                        style: kRegular.copyWith(
+                            fontSize: 12, color: backgroundColor),
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   'Spesialisasi Produksi / Jasa : ${biodataIndustri.data.spesialisasiProduksiJasa}',

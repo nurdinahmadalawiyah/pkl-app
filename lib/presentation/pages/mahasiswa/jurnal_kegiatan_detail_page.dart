@@ -61,7 +61,7 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
                           actions: [
                             TextButton(
                               style: TextButton.styleFrom(
-                                primary: Colors.red,
+                                foregroundColor: Colors.red,
                               ),
                               onPressed: () async {
                                 await hapusCubit.deleteJurnalKegiatan(jurnal.idJurnalKegiatan.toString());
@@ -72,7 +72,7 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
                             ),
                             TextButton(
                               style: TextButton.styleFrom(
-                                primary: primaryColor,
+                                foregroundColor: primaryColor,
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                               child: const Text("Batal"),
@@ -139,6 +139,8 @@ class BottomAddDataAndPrint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final jurnalKegiatan = ModalRoute.of(context)?.settings.arguments as ListJurnalKegiatan;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -151,7 +153,7 @@ class BottomAddDataAndPrint extends StatelessWidget {
               onPressed: () =>
                   Navigator.pushNamed(context, '/tambah-jurnal-kegiatan'),
               style: ElevatedButton.styleFrom(
-                primary: tertiaryColor,
+                backgroundColor: tertiaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -181,9 +183,9 @@ class BottomAddDataAndPrint extends StatelessWidget {
             padding:
                 const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(context, '/download-jurnal-kegiatan', arguments: jurnalKegiatan),
               style: ElevatedButton.styleFrom(
-                primary: primaryColor,
+                backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),

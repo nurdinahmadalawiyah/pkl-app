@@ -64,7 +64,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                           actions: [
                             TextButton(
                               style: TextButton.styleFrom(
-                                primary: Colors.red,
+                                foregroundColor: Colors.red,
                               ),
                               onPressed: () async {
                                 await hapusCubit.deleteDaftarHadir(
@@ -79,7 +79,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                             ),
                             TextButton(
                               style: TextButton.styleFrom(
-                                primary: primaryColor,
+                                foregroundColor: primaryColor,
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                               child: const Text("Batal"),

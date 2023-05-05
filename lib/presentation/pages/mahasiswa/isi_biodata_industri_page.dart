@@ -33,6 +33,8 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
   final jumlahTenagaKerjaSltpController = TextEditingController();
   final jumlahTenagaKerjaSltaController = TextEditingController();
   final jumlahTenagaKerjaSmkController = TextEditingController();
+  final jumlahTenagaKerjaSmeaController = TextEditingController();
+  final jumlahTenagaKerjaSmkkController = TextEditingController();
   final jumlahTenagaKerjaSarjanaMudaController = TextEditingController();
   final jumlahTenagaKerjaSarjanaMagisterController = TextEditingController();
   final jumlahTenagaKerjaSarjanaDoktorController = TextEditingController();
@@ -87,6 +89,8 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
             jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
             jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
             jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+            jumlahTenagaKerjaSmeaController: jumlahTenagaKerjaSmeaController,
+            jumlahTenagaKerjaSmkkController: jumlahTenagaKerjaSmkkController,
             kapasitasProduksiController: kapasitasProduksiController,
             namaIndustriController: namaIndustriController,
             namaPimpinanController: namaPimpinanController,
@@ -136,6 +140,8 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
               noTelpFaxController: noTelpFaxController,
               spesialisasiProduksiJasaController:
                   spesialisasiProduksiJasaController,
+              jumlahTenagaKerjaSmeaController: jumlahTenagaKerjaSmeaController,
+              jumlahTenagaKerjaSmkkController: jumlahTenagaKerjaSmkkController,
             );
           }
         },
@@ -165,6 +171,8 @@ class SaveButton extends StatelessWidget {
     required this.jumlahTenagaKerjaSarjanaMudaController,
     required this.jumlahTenagaKerjaSarjanaMagisterController,
     required this.jumlahTenagaKerjaSarjanaDoktorController,
+    required this.jumlahTenagaKerjaSmeaController,
+    required this.jumlahTenagaKerjaSmkkController,
   })  : _formKey = formKey,
         super(key: key);
 
@@ -183,6 +191,8 @@ class SaveButton extends StatelessWidget {
   final jumlahTenagaKerjaSltpController;
   final jumlahTenagaKerjaSltaController;
   final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSmeaController;
+  final jumlahTenagaKerjaSmkkController;
   final jumlahTenagaKerjaSarjanaMudaController;
   final jumlahTenagaKerjaSarjanaMagisterController;
   final jumlahTenagaKerjaSarjanaDoktorController;
@@ -207,6 +217,8 @@ class SaveButton extends StatelessWidget {
             final jumlahTenagaKerjaSd = jumlahTenagaKerjaSdController.text;
             final jumlahTenagaKerjaSltp = jumlahTenagaKerjaSltpController.text;
             final jumlahTenagaKerjaSmk = jumlahTenagaKerjaSmkController.text;
+            final jumlahTenagaKerjaSmea = jumlahTenagaKerjaSmeaController.text;
+            final jumlahTenagaKerjaSmkk = jumlahTenagaKerjaSmkkController.text;
             final jumlahTenagaKerjaSlta = jumlahTenagaKerjaSltaController.text;
             final jumlahTenagaKerjaSarjanaMuda =
                 jumlahTenagaKerjaSarjanaMudaController.text;
@@ -229,6 +241,8 @@ class SaveButton extends StatelessWidget {
               jumlahTenagaKerjaSltp,
               jumlahTenagaKerjaSlta,
               jumlahTenagaKerjaSmk,
+              jumlahTenagaKerjaSmea,
+              jumlahTenagaKerjaSmkk,
               jumlahTenagaKerjaSarjanaMuda,
               jumlahTenagaKerjaSarjanaMagister,
               jumlahTenagaKerjaSarjanaDoktor,
@@ -236,7 +250,7 @@ class SaveButton extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-            primary: tertiaryColor,
+            backgroundColor: tertiaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),
@@ -278,7 +292,9 @@ class FormBiodataIndustri extends StatelessWidget {
       required this.jumlahTenagaKerjaSmkController,
       required this.jumlahTenagaKerjaSarjanaMudaController,
       required this.jumlahTenagaKerjaSarjanaMagisterController,
-      required this.jumlahTenagaKerjaSarjanaDoktorController})
+      required this.jumlahTenagaKerjaSarjanaDoktorController,
+      required this.jumlahTenagaKerjaSmeaController,
+      required this.jumlahTenagaKerjaSmkkController})
       : _formKey = formKey,
         super(key: key);
 
@@ -298,6 +314,8 @@ class FormBiodataIndustri extends StatelessWidget {
   final jumlahTenagaKerjaSltpController;
   final jumlahTenagaKerjaSltaController;
   final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSmeaController;
+  final jumlahTenagaKerjaSmkkController;
   final jumlahTenagaKerjaSarjanaMudaController;
   final jumlahTenagaKerjaSarjanaMagisterController;
   final jumlahTenagaKerjaSarjanaDoktorController;
@@ -330,6 +348,10 @@ class FormBiodataIndustri extends StatelessWidget {
                 data.jumlahTenagaKerjaSlta?.toString() ?? '';
             jumlahTenagaKerjaSmkController.text =
                 data.jumlahTenagaKerjaSmk?.toString() ?? '';
+            jumlahTenagaKerjaSmeaController.text =
+                data.jumlahTenagaKerjaSmea?.toString() ?? '';
+            jumlahTenagaKerjaSmkkController.text =
+                data.jumlahTenagaKerjaSmkk?.toString() ?? '';
             jumlahTenagaKerjaSarjanaMudaController.text =
                 data.jumlahTenagaKerjaSarjanaMuda?.toString() ?? '';
             jumlahTenagaKerjaSarjanaMagisterController.text =
@@ -354,6 +376,8 @@ class FormBiodataIndustri extends StatelessWidget {
               jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
               jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
               jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              jumlahTenagaKerjaSmeaController: jumlahTenagaKerjaSmeaController,
+              jumlahTenagaKerjaSmkkController: jumlahTenagaKerjaSmkkController,
               kapasitasProduksiController: kapasitasProduksiController,
               namaIndustriController: namaIndustriController,
               namaPimpinanController: namaPimpinanController,
@@ -379,6 +403,8 @@ class FormBiodataIndustri extends StatelessWidget {
               jumlahTenagaKerjaSltaController: jumlahTenagaKerjaSltaController,
               jumlahTenagaKerjaSltpController: jumlahTenagaKerjaSltpController,
               jumlahTenagaKerjaSmkController: jumlahTenagaKerjaSmkController,
+              jumlahTenagaKerjaSmeaController: jumlahTenagaKerjaSmeaController,
+              jumlahTenagaKerjaSmkkController: jumlahTenagaKerjaSmkkController,
               kapasitasProduksiController: kapasitasProduksiController,
               namaIndustriController: namaIndustriController,
               namaPimpinanController: namaPimpinanController,
@@ -410,6 +436,8 @@ class FormBiodataIndustri extends StatelessWidget {
               noTelpFaxController: noTelpFaxController,
               spesialisasiProduksiJasaController:
                   spesialisasiProduksiJasaController,
+              jumlahTenagaKerjaSmeaController: jumlahTenagaKerjaSmeaController,
+              jumlahTenagaKerjaSmkkController: jumlahTenagaKerjaSmkkController,
             );
           }
           return Container();
@@ -438,6 +466,8 @@ class FormInput extends StatelessWidget {
     required this.jumlahTenagaKerjaSarjanaMudaController,
     required this.jumlahTenagaKerjaSarjanaMagisterController,
     required this.jumlahTenagaKerjaSarjanaDoktorController,
+    required this.jumlahTenagaKerjaSmeaController,
+    required this.jumlahTenagaKerjaSmkkController,
   })  : _formKey = formKey,
         super(key: key);
 
@@ -456,6 +486,8 @@ class FormInput extends StatelessWidget {
   final jumlahTenagaKerjaSltpController;
   final jumlahTenagaKerjaSltaController;
   final jumlahTenagaKerjaSmkController;
+  final jumlahTenagaKerjaSmeaController;
+  final jumlahTenagaKerjaSmkkController;
   final jumlahTenagaKerjaSarjanaMudaController;
   final jumlahTenagaKerjaSarjanaMagisterController;
   final jumlahTenagaKerjaSarjanaDoktorController;
@@ -976,7 +1008,87 @@ class FormInput extends StatelessWidget {
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: accentColor,
-                              labelText: 'SMK/STM/SMEA/SMKK/SMTK',
+                              labelText: 'SMK/STM',
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sma_smk_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextFormField(
+                            controller: jumlahTenagaKerjaSmeaController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SMEA',
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFF585656)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: const BorderSide(
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SvgPicture.asset(
+                                  'assets/sma_smk_icon.svg',
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: jumlahTenagaKerjaSmkkController,
+                            cursorColor: primaryColor,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: accentColor,
+                              labelText: 'SMKK/SMTK',
                               labelStyle:
                                   const TextStyle(color: Color(0xFF585656)),
                               border: OutlineInputBorder(
@@ -1189,7 +1301,7 @@ void showSuccessDialog(BuildContext context) {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();

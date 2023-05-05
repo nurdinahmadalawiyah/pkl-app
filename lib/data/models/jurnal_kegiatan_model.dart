@@ -9,15 +9,15 @@ JurnalKegiatan jurnalKegiatanFromJson(String str) => JurnalKegiatan.fromJson(jso
 String jurnalKegiatanToJson(JurnalKegiatan data) => json.encode(data.toJson());
 
 class JurnalKegiatan {
+    String status;
+    String message;
+    List<ListJurnalKegiatan> data;
+
     JurnalKegiatan({
         required this.status,
         required this.message,
         required this.data,
     });
-
-    String status;
-    String message;
-    List<ListJurnalKegiatan> data;
 
     factory JurnalKegiatan.fromJson(Map<String, dynamic> json) => JurnalKegiatan(
         status: json["status"],
@@ -33,26 +33,37 @@ class JurnalKegiatan {
 }
 
 class ListJurnalKegiatan {
+    int minggu;
+    String pdfUrl;
+    List<DataKegiatan> dataKegiatan;
+
     ListJurnalKegiatan({
         required this.minggu,
+        required this.pdfUrl,
         required this.dataKegiatan,
     });
 
-    int minggu;
-    List<DataKegiatan> dataKegiatan;
-
     factory ListJurnalKegiatan.fromJson(Map<String, dynamic> json) => ListJurnalKegiatan(
         minggu: json["minggu"],
+        pdfUrl: json["pdf_url"],
         dataKegiatan: List<DataKegiatan>.from(json["data_kegiatan"].map((x) => DataKegiatan.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "minggu": minggu,
+        "pdf_url": pdfUrl,
         "data_kegiatan": List<dynamic>.from(dataKegiatan.map((x) => x.toJson())),
     };
 }
 
 class DataKegiatan {
+    int idJurnalKegiatan;
+    int idMahasiswa;
+    DateTime tanggal;
+    int minggu;
+    String bidangPekerjaan;
+    String keterangan;
+
     DataKegiatan({
         required this.idJurnalKegiatan,
         required this.idMahasiswa,
@@ -61,13 +72,6 @@ class DataKegiatan {
         required this.bidangPekerjaan,
         required this.keterangan,
     });
-
-    int idJurnalKegiatan;
-    int idMahasiswa;
-    DateTime tanggal;
-    int minggu;
-    String bidangPekerjaan;
-    String keterangan;
 
     factory DataKegiatan.fromJson(Map<String, dynamic> json) => DataKegiatan(
         idJurnalKegiatan: json["id_jurnal_kegiatan"],
