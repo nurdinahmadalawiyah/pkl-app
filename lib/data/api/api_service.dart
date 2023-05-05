@@ -7,6 +7,7 @@ import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
+import 'package:magang_app/data/models/hapus_biodata_industri.dart';
 import 'package:magang_app/data/models/hapus_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
@@ -331,6 +332,20 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get jurnal kegiatan: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<HapusBiodataIndustri> deleteBiodataIndustri() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.delete(
+      Uri.parse('$base_url/biodata-industri/mahasiswa'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return HapusBiodataIndustri.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to delete biodata industri: Response status code ${response.statusCode}");
     }
   }
 

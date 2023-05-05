@@ -6,6 +6,7 @@ import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/hapus_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
@@ -26,6 +27,8 @@ class _BiodataIndustriPageState extends State<BiodataIndustriPage> {
 
   @override
   Widget build(BuildContext context) {
+    final HapusBiodataIndustriCubit hapusCubit = HapusBiodataIndustriCubit();
+
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
@@ -51,14 +54,51 @@ class _BiodataIndustriPageState extends State<BiodataIndustriPage> {
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor ?? 0);
 
-            return ListView(
-              children: [
-                DataBiodataIndustriAktivitas(biodataIndustri: biodataIndustri),
-                DataTenagaKerja(
-                  biodataIndustri: biodataIndustri,
-                  jumlahTenagaKerja: jumlahTenagaKerja,
-                ),
-              ],
+            return GestureDetector(
+              onLongPress: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Konfirmasi Hapus Biodata Industri",
+                          style: kMedium.copyWith(color: tertiaryColor)),
+                      content: Text(
+                          "Apakah Anda yakin ingin menghapus biodata industri?",
+                          style: kRegular.copyWith(color: tertiaryColor)),
+                      actions: [
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red,
+                          ),
+                          onPressed: () async {
+                            await hapusCubit.deleteBiodataIndustri();
+                            Navigator.of(context).pop();
+                            Navigator.pushNamedAndRemoveUntil(context, '/biodata-industri', ModalRoute.withName('/dashboard'));
+                          },
+                          child: const Text("Hapus"),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: primaryColor,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text("Batal"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: ListView(
+                children: [
+                  DataBiodataIndustriAktivitas(
+                      biodataIndustri: biodataIndustri),
+                  DataTenagaKerja(
+                    biodataIndustri: biodataIndustri,
+                    jumlahTenagaKerja: jumlahTenagaKerja,
+                  ),
+                ],
+              ),
             );
           } else if (state is BiodataIndustriNoData) {
             final message = state.message;
