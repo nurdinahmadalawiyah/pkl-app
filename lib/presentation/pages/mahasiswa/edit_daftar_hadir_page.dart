@@ -11,6 +11,7 @@ import 'package:magang_app/presentation/cubit/daftar_hadir/daftar_hadir_cubit.da
 // ignore: depend_on_referenced_packages
 import 'package:image/image.dart' as img;
 import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cubit.dart';
+import 'package:magang_app/presentation/widgets/loading_button.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
 import 'package:magang_app/presentation/widgets/date_picker_form_field.dart';
@@ -58,19 +59,40 @@ class _EditDaftarHadirPageState extends State<EditDaftarHadirPage> {
               context.read<EditDaftarHadirCubit>().resetState();
               showSuccessDialog(context);
             });
-          } else {
-            return ListView(
-              children: [
-                FormUpdateDaftarHadir(formKey: _formKey, cubit: cubit)
-              ],
-            );
           }
-          return Container();
+          return ListView(
+            children: [FormUpdateDaftarHadir(formKey: _formKey, cubit: cubit)],
+          );
         },
       ),
-      bottomNavigationBar: ButtonUpdate(
-        cubit: cubit,
-        formKey: _formKey,
+      bottomNavigationBar:
+          BlocBuilder<EditDaftarHadirCubit, EditDaftarHadirState>(
+        builder: (context, state) {
+          if (state is EditDaftarHadirLoading) {
+            return const LoadingButton();
+          } else if (state is EditDaftarHadirError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 3),
+                  content: Text(
+                    'Gagal Menghapus Daftar Hadir',
+                    textAlign: TextAlign.center,
+                    style: kMedium.copyWith(color: backgroundColor),
+                  ),
+                  backgroundColor: Colors.red,
+                ),
+              );
+              cubit.resetState();
+            });
+            return Container();
+          }
+          return ButtonUpdate(
+            cubit: cubit,
+            formKey: _formKey,
+          );
+        },
       ),
     );
   }
@@ -93,12 +115,12 @@ void showSuccessDialog(BuildContext context) {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamedAndRemoveUntil(context, '/daftar-hadir',
-                  ModalRoute.withName('/dashboard'));
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/daftar-hadir', ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),
@@ -256,7 +278,8 @@ class ButtonUpdate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kehadiran = ModalRoute.of(context)?.settings.arguments as DataKehadiran;
+    final kehadiran =
+        ModalRoute.of(context)?.settings.arguments as DataKehadiran;
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -266,8 +289,9 @@ class ButtonUpdate extends StatelessWidget {
             final idDaftarHadir = kehadiran.idDaftarHadir.toString();
             final hariTanggal = cubit.hariTanggalController.text;
             final minggu = cubit.mingguController.text;
-            final signatureBytes = await cubit.tandaTanganController.toPngBytes();
-                        if (signatureBytes == null) {
+            final signatureBytes =
+                await cubit.tandaTanganController.toPngBytes();
+            if (signatureBytes == null) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 context.read<EditDaftarHadirCubit>().resetState();
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -278,15 +302,15 @@ class ButtonUpdate extends StatelessWidget {
                 );
               });
             } else {
-            final decodedImage = img.decodeImage(signatureBytes);
-            final tempDir = await getTemporaryDirectory();
-            final tempPath = tempDir.path;
-            final tandaTangan = File('$tempPath/signature.png')
-              ..writeAsBytesSync(img.encodePng(decodedImage!));
+              final decodedImage = img.decodeImage(signatureBytes);
+              final tempDir = await getTemporaryDirectory();
+              final tempPath = tempDir.path;
+              final tandaTangan = File('$tempPath/signature.png')
+                ..writeAsBytesSync(img.encodePng(decodedImage!));
 
-            cubit.updateDaftarHadir(
-                idDaftarHadir, hariTanggal, minggu, tandaTangan);
-            cubit.resetForm();
+              cubit.updateDaftarHadir(
+                  idDaftarHadir, hariTanggal, minggu, tandaTangan);
+              cubit.resetForm();
             }
           }
         },

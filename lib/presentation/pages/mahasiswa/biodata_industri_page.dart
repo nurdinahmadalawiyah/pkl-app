@@ -269,9 +269,9 @@ class DataTenagaKerja extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var jumlahSmk = biodataIndustri.data.jumlahTenagaKerjaSmk +
-        biodataIndustri.data.jumlahTenagaKerjaSmea +
-        biodataIndustri.data.jumlahTenagaKerjaSmkk;
+    var jumlahSmk = (biodataIndustri.data.jumlahTenagaKerjaSmk ?? 0) +
+        (biodataIndustri.data.jumlahTenagaKerjaSmea ?? 0) +
+        (biodataIndustri.data.jumlahTenagaKerjaSmkk ?? 0);
 
     return Container(
       margin: const EdgeInsets.only(

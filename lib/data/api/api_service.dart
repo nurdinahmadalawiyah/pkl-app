@@ -13,6 +13,7 @@ import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
+import 'package:magang_app/data/models/check_status_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
 import 'package:magang_app/data/models/register_model.dart';
@@ -87,6 +88,18 @@ class ApiService {
     } else {
       throw Exception(
           'Failed to logout: Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<CheckStatus> getCheckStatus() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/mahasiswa/status'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return CheckStatus.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get status mahasiswa: Response status code ${response.statusCode}");
     }
   }
 
@@ -482,7 +495,7 @@ class ApiService {
     Map<String, String> headers = await getHeaders();
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('$base_url/daftar-hadir/mahasiswa/$idDaftarHadir??_method=PUT'),
+      Uri.parse('$base_url/daftar-hadir/mahasiswa/$idDaftarHadir?_method=PUT'),
     );
     request.headers.addAll(headers);
     request.fields['hari_tanggal'] = hariTanggal;

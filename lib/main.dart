@@ -13,6 +13,7 @@ import 'package:magang_app/presentation/cubit/daftar_hadir/detail_daftar_hadir_c
 import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/list_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/tambah_daftar_hadir_cubit.dart';
+import 'package:magang_app/presentation/cubit/dashboard/check_status_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/detail_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => GantiPasswordProvider(),
         ),
+        BlocProvider(create: (_) => CheckStatusCubit(apiService: ApiService())),
         BlocProvider(create: (_) => ProfileCubit(apiService: ApiService())),
         BlocProvider(create: (_) => LowonganPklCubit(apiService: ApiService())),
         BlocProvider(create: (_) => PengajuanPklCubit()),

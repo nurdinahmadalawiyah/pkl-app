@@ -8,6 +8,7 @@ import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/widgets/date_picker_form_field.dart';
+import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class EditJurnalKegiatanPage extends StatefulWidget {
   const EditJurnalKegiatanPage({super.key});
@@ -64,9 +65,34 @@ class _EditJurnalKegiatanPageState extends State<EditJurnalKegiatanPage> {
           return Container();
         },
       ),
-      bottomNavigationBar: ButtonUpdate(
-        cubit: cubit,
-        formKey: _formKey,
+      bottomNavigationBar:
+          BlocBuilder<EditJurnalKegiatanCubit, EditJurnalKegiatanState>(
+        builder: (context, state) {
+          if (state is EditJurnalKegiatanLoading) {
+            return const LoadingButton();
+          } else if (state is EditJurnalKegiatanError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 3),
+                  content: Text(
+                    'Gagal Menghapus Daftar Hadir',
+                    textAlign: TextAlign.center,
+                    style: kMedium.copyWith(color: backgroundColor),
+                  ),
+                  backgroundColor: Colors.red,
+                ),
+              );
+              cubit.resetState();
+            });
+            return Container();
+          }
+          return ButtonUpdate(
+            cubit: cubit,
+            formKey: _formKey,
+          );
+        },
       ),
     );
   }

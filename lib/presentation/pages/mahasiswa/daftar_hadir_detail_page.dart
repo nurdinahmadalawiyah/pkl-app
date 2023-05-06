@@ -127,7 +127,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                           child: CachedNetworkImage(
                             height: 200,
                             imageUrl: hadir.tandaTangan,
-                            fit: BoxFit.cover,
+                            // fit: BoxFit.cover,
                             placeholder: (context, url) => const Center(
                               child: CircularProgressIndicator(),
                             ),
