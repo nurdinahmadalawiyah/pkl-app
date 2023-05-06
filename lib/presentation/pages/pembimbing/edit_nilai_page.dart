@@ -44,36 +44,38 @@ class _EditNilaiPageState extends State<EditNilaiPage> {
               context.read<PenilaianPembimbingCubit>().resetState();
               showSuccessDialog(context, list);
             });
-          } else {
-            return FormPenilaian(
-              cubit: cubit,
-              formKey: _formKey,
-              bahasaInggrisController: bahasaInggrisController,
-              integritasController: integritasController,
-              kerjaSamaController: kerjaSamaController,
-              komunikasiController: komunikasiController,
-              organisasiController: organisasiController,
-              profesionalitasController: profesionalitasController,
-              teknologiInformasiController: teknologiInformasiController,
-            );
           }
-          return Container();
+          return FormPenilaian(
+            cubit: cubit,
+            formKey: _formKey,
+            bahasaInggrisController: bahasaInggrisController,
+            integritasController: integritasController,
+            kerjaSamaController: kerjaSamaController,
+            komunikasiController: komunikasiController,
+            organisasiController: organisasiController,
+            profesionalitasController: profesionalitasController,
+            teknologiInformasiController: teknologiInformasiController,
+          );
         },
       ),
       bottomNavigationBar:
           BlocBuilder<PenilaianPembimbingCubit, PenilaianPembimbingState>(
         builder: (context, state) {
-          if (state is PenilaianPembimbingSuccess) {
+          if (state is PenilaianPembimbingLoading) {
             return const LoadingButton();
           } else if (state is PenilaianPembimbingError) {
+            // WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   context.read<PenilaianPembimbingCubit>().resetState();
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text('Terjadi kesalahan: ${state.message}'),
+            //       backgroundColor: Colors.red,
+            //     ),
+            //   );
+            // });
             WidgetsBinding.instance.addPostFrameCallback((_) {
               context.read<PenilaianPembimbingCubit>().resetState();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Terjadi kesalahan: ${state.message}'),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              showSuccessDialog(context, list);
             });
             return Container();
           } else {
@@ -425,22 +427,23 @@ void showSuccessDialog(BuildContext context, Datum list) {
       return AlertDialog(
         backgroundColor: accentColor,
         title: Text(
-          'Pengajuan PKL',
+          'Penilaian',
           style: kSemiBold.copyWith(color: tertiaryColor),
         ),
         content: Text(
-          'Pengajuan PKL Berhasil Dikirim',
+          'Berhasil memberi nilai kepada ${list.namaMahasiswa}',
           style: kRegular.copyWith(color: tertiaryColor),
         ),
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.pushNamedAndRemoveUntil(context, '/detail-kelola-nilai',
-                  ModalRoute.withName('/kelola-nilai'), arguments: list);
+                  ModalRoute.withName('/kelola-nilai'),
+                  arguments: list);
             },
             child: const Text('OK'),
           ),
@@ -485,6 +488,7 @@ class ButtonAdd extends StatelessWidget {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             final idMahasiswa = list.idMahasiswa.toString();
+            final idTempatPkl = list.idTempatPkl.toString();
             final integritas = integritasController.text;
             final profesionalitas = profesionalitasController.text;
             final bahasaInggris = bahasaInggrisController.text;
@@ -495,6 +499,7 @@ class ButtonAdd extends StatelessWidget {
 
             cubit.penilaianPembimbing(
               idMahasiswa,
+              idTempatPkl,
               integritas,
               profesionalitas,
               bahasaInggris,
@@ -506,7 +511,7 @@ class ButtonAdd extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          primary: tertiaryColor,
+          backgroundColor: tertiaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),

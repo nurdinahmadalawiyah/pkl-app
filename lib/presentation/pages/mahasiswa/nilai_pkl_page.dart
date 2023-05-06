@@ -69,7 +69,8 @@ class _NilaiPklPageState extends State<NilaiPklPage> {
       bottomNavigationBar: BlocBuilder<NilaiPklCubit, NilaiPklState>(
         builder: (context, state) {
           if (state is NilaiPklLoaded) {
-            return const ButtonPrint();
+            final nilaiPkl = state.nilaiPKL;
+            return ButtonPrint(nilaiPkl: nilaiPkl);
           } else {
             return const Text('Unknown Error');
           }
@@ -81,17 +82,22 @@ class _NilaiPklPageState extends State<NilaiPklPage> {
 
 class ButtonPrint extends StatelessWidget {
   const ButtonPrint({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.nilaiPkl,
+  });
+
+  final NilaiPkl nilaiPkl;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(
+            context, '/download-lembar-penilaian',
+            arguments: nilaiPkl),
         style: ElevatedButton.styleFrom(
-          primary: primaryColor,
+          backgroundColor: primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -168,7 +174,9 @@ class NilaiAkhirPKL extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.nilaiAkhir.toStringAsFixed(2),
+                      nilaiPkl.data.nilaiAkhir != null
+                          ? nilaiPkl.data.nilaiAkhir.toStringAsFixed(2)
+                          : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -206,7 +214,7 @@ class NilaiAkhirPKL extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.nilaiHuruf,
+                      nilaiPkl.data.nilaiHuruf ?? '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -271,7 +279,9 @@ class NilaiProdi extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.presentasi.toStringAsFixed(2),
+                      nilaiPkl.data.presentasi != null
+                          ? nilaiPkl.data.presentasi.toStringAsFixed(2)
+                          : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -308,7 +318,9 @@ class NilaiProdi extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.dokumen.toStringAsFixed(2),
+                      nilaiPkl.data.dokumen != null
+                          ? nilaiPkl.data.dokumen.toStringAsFixed(2)
+                          : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -410,7 +422,7 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.kerjaSama.toStringAsFixed(2),
+                      nilaiPkl.data.profesionalitas.toStringAsFixed(2),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),

@@ -76,6 +76,8 @@ import 'package:magang_app/presentation/provider/password_visibility_provider.da
 import 'package:magang_app/presentation/provider/pencarian_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'presentation/pages/mahasiswa/download_lembar_penilaian_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -160,6 +162,7 @@ class MyApp extends StatelessWidget {
           '/edit-jurnal-kegiatan': (context) => const EditJurnalKegiatanPage(),
           '/download-jurnal-kegiatan': (context) => const DownloadJurnalKegiatanPage(),
           '/nilai-pkl': (context) => const NilaiPklPage(),
+          '/download-lembar-penilaian': (context) => const DownloadLembarPenilaianPage(),
           '/daftar-hadir': (context) => const DaftarHadirPage(),
           '/daftar-hadir-detail': (context) => const DaftarHadirDetailPage(),
           '/tambah-daftar-hadir': (context) => const TambahDaftarHadirPage(),

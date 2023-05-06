@@ -653,6 +653,7 @@ class ApiService {
 
   Future<PenilaianPembimbing> penilaianPembimbing(
       String idMahasiswa,
+      String idTempatPkl,
       String integritas,
       String profesionalitas,
       String bahasaInggris,
@@ -666,6 +667,7 @@ class ApiService {
       headers: headers,
       body: jsonEncode({
         'id_mahasiswa': idMahasiswa,
+        'id_tempat_pkl': idTempatPkl,
         'integritas': integritas,
         'profesionalitas': profesionalitas,
         'bahasa_inggris': bahasaInggris,

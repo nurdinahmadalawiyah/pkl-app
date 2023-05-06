@@ -80,7 +80,7 @@ class ButtonEdit extends StatelessWidget {
     child: ElevatedButton.icon(
       onPressed: () => Navigator.pushNamed(context, '/edit-nilai', arguments: list),
       style: ElevatedButton.styleFrom(
-          primary: tertiaryColor,
+          backgroundColor: tertiaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),

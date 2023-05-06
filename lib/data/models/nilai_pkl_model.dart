@@ -12,16 +12,19 @@ class NilaiPkl {
     NilaiPkl({
         required this.status,
         required this.message,
+        required this.pdfUrl,
         required this.data,
     });
 
     String status;
     String message;
+    String pdfUrl;
     Data data;
 
     factory NilaiPkl.fromJson(Map<String, dynamic> json) => NilaiPkl(
         status: json["status"],
         message: json["message"],
+        pdfUrl: json["pdf_url"],
         data: Data.fromJson(json["data"]),
     );
 

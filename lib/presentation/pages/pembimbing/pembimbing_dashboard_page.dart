@@ -25,7 +25,7 @@ class PembimbingDashboardPage extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.red,
+                foregroundColor: Colors.red,
               ),
               onPressed: () async {
                 String? token = await storage.read(key: 'token');

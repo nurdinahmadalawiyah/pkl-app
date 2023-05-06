@@ -16,6 +16,7 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
 
   Future<void> penilaianPembimbing(
     String idMahasiswa,
+    String idTempatPkl,
     String integritas,
     String profesionalitas,
     String bahasaInggris,
@@ -28,6 +29,7 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
       emit(PenilaianPembimbingLoading());
       final response = await _apiService.penilaianPembimbing(
         idMahasiswa,
+        idTempatPkl,
         integritas,
         profesionalitas,
         bahasaInggris,
