@@ -159,10 +159,8 @@ class CardDaftarHadir extends StatelessWidget {
                                   child: kehadiranHarian.tandaTangan != null
                                       ? CachedNetworkImage(
                                           height: 40,
-                                          imageUrl: kehadiran
-                                              .dataKehadiran[subindex]
-                                              .tandaTangan,
-                                          fit: BoxFit.cover,
+                                          imageUrl: kehadiranHarian.tandaTangan,
+                                          // fit: BoxFit.cover,
                                           placeholder: (context, url) =>
                                               const Center(
                                             child: CircularProgressIndicator(),
@@ -171,7 +169,7 @@ class CardDaftarHadir extends StatelessWidget {
                                               const Icon(Icons.error),
                                         )
                                       : Text(
-                                          'Tidak ada tanda tangan',
+                                          'Gagal memuat tanda tangan',
                                           style: kRegular.copyWith(
                                               fontSize: 12,
                                               color: tertiaryColor),

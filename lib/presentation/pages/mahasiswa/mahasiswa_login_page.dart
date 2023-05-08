@@ -95,8 +95,7 @@ class _MahasiswaLoginPageState extends State<MahasiswaLoginPage> {
         child: SingleChildScrollView(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height -
-                (MediaQuery.of(context).size.height * 0.1),
+            height: MediaQuery.of(context).size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

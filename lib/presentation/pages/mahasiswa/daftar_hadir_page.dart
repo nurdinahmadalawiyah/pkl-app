@@ -62,12 +62,98 @@ class _DaftarHadirPageState extends State<DaftarHadirPage> {
           } else if (state is DaftarHadirNoData) {
             return const ButtonAdd();
           } else if (state is DaftarHadirLoaded) {
-            return const ButtonAddDataAndPrint();
+            final daftarHadir = state.daftarHadir;
+            return ButtonAddDataAndPrint(daftarHadir: daftarHadir);
           } else {
             return const Text('Unknown Error');
           }
         },
       ),
+    );
+  }
+}
+
+class ButtonAddDataAndPrint extends StatelessWidget {
+  const ButtonAddDataAndPrint({
+    super.key,
+    required this.daftarHadir,
+  });
+
+  final DaftarHadir daftarHadir;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                right: 5, bottom: 20, left: 20, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/tambah-daftar-hadir'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: tertiaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                IconlyBold.plus,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Tambah Data',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                right: 20, bottom: 20, left: 5, top: 20),
+            child: ElevatedButton.icon(
+              onPressed: () => Navigator.pushNamed(
+                  context, '/download-daftar-hadir',
+                  arguments: daftarHadir),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: const EdgeInsets.all(15),
+              ),
+              icon: const Icon(
+                Icons.picture_as_pdf_rounded,
+                color: backgroundColor,
+              ),
+              label: FittedBox(
+                child: Text(
+                  'Cetak PDF',
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: kSemiBold.copyWith(
+                    fontSize: 16,
+                    color: backgroundColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -158,85 +244,6 @@ class CardDaftarHadir extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class ButtonAddDataAndPrint extends StatelessWidget {
-  const ButtonAddDataAndPrint({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(right: 5, bottom: 20, left: 20, top: 20),
-            child: ElevatedButton.icon(
-              onPressed: () => Navigator.pushNamed(context, '/tambah-daftar-hadir'),
-              style: ElevatedButton.styleFrom(
-                primary: tertiaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.all(15),
-              ),
-              icon: const Icon(
-                IconlyBold.plus,
-                color: backgroundColor,
-              ),
-              label: FittedBox(
-                child: Text(
-                  'Tambah Data',
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: kSemiBold.copyWith(
-                    fontSize: 16,
-                    color: backgroundColor,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding:
-                const EdgeInsets.only(right: 20, bottom: 20, left: 5, top: 20),
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.all(15),
-              ),
-              icon: const Icon(
-                Icons.picture_as_pdf_rounded,
-                color: backgroundColor,
-              ),
-              label: FittedBox(
-                child: Text(
-                  'Cetak PDF',
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: kSemiBold.copyWith(
-                    fontSize: 16,
-                    color: backgroundColor,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -116,7 +116,7 @@ class GridMenuApproveComfirmed extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                   content: Text(
-                      "Saat ini kamu terdata sedang menjalani PKL di perusahaan yang telah kamu ajukan",
+                      "Maaf, Kamu tidak bisa melakukan konfirmasi diterima PKL lagi karena saat ini kamu terdata sedang menjalani PKL di perusahaan yang telah kamu ajukan sebelumnya",
                       textAlign: TextAlign.center,
                       style: kMedium.copyWith(color: tertiaryColor)),
                   actions: [

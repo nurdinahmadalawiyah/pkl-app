@@ -35,6 +35,7 @@ import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.d
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_detail_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/download_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/donwload_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/download_biodata_industri_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/download_surat_pengantar_pkl_page.dart';
@@ -167,6 +168,7 @@ class MyApp extends StatelessWidget {
           '/daftar-hadir-detail': (context) => const DaftarHadirDetailPage(),
           '/tambah-daftar-hadir': (context) => const TambahDaftarHadirPage(),
           '/edit-daftar-hadir': (context) => const EditDaftarHadirPage(),
+          '/download-daftar-hadir': (context) => const DownloadDaftarHadirPage(),
           '/upload-laporan': (context) => const UploadLaporanPage(),
           '/login-pembimbing': (context) => const PembimbingLoginPage(),
           '/register-pembimbing': (context) => const PembimbingRegisterPage(),
