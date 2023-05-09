@@ -34,7 +34,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:magang_app/data/models/upload_laporan_model.dart';
 
 class ApiService {
-  static const String base_url = "http://10.0.2.2:8000/api";
+  static const String base_url = "https://b28f-125-163-18-64.ngrok-free.app/api";
   final storage = const FlutterSecureStorage();
 
   Future<Map<String, String>> getHeaders() async {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
@@ -67,25 +69,69 @@ class _DownloadBiodataIndustriPageState
           }
         },
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              backgroundColor: tertiaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
+      bottomNavigationBar:
+          BlocBuilder<BiodataIndustriCubit, BiodataIndustriState>(
+        builder: (context, state) {
+          if (state is BiodataIndustriLoaded) {
+            final biodataIndustri = state.biodataIndustri;
+            return ButtonDownload(
+              biodataIndustri: biodataIndustri,
+            );
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ButtonDownload extends StatelessWidget {
+  const ButtonDownload({
+    super.key,
+    required this.biodataIndustri,
+  });
+
+  final BiodataIndustri biodataIndustri;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton(
+        onPressed: () async {
+          try {
+            await launch(
+              biodataIndustri.pdfUrl,
+              customTabsOption: CustomTabsOption(
+                enableDefaultShare: true,
+                enableUrlBarHiding: true,
+                showPageTitle: true,
+                animation: CustomTabsSystemAnimation.slideIn(),
+                extraCustomTabs: const <String>[
+                  'org.mozilla.firefox',
+                  'com.microsoft.emmx',
+                ],
               ),
-              padding: const EdgeInsets.all(15)),
-          child: FittedBox(
-            child: Text(
-              'Download',
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.clip,
-              style: kSemiBold.copyWith(
-                fontSize: 16,
-                color: backgroundColor,
-              ),
+            );
+          } catch (e) {
+            debugPrint(e.toString());
+          }
+        },
+        style: ElevatedButton.styleFrom(
+            backgroundColor: tertiaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            padding: const EdgeInsets.all(15)),
+        child: FittedBox(
+          child: Text(
+            'Download',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
             ),
           ),
         ),

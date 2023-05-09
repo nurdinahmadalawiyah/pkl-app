@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -48,7 +49,25 @@ class DownloadJurnalKegiatanPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            try {
+              await launch(
+                jurnalKegiatan.pdfUrl,
+                customTabsOption: CustomTabsOption(
+                  enableDefaultShare: true,
+                  enableUrlBarHiding: true,
+                  showPageTitle: true,
+                  animation: CustomTabsSystemAnimation.slideIn(),
+                  extraCustomTabs: const <String>[
+                    'org.mozilla.firefox',
+                    'com.microsoft.emmx',
+                  ],
+                ),
+              );
+            } catch (e) {
+              debugPrint(e.toString());
+            }
+          },
           style: ElevatedButton.styleFrom(
               backgroundColor: tertiaryColor,
               shape: RoundedRectangleBorder(
