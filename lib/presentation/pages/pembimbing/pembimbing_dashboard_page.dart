@@ -1,13 +1,32 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
+import 'package:magang_app/presentation/cubit/dashboard/list_mahasiswa_cubit.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
+import 'package:magang_app/presentation/widgets/loading_animation.dart';
+import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
-class PembimbingDashboardPage extends StatelessWidget {
+class PembimbingDashboardPage extends StatefulWidget {
   const PembimbingDashboardPage({super.key});
+
+  @override
+  State<PembimbingDashboardPage> createState() =>
+      _PembimbingDashboardPageState();
+}
+
+class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
+  @override
+  void initState() {
+    context.read<ListMahasiswaCubit>().getListMahasiswa();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +180,8 @@ class PembimbingDashboardPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, '/kelola-nilai'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/kelola-nilai'),
                           child: Container(
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
@@ -181,7 +201,44 @@ class PembimbingDashboardPage extends StatelessWidget {
                 ],
               ),
             ),
-            const MenuDashboardPembimbing()
+            BlocBuilder<ListMahasiswaCubit, ListMahasiswaState>(
+              builder: (context, state) {
+                if (state is ListMahasiswaLoading) {
+                  return const Center(
+                    child: LoadingAnimation(),
+                  );
+                } else if (state is ListMahasiswaLoaded) {
+                  final listMahasiswa = state.listMahasiswa;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Text(
+                          'Daftar Mahasiswa',
+                          style: kMedium.copyWith(color: blackColor, fontSize: 16),
+                        ),
+                      ),
+                      CardListMahasiswa(
+                        listMahasiswa: listMahasiswa,
+                      ),
+                    ],
+                  );
+                } else if (state is ListMahasiswaNoData) {
+                  return Center(
+                    child: NoDataAnimation(message: state.message),
+                  );
+                } else if (state is ListMahasiswaNoConnection) {
+                  return Center(
+                    child: NoConnectionAnimation(message: state.message),
+                  );
+                } else if (state is ListMahasiswaError) {
+                  return Center(child: ErrorAnimation(message: state.message));
+                } else {
+                  return const Text('Unknown Error');
+                }
+              },
+            )
           ],
         ),
       ),
@@ -189,128 +246,49 @@ class PembimbingDashboardPage extends StatelessWidget {
   }
 }
 
-class MenuDashboardPembimbing extends StatelessWidget {
-  const MenuDashboardPembimbing({
+class CardListMahasiswa extends StatelessWidget {
+  const CardListMahasiswa({
     Key? key,
+    required this.listMahasiswa,
   }) : super(key: key);
+
+  final ListMahasiswa listMahasiswa;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 2,
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: const Expanded(
-        child: GridMenu(),
-      ),
-    );
-  }
-}
-
-class GridMenu extends StatelessWidget {
-  const GridMenu({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 4,
-      mainAxisSpacing: 10.0,
-      crossAxisSpacing: 10.0,
-      childAspectRatio: 6 / 8,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/list-biodata-industri'),
-          child: GridTile(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: accentColor,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Icon(
-                    IconlyBold.document,
-                    size: 50,
-                    color: primaryColor,
-                  ),
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: listMahasiswa.data.length,
+      itemBuilder: (context, index) {
+        var list = listMahasiswa.data[index];
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () => Navigator.pushNamed(context, '/menu-mahasiswa', arguments: list),
+            child: Ink(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: accentColor,
+              ),
+              child: ListTile(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                title: Text(
+                  list.namaMahasiswa,
+                  style: kBold.copyWith(color: blackColor, fontSize: 16),
                 ),
-                const SizedBox(height: 5),
-                Expanded(
-                  child: Text(
-                    'Biodata Industri',
-                    textAlign: TextAlign.center,
-                    style: kMedium.copyWith(fontSize: 10, color: tertiaryColor),
-                  ),
+                subtitle: Text(
+                  list.nim,
+                  style: kRegular.copyWith(color: blackColor, fontSize: 16),
                 ),
-              ],
+                trailing: const Icon(Icons.chevron_right_rounded),
+              ),
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/list-jurnal-kegiatan'),
-          child: GridTile(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: accentColor,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Icon(
-                    IconlyBold.activity,
-                    size: 50,
-                    color: primaryColor,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Expanded(
-                  child: Text(
-                    'Jurnal Kegiatan',
-                    textAlign: TextAlign.center,
-                    style: kMedium.copyWith(fontSize: 10, color: tertiaryColor),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/list-daftar-hadir'),
-          child: GridTile(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: accentColor,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Icon(
-                    IconlyBold.paper,
-                    size: 50,
-                    color: primaryColor,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Expanded(
-                  child: Text(
-                    'Daftar Hadir',
-                    textAlign: TextAlign.center,
-                    style: kMedium.copyWith(fontSize: 10, color: tertiaryColor),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

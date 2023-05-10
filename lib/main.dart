@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/isi_biodata_industri_cubit.dart';
-import 'package:magang_app/presentation/cubit/biodata_industri/list_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/detail_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cubit.dart';
-import 'package:magang_app/presentation/cubit/daftar_hadir/list_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/tambah_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/dashboard/check_status_cubit.dart';
+import 'package:magang_app/presentation/cubit/dashboard/list_mahasiswa_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/detail_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
-import 'package:magang_app/presentation/cubit/jurnal_kegiatan/list_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/tambah_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/pelaporan/upload_laporan_cubit.dart';
 import 'package:magang_app/presentation/cubit/pengajuan/data_pembimbing_pkl_cubit.dart';
@@ -64,9 +61,7 @@ import 'package:magang_app/presentation/pages/pembimbing/detail_jurnal_kegiatan_
 import 'package:magang_app/presentation/pages/pembimbing/detail_kelola_nilai_pkl_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/edit_nilai_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/kelola_nilai_page.dart';
-import 'package:magang_app/presentation/pages/pembimbing/list_biodata_industri_page.dart';
-import 'package:magang_app/presentation/pages/pembimbing/list_daftar_hadir_page.dart';
-import 'package:magang_app/presentation/pages/pembimbing/list_jurnal_kegiatan_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/menu_mahasiswa_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_dashboard_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_login_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/pembimbing_register_page.dart';
@@ -124,11 +119,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ListNilaiPklCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailNilaiCubit(apiService: ApiService())),
         BlocProvider(create: (_) => PenilaianPembimbingCubit()),
-        BlocProvider(create: (_) => ListBiodataIndustriCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => ListMahasiswaCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailBiodataIndustriCubit(apiService: ApiService())),
-        BlocProvider(create: (_) => ListJurnalKegiatanCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailJurnalKegiatanCubit(apiService: ApiService())),
-        BlocProvider(create: (_) => ListDaftarHadirCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailDaftarHadirCubit(apiService: ApiService())),
       ],
       child: MaterialApp(
@@ -176,12 +169,10 @@ class MyApp extends StatelessWidget {
           '/kelola-nilai': (context) => const KelolaNilaiPage(),
           '/edit-nilai': (context) => const EditNilaiPage(),
           '/detail-kelola-nilai': (context) => const DetailKelolaNilaiPklPage(),
-          '/list-biodata-industri': (context) => const ListBiodataIndustriPage(),
+          '/menu-mahasiswa': (context) => const MenuMahasiswaPage(),
           '/detail-biodata-industri': (context) => const DetailBiodataIndustriPage(),
-          '/list-jurnal-kegiatan': (context) => const ListJurnalKegiatanPage(),
           '/detail-jurnal-kegiatan': (context) => const DetailJurnalKegiatanPage(),
           '/detail-jurnal-kegiatan-2': (context) => const DetailJurnalKegiatan2Page(),
-          '/list-daftar-hadir': (context) => const ListDaftarHadirPage(),
           '/detail-daftar-hadir':(context) => const DetailDaftarHadirPage()
         },
       ),

@@ -34,7 +34,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:magang_app/data/models/upload_laporan_model.dart';
 
 class ApiService {
-  static const String base_url = "https://b28f-125-163-18-64.ngrok-free.app/api";
+  static const String base_url = "http://10.0.2.2:8000/api";
   final storage = const FlutterSecureStorage();
 
   Future<Map<String, String>> getHeaders() async {
@@ -685,16 +685,16 @@ class ApiService {
     }
   }
 
-  Future<ListMahasiswa> getListBiodataIndustri() async {
+  Future<ListMahasiswa> getListMahasiswa() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/pembimbing'),
+        Uri.parse('$base_url/mahasiswa/list/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
     } else {
       throw Exception(
-          "Failed to get list biodata industri: Response status code ${response.statusCode}");
+          "Failed to get list mahasiswa: Response status code ${response.statusCode}");
     }
   }
 
@@ -711,19 +711,6 @@ class ApiService {
     }
   }
 
-  Future<ListMahasiswa> getListJurnalKegiatan() async {
-    Map<String, String> headers = await getHeaders();
-    final response = await http.get(
-        Uri.parse('$base_url/jurnal-kegiatan/pembimbing'),
-        headers: headers);
-    if (response.statusCode == 200) {
-      return ListMahasiswa.fromJson(json.decode(response.body));
-    } else {
-      throw Exception(
-          "Failed to get list jurnal kegiatan: Response status code ${response.statusCode}");
-    }
-  }
-
   Future<JurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
@@ -734,18 +721,6 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get detail jurnal kegiatan: Response status code ${response.statusCode}");
-    }
-  }
-
-  Future<ListMahasiswa> getListDaftarHadir() async {
-    Map<String, String> headers = await getHeaders();
-    final response = await http
-        .get(Uri.parse('$base_url/daftar-hadir/pembimbing'), headers: headers);
-    if (response.statusCode == 200) {
-      return ListMahasiswa.fromJson(json.decode(response.body));
-    } else {
-      throw Exception(
-          "Failed to get list daftar hadir: Response status code ${response.statusCode}");
     }
   }
 
