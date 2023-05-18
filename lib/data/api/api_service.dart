@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
+import 'package:magang_app/data/models/cancel_laporan_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
@@ -118,7 +119,7 @@ class ApiService {
   Future<PencarianLowongan> getPencarianLowongan(String keyword) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/lowongan-pkl/mahasiswa/search?q='),
+        Uri.parse('$base_url/lowongan-pkl/mahasiswa/search?q=$keyword'),
         headers: headers);
     if (response.statusCode == 200) {
       return PencarianLowongan.fromJson(json.decode(response.body));
@@ -543,11 +544,11 @@ class ApiService {
     );
     request.headers.addAll(headers);
     request.files.add(http.MultipartFile(
-      'laporan',
+      'file',
       file.readAsBytes().asStream(),
       file.lengthSync(),
       filename: file.path.split('/').last,
-      contentType: MediaType.parse('pdf/doc'),
+      contentType: MediaType('application', 'octet-stream'),
     ));
 
     final response = await request.send();
@@ -558,6 +559,32 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to upload: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<UploadLaporan> getLaporan() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(Uri.parse('$base_url/laporan/mahasiswa'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return UploadLaporan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get Laporan: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<CancelLaporan> cancelLaporan(String idLaporan) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.delete(
+      Uri.parse('$base_url/laporan/mahasiswa/$idLaporan'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return CancelLaporan.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to delete laporan: Response status code ${response.statusCode}");
     }
   }
 

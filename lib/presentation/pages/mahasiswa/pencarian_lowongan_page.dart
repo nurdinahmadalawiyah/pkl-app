@@ -7,6 +7,7 @@ import 'package:magang_app/presentation/provider/pencarian_provider.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
+import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/pencarian_lowongan.dart';
@@ -93,42 +94,38 @@ class _PencarianLowonganPageState extends State<PencarianLowonganPage> {
                   style: const TextStyle(color: Colors.black),
                 ),
               ),
-              Expanded(child: Consumer<PencarianProvider>(
-                builder: (context, state, _) {
-                  if (state.state == ResultState.loading) {
-                    return const Center(
-                      child: LoadingAnimation(),
-                    );
-                  } else if (state.state == ResultState.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.pencarianLowongan!.data.length,
-                      itemBuilder: (context, index) {
-                        var lowongan = state.pencarianLowongan!.data[index];
-                        return CardPencarianLowongan(lowongan: lowongan);
-                      },
-                    );
+              Expanded(
+                child: Consumer<PencarianProvider>(
+                  builder: (context, state, _) {
+                    if (state.state == ResultState.loading) {
+                      return const Center(
+                        child: LoadingAnimation(),
+                      );
+                    } else if (state.state == ResultState.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.pencarianLowongan!.data.length,
+                        itemBuilder: (context, index) {
+                          var lowongan = state.pencarianLowongan!.data[index];
+                          return CardPencarianLowongan(lowongan: lowongan);
+                        },
+                      );
                     } else if (state.state == ResultState.noData) {
                       return Center(
-                        child: Text(
-                          state.message,
-                          style: kMedium.copyWith(
-                              color: blackColor, fontSize: 23),
-                        ),
-                      );
+                          child: SingleChildScrollView(child: NoDataAnimation(message: state.message)));
                     } else if (state.state == ResultState.noConnection) {
                       return Center(
-                        child: NoConnectionAnimation(message: state.message)
-                      );
+                          child: SingleChildScrollView(child: NoConnectionAnimation(message: state.message)));
                     } else if (state.state == ResultState.error) {
                       return Center(
-                        child: ErrorAnimation(message: state.message),
+                        child: SingleChildScrollView(child: ErrorAnimation(message: state.message)),
                       );
                     } else {
                       return const Text('Unknown Error');
                     }
-                },
-              ),)
+                  },
+                ),
+              )
             ],
           );
         },
@@ -139,10 +136,11 @@ class _PencarianLowonganPageState extends State<PencarianLowonganPage> {
 
 class CardPencarianLowongan extends StatelessWidget {
   const CardPencarianLowongan({
-    Key? key, required this.lowongan,
+    Key? key,
+    required this.lowongan,
   }) : super(key: key);
 
-    final Lowongan lowongan;
+  final Lowongan lowongan;
 
   @override
   Widget build(BuildContext context) {

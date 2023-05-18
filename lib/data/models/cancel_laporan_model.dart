@@ -1,32 +1,28 @@
 // To parse this JSON data, do
 //
-//     final uploadLaporan = uploadLaporanFromJson(jsonString);
+//     final cancelLaporan = cancelLaporanFromJson(jsonString);
 
 import 'dart:convert';
 
-UploadLaporan uploadLaporanFromJson(String str) => UploadLaporan.fromJson(json.decode(str));
+CancelLaporan cancelLaporanFromJson(String str) => CancelLaporan.fromJson(json.decode(str));
 
-String uploadLaporanToJson(UploadLaporan data) => json.encode(data.toJson());
+String cancelLaporanToJson(CancelLaporan data) => json.encode(data.toJson());
 
-class UploadLaporan {
-    String status;
+class CancelLaporan {
     String message;
     Data data;
 
-    UploadLaporan({
-        required this.status,
+    CancelLaporan({
         required this.message,
         required this.data,
     });
 
-    factory UploadLaporan.fromJson(Map<String, dynamic> json) => UploadLaporan(
-        status: json["status"],
+    factory CancelLaporan.fromJson(Map<String, dynamic> json) => CancelLaporan(
         message: json["message"],
         data: Data.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "status": status,
         "message": message,
         "data": data.toJson(),
     };
@@ -34,32 +30,36 @@ class UploadLaporan {
 
 class Data {
     int idLaporan;
-    String nama;
-    String nim;
+    int idMahasiswa;
     String file;
     DateTime tanggalUpload;
+    DateTime createdAt;
+    DateTime updatedAt;
 
     Data({
         required this.idLaporan,
-        required this.nama,
-        required this.nim,
+        required this.idMahasiswa,
         required this.file,
         required this.tanggalUpload,
+        required this.createdAt,
+        required this.updatedAt,
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         idLaporan: json["id_laporan"],
-        nama: json["nama"],
-        nim: json["nim"],
+        idMahasiswa: json["id_mahasiswa"],
         file: json["file"],
         tanggalUpload: DateTime.parse(json["tanggal_upload"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id_laporan": idLaporan,
-        "nama": nama,
-        "nim": nim,
+        "id_mahasiswa": idMahasiswa,
         "file": file,
         "tanggal_upload": "${tanggalUpload.year.toString().padLeft(4, '0')}-${tanggalUpload.month.toString().padLeft(2, '0')}-${tanggalUpload.day.toString().padLeft(2, '0')}",
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
     };
 }

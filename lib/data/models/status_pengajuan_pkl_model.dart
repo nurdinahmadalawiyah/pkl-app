@@ -44,7 +44,7 @@ class LitsStatus {
     DateTime tanggalMulai;
     DateTime tanggalSelesai;
     String status;
-    String surat;
+    dynamic surat;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -56,7 +56,7 @@ class LitsStatus {
         required this.tanggalMulai,
         required this.tanggalSelesai,
         required this.status,
-        required this.surat,
+        this.surat,
         required this.createdAt,
         required this.updatedAt,
     });

@@ -448,7 +448,7 @@ class GridMenu extends StatelessWidget {
                       style: kMedium.copyWith(color: tertiaryColor)),
                   content: Text(
                       "Kamu saat ini tidak bisa melakukan konfirmasi diterima PKL",
-                      style: kMedium.copyWith(color: tertiaryColor)),
+                      style: kRegular.copyWith(color: tertiaryColor)),
                   actions: [
                     TextButton(
                       style: TextButton.styleFrom(

@@ -126,6 +126,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'PKL App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
           colorScheme: kColorScheme,
           primaryColor: backgroundColor,

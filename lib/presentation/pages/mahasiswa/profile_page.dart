@@ -80,7 +80,7 @@ class Button extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () => Navigator.pushNamed(context, '/ganti-password'),
               style: ElevatedButton.styleFrom(
-                primary: tertiaryColor,
+                backgroundColor: tertiaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
@@ -157,7 +157,7 @@ class DataProfileMahasiswa extends StatelessWidget {
         const HeaderAndAvatar(),
         MainInformation(profile: profile),
         const SizedBox(
-          height: 30,
+          height: 10,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -341,12 +341,12 @@ class HeaderAndAvatar extends StatelessWidget {
         ClipPath(
           clipper: MyCustomClipper(),
           child: Container(
-            height: 250,
+            height: 200,
             color: primaryColor,
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 50),
+          margin: const EdgeInsets.only(top: 20),
           alignment: Alignment.center,
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
@@ -355,7 +355,7 @@ class HeaderAndAvatar extends StatelessWidget {
           ),
           child: const Icon(
             Icons.person_rounded,
-            size: 150,
+            size: 130,
             color: tertiaryColor,
           ),
         )

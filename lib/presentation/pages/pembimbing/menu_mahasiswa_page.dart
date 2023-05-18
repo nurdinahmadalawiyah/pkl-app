@@ -34,7 +34,7 @@ class MenuMahasiswaPage extends StatelessWidget {
             },
           ),
           CardMenu(
-            title: 'Biodata Industri',
+            title: 'Daftar Hadir',
             image: 'assets/daftar-hadir.jpg',
             onTap: () {
               Navigator.pushNamed(context, '/detail-daftar-hadir', arguments: list);
