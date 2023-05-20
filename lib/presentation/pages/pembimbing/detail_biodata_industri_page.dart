@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
+import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
@@ -89,7 +90,7 @@ class DataTenagaKerja extends StatelessWidget {
     required this.jumlahTenagaKerja,
   }) : super(key: key);
 
-  final BiodataIndustri biodataIndustri;
+  final DetailBiodataIndustri biodataIndustri;
   final int jumlahTenagaKerja;
 
   @override
@@ -370,7 +371,7 @@ class DataBiodataIndustriAktivitas extends StatelessWidget {
     required this.biodataIndustri,
   }) : super(key: key);
 
-  final BiodataIndustri biodataIndustri;
+  final DetailBiodataIndustri biodataIndustri;
 
   @override
   Widget build(BuildContext context) {

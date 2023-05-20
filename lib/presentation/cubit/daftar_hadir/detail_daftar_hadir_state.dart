@@ -12,7 +12,7 @@ class DetailDaftarHadirInitial extends DetailDaftarHadirState {}
 class DetailDaftarHadirLoading extends DetailDaftarHadirState {}
 
 class DetailDaftarHadirLoaded extends DetailDaftarHadirState {
-  final DaftarHadir daftarHadir;
+  final DetailDaftarHadir daftarHadir;
 
   const DetailDaftarHadirLoaded({required this.daftarHadir});
 }

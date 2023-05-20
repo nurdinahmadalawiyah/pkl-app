@@ -15,8 +15,8 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
   }
 
   Future<void> penilaianPembimbing(
-    String idMahasiswa,
-    String idTempatPkl,
+    int idMahasiswa,
+    int idTempatPkl,
     String integritas,
     String profesionalitas,
     String bahasaInggris,
@@ -25,8 +25,8 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
     String kerjaSama,
     String organisasi,
   ) async {
+    emit(PenilaianPembimbingLoading());
     try {
-      emit(PenilaianPembimbingLoading());
       final response = await _apiService.penilaianPembimbing(
         idMahasiswa,
         idTempatPkl,
@@ -38,7 +38,7 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
         kerjaSama,
         organisasi,
       );
-      emit(PenilaianPembimbingSuccess(penilaianPembimbing: response));
+      emit(PenilaianPembimbingSuccess(penilaianPembimbing: "Success"));
     } catch (e) {
       emit(PenilaianPembimbingError(message: e.toString()));
     }

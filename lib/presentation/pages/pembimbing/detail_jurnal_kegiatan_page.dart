@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
+import 'package:magang_app/data/models/detail_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/detail_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
@@ -71,7 +71,7 @@ class CardMingguJurnalKegiatan extends StatelessWidget {
     required this.jurnalKegiatan,
   }) : super(key: key);
 
-  final JurnalKegiatan jurnalKegiatan;
+  final DetailJurnalKegiatan jurnalKegiatan;
 
   @override
   Widget build(BuildContext context) {

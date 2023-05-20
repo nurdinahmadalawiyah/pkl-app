@@ -12,7 +12,7 @@ class PenilaianPembimbingInitial extends PenilaianPembimbingState {}
 class PenilaianPembimbingLoading extends PenilaianPembimbingState {}
 
 class PenilaianPembimbingSuccess extends PenilaianPembimbingState {
-  final PenilaianPembimbing penilaianPembimbing;
+  final String penilaianPembimbing;
 
   const PenilaianPembimbingSuccess({required this.penilaianPembimbing});
 }

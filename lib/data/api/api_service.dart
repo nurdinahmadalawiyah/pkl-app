@@ -6,6 +6,9 @@ import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/cancel_laporan_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
+import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
+import 'package:magang_app/data/models/detail_daftar_hadir_model.dart';
+import 'package:magang_app/data/models/detail_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/hapus_biodata_industri.dart';
@@ -678,9 +681,9 @@ class ApiService {
     }
   }
 
-  Future<PenilaianPembimbing> penilaianPembimbing(
-      String idMahasiswa,
-      String idTempatPkl,
+  Future<void> penilaianPembimbing(
+      int idMahasiswa,
+      int idTempatPkl,
       String integritas,
       String profesionalitas,
       String bahasaInggris,
@@ -705,7 +708,7 @@ class ApiService {
       }),
     );
     if (response.statusCode == 200) {
-      return PenilaianPembimbing.fromJson(json.decode(response.body));
+      return json.decode(response.body);
     } else {
       throw Exception(
           "Failed to post penilaian: Response status code ${response.statusCode}");
@@ -719,45 +722,47 @@ class ApiService {
         headers: headers);
     if (response.statusCode == 200) {
       return ListMahasiswa.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 404) {
+      return ListMahasiswa.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get list mahasiswa: Response status code ${response.statusCode}");
     }
   }
 
-  Future<BiodataIndustri> getDetailBiodataIndustri(String idMahasiswa) async {
+  Future<DetailBiodataIndustri> getDetailBiodataIndustri(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
         Uri.parse('$base_url/biodata-industri/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
-      return BiodataIndustri.fromJson(json.decode(response.body));
+      return DetailBiodataIndustri.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get detail biodata industri: Response status code ${response.statusCode}");
     }
   }
 
-  Future<JurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
+  Future<DetailJurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
         Uri.parse('$base_url/jurnal-kegiatan/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
-      return JurnalKegiatan.fromJson(json.decode(response.body));
+      return DetailJurnalKegiatan.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get detail jurnal kegiatan: Response status code ${response.statusCode}");
     }
   }
 
-  Future<DaftarHadir> getDetailDaftarHadir(String idMahasiswa) async {
+  Future<DetailDaftarHadir> getDetailDaftarHadir(String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
         Uri.parse('$base_url/daftar-hadir/pembimbing/$idMahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
-      return DaftarHadir.fromJson(json.decode(response.body));
+      return DetailDaftarHadir.fromJson(json.decode(response.body));
     } else {
       throw Exception(
           "Failed to get detail Daftar Hadir: Response status code ${response.statusCode}");

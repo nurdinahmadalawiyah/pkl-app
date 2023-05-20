@@ -12,7 +12,7 @@ class DetailJurnalKegiatanInitial extends DetailJurnalKegiatanState {}
 class DetailJurnalKegiatanLoading extends DetailJurnalKegiatanState {}
 
 class DetailJurnalKegiatanLoaded extends DetailJurnalKegiatanState {
-  final JurnalKegiatan jurnalKegiatan;
+  final DetailJurnalKegiatan jurnalKegiatan;
 
   const DetailJurnalKegiatanLoaded({required this.jurnalKegiatan});
 }

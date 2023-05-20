@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
+import 'package:magang_app/presentation/cubit/penilaian/detail_nilai_cubit.dart';
 import 'package:magang_app/presentation/cubit/penilaian/penilaian_pembimbing_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
@@ -16,6 +18,7 @@ class EditNilaiPage extends StatefulWidget {
 
 class _EditNilaiPageState extends State<EditNilaiPage> {
   final _formKey = GlobalKey<FormState>();
+  late final DetailNilaiCubit detailNilai;
   final integritasController = TextEditingController();
   final profesionalitasController = TextEditingController();
   final bahasaInggrisController = TextEditingController();
@@ -23,6 +26,18 @@ class _EditNilaiPageState extends State<EditNilaiPage> {
   final komunikasiController = TextEditingController();
   final kerjaSamaController = TextEditingController();
   final organisasiController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    detailNilai = DetailNilaiCubit(apiService: ApiService());
+  }
+
+  @override
+  void dispose() {
+    detailNilai.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +62,7 @@ class _EditNilaiPageState extends State<EditNilaiPage> {
           }
           return FormPenilaian(
             cubit: cubit,
+            detailNilai: detailNilai,
             formKey: _formKey,
             bahasaInggrisController: bahasaInggrisController,
             integritasController: integritasController,
@@ -64,19 +80,19 @@ class _EditNilaiPageState extends State<EditNilaiPage> {
           if (state is PenilaianPembimbingLoading) {
             return const LoadingButton();
           } else if (state is PenilaianPembimbingError) {
-            // WidgetsBinding.instance.addPostFrameCallback((_) {
-            //   context.read<PenilaianPembimbingCubit>().resetState();
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(
-            //       content: Text('Terjadi kesalahan: ${state.message}'),
-            //       backgroundColor: Colors.red,
-            //     ),
-            //   );
-            // });
             WidgetsBinding.instance.addPostFrameCallback((_) {
               context.read<PenilaianPembimbingCubit>().resetState();
-              showSuccessDialog(context, list);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Terjadi kesalahan: ${state.message}'),
+                  backgroundColor: Colors.red,
+                ),
+              );
             });
+//            WidgetsBinding.instance.addPostFrameCallback((_) {
+//               context.read<PenilaianPembimbingCubit>().resetState();
+//               showSuccessDialog(context, list);
+//            });
             return Container();
           } else {
             return ButtonAdd(
@@ -110,8 +126,77 @@ class FormPenilaian extends StatelessWidget {
     required this.komunikasiController,
     required this.kerjaSamaController,
     required this.organisasiController,
+    required this.detailNilai,
   })  : _formKey = formKey,
         super(key: key);
+
+  final GlobalKey<FormState> _formKey;
+  final PenilaianPembimbingCubit cubit;
+  final DetailNilaiCubit detailNilai;
+  final TextEditingController integritasController;
+  final TextEditingController profesionalitasController;
+  final TextEditingController bahasaInggrisController;
+  final TextEditingController teknologiInformasiController;
+  final TextEditingController komunikasiController;
+  final TextEditingController kerjaSamaController;
+  final TextEditingController organisasiController;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DetailNilaiCubit, DetailNilaiState>(
+      builder: (context, state) {
+        if (state is DetailNilaiLoaded) {
+          var data = state.detailNilai.data;
+
+          integritasController.text = data.integritas.toString();
+          profesionalitasController.text = data.profesionalitas.toString();
+          bahasaInggrisController.text = data.bahasaInggris.toString();
+          teknologiInformasiController.text = data.teknologiInformasi.toString();
+          komunikasiController.text = data.komunikasi.toString();
+          kerjaSamaController.text = data.kerjaSama.toString();
+          organisasiController.text = data.organisasi.toString();
+
+          return FormInput(
+            formKey: _formKey,
+            integritasController: integritasController,
+            profesionalitasController: profesionalitasController,
+            bahasaInggrisController: bahasaInggrisController,
+            teknologiInformasiController: teknologiInformasiController,
+            komunikasiController: komunikasiController,
+            kerjaSamaController: kerjaSamaController,
+            organisasiController: organisasiController,
+            cubit: cubit,
+          );
+        }
+        return FormInput(
+          formKey: _formKey,
+          integritasController: integritasController,
+          profesionalitasController: profesionalitasController,
+          bahasaInggrisController: bahasaInggrisController,
+          teknologiInformasiController: teknologiInformasiController,
+          komunikasiController: komunikasiController,
+          kerjaSamaController: kerjaSamaController,
+          organisasiController: organisasiController,
+          cubit: cubit,
+        );
+      },
+    );
+  }
+}
+
+class FormInput extends StatelessWidget {
+  const FormInput({
+    super.key,
+    required GlobalKey<FormState> formKey,
+    required this.integritasController,
+    required this.profesionalitasController,
+    required this.bahasaInggrisController,
+    required this.teknologiInformasiController,
+    required this.komunikasiController,
+    required this.kerjaSamaController,
+    required this.organisasiController,
+    required this.cubit,
+  }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
   final PenilaianPembimbingCubit cubit;
@@ -166,6 +251,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -206,6 +298,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -246,6 +345,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -286,6 +392,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -326,6 +439,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -366,6 +486,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -406,6 +533,13 @@ class FormPenilaian extends StatelessWidget {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Data tidak boleh kosong';
+                    } else {
+                      final numericValue = double.tryParse(value);
+                      if (numericValue == null) {
+                        return 'Nilai harus berupa angka';
+                      } else if (numericValue > 100) {
+                        return 'Nilai tidak boleh lebih dari 100';
+                      }
                     }
                     return null;
                   },
@@ -487,8 +621,8 @@ class ButtonAdd extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            final idMahasiswa = list.idMahasiswa.toString();
-            final idTempatPkl = list.idTempatPkl.toString();
+            final idMahasiswa = list.idMahasiswa;
+            final idTempatPkl = list.idTempatPkl;
             final integritas = integritasController.text;
             final profesionalitas = profesionalitasController.text;
             final bahasaInggris = bahasaInggrisController.text;

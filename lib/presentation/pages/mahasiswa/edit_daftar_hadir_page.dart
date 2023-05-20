@@ -77,7 +77,7 @@ class _EditDaftarHadirPageState extends State<EditDaftarHadirPage> {
                 SnackBar(
                   duration: const Duration(seconds: 3),
                   content: Text(
-                    'Gagal Menghapus Daftar Hadir',
+                    'Gagal Memperbarui Daftar Hadir',
                     textAlign: TextAlign.center,
                     style: kMedium.copyWith(color: backgroundColor),
                   ),

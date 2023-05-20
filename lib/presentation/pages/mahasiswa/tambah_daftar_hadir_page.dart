@@ -57,31 +57,29 @@ class _TambahDaftarHadirPageState extends State<TambahDaftarHadirPage> {
       ),
       bottomNavigationBar:
           BlocBuilder<TambahDaftarHadirCubit, TambahDaftarHadirState>(
-        builder: (context, state) {
-          if (state is TambahDaftarHadirSuccess) {
-            return const LoadingButton();
-          } else if (state is TambahDaftarHadirError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              context.read<TambahDaftarHadirCubit>().resetState();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Terjadi kesalahan: ${state.message}'),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            });
-            return Container();
-          } else {
-            return ButtonAdd(
-              formKey: _formKey,
-              cubit: cubit,
-              hariTanggalController: hariTanggalController,
-              mingguController: mingguController,
-              tandaTanganController: tandaTanganController,
+              builder: (context, state) {
+        if (state is TambahDaftarHadirLoading) {
+          return const LoadingButton();
+        } else if (state is TambahDaftarHadirError) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.read<TambahDaftarHadirCubit>().resetState();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Terjadi kesalahan: ${state.message}'),
+                backgroundColor: Colors.red,
+              ),
             );
-          }
-        },
-      ),
+          });
+          return Container();
+        }
+        return ButtonAdd(
+          formKey: _formKey,
+          cubit: cubit,
+          hariTanggalController: hariTanggalController,
+          mingguController: mingguController,
+          tandaTanganController: tandaTanganController,
+        );
+      }),
     );
   }
 

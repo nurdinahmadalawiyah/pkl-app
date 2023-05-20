@@ -175,7 +175,9 @@ class NilaiAkhirPKL extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       nilaiPkl.data.nilaiAkhir != null
-                          ? nilaiPkl.data.nilaiAkhir.toStringAsFixed(2)
+                          ? nilaiPkl.data.nilaiAkhir.toStringAsFixed(
+                              nilaiPkl.data.nilaiAkhir % 1 == 0 ? 0 : 2,
+                            )
                           : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
@@ -280,7 +282,9 @@ class NilaiProdi extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       nilaiPkl.data.presentasi != null
-                          ? nilaiPkl.data.presentasi.toStringAsFixed(2)
+                          ? nilaiPkl.data.presentasi.toStringAsFixed(
+                              nilaiPkl.data.presentasi % 1 == 0 ? 0 : 2,
+                            )
                           : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
@@ -319,7 +323,9 @@ class NilaiProdi extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       nilaiPkl.data.dokumen != null
-                          ? nilaiPkl.data.dokumen.toStringAsFixed(2)
+                          ? nilaiPkl.data.dokumen.toStringAsFixed(
+                              nilaiPkl.data.dokumen % 1 == 0 ? 0 : 2,
+                            )
                           : '',
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
@@ -385,7 +391,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.integritas.toStringAsFixed(2),
+                      nilaiPkl.data.integritas.toStringAsFixed(
+                        nilaiPkl.data.integritas % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -422,7 +430,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.profesionalitas.toStringAsFixed(2),
+                      nilaiPkl.data.profesionalitas.toStringAsFixed(
+                        nilaiPkl.data.profesionalitas % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -459,7 +469,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.bahasaInggris.toStringAsFixed(2),
+                      nilaiPkl.data.bahasaInggris.toStringAsFixed(
+                        nilaiPkl.data.bahasaInggris % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -496,7 +508,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.teknologiInformasi.toStringAsFixed(2),
+                      nilaiPkl.data.teknologiInformasi.toStringAsFixed(
+                        nilaiPkl.data.teknologiInformasi % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -533,7 +547,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.komunikasi.toStringAsFixed(2),
+                      nilaiPkl.data.komunikasi.toStringAsFixed(
+                        nilaiPkl.data.komunikasi % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -570,7 +586,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.kerjaSama.toStringAsFixed(2),
+                      nilaiPkl.data.kerjaSama.toStringAsFixed(
+                        nilaiPkl.data.kerjaSama % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),
@@ -607,7 +625,9 @@ class NilaiPembimbing extends StatelessWidget {
                   elevation: 0,
                   child: ListTile(
                     title: Text(
-                      nilaiPkl.data.organisasi.toStringAsFixed(2),
+                      nilaiPkl.data.organisasi.toStringAsFixed(
+                        nilaiPkl.data.organisasi % 1 == 0 ? 0 : 2,
+                      ),
                       textAlign: TextAlign.center,
                       style: kBold.copyWith(color: tertiaryColor, fontSize: 30),
                     ),

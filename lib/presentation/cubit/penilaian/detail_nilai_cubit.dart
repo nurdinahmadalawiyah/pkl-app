@@ -16,7 +16,7 @@ class DetailNilaiCubit extends Cubit<DetailNilaiState> {
     emit(DetailNilaiLoading());
     try {
       final detailNilai = await apiService.getDetailNilaiPkl(idMahasiswa);
-      if (detailNilai.data == null) {
+      if (detailNilai == null) {
         emit(const DetailNilaiNoData(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
       } else {
         emit(DetailNilaiLoaded(detailNilai: detailNilai));
@@ -24,7 +24,7 @@ class DetailNilaiCubit extends Cubit<DetailNilaiState> {
     } on SocketException {
       emit(const DetailNilaiNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
-      emit(const DetailNilaiError(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
+      emit(DetailNilaiError(message: e.toString()));
     }
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/daftar_hadir_model.dart';
+import 'package:magang_app/data/models/detail_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/detail_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/widgets/error_animation.dart';
@@ -70,7 +70,7 @@ class CardDaftarHadir extends StatelessWidget {
     required this.daftarHadir,
   }) : super(key: key);
 
-  final DaftarHadir daftarHadir;
+  final DetailDaftarHadir daftarHadir;
 
   @override
   Widget build(BuildContext context) {

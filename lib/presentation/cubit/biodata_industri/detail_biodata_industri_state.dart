@@ -12,7 +12,7 @@ class DetailBiodataIndustriInitial extends DetailBiodataIndustriState {}
 class DetailBiodataIndustriLoading extends DetailBiodataIndustriState {}
 
 class DetailBiodataIndustriLoaded extends DetailBiodataIndustriState {
-  final BiodataIndustri biodataIndustri;
+  final DetailBiodataIndustri biodataIndustri;
 
   const DetailBiodataIndustriLoaded({required this.biodataIndustri});
 }

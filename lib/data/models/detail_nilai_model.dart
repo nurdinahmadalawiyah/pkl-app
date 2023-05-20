@@ -50,14 +50,14 @@ class Data {
 
     int idPenilaianPembimbing;
     int idMahasiswa;
-    int integritas;
-    int profesionalitas;
-    int bahasaInggris;
-    int teknologiInformasi;
-    int komunikasi;
-    int kerjaSama;
-    int organisasi;
-    double totalNilai;
+    String integritas;
+    String profesionalitas;
+    String bahasaInggris;
+    String teknologiInformasi;
+    String komunikasi;
+    String kerjaSama;
+    String organisasi;
+    String totalNilai;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -71,7 +71,7 @@ class Data {
         komunikasi: json["komunikasi"],
         kerjaSama: json["kerja_sama"],
         organisasi: json["organisasi"],
-        totalNilai: json["total_nilai"]?.toDouble(),
+        totalNilai: json["total_nilai"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );

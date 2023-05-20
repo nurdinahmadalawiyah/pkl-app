@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/biodata_industri_model.dart';
+import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
 
 part 'detail_biodata_industri_state.dart';
 

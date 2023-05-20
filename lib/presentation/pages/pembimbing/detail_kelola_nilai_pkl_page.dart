@@ -5,6 +5,7 @@ import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/penilaian/detail_nilai_cubit.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
@@ -23,7 +24,9 @@ class _DetailKelolaNilaiPklPageState extends State<DetailKelolaNilaiPklPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     list = ModalRoute.of(context)?.settings.arguments as Datum;
-    context.read<DetailNilaiCubit>().getDetailNilaiPkl(list.idMahasiswa.toString());
+    context
+        .read<DetailNilaiCubit>()
+        .getDetailNilaiPkl(list.idMahasiswa.toString());
   }
 
   @override
@@ -53,7 +56,7 @@ class _DetailKelolaNilaiPklPageState extends State<DetailKelolaNilaiPklPage> {
           } else if (state is DetailNilaiError) {
             final message = state.message;
             return Center(
-              child: NoDataAnimation(message: message),
+              child: ErrorAnimation(message: message),
             );
           } else {
             return const Text('Unknown Error');
@@ -76,31 +79,32 @@ class ButtonEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-    padding: const EdgeInsets.all(20),
-    child: ElevatedButton.icon(
-      onPressed: () => Navigator.pushNamed(context, '/edit-nilai', arguments: list),
-      style: ElevatedButton.styleFrom(
-          backgroundColor: tertiaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          padding: const EdgeInsets.all(15)),
-      icon: const Icon(
-        IconlyBold.plus,
-        color: backgroundColor,
-      ),
-      label: FittedBox(
-        child: Text(
-          'Edit Nilai',
-          textAlign: TextAlign.start,
-          overflow: TextOverflow.clip,
-          style: kSemiBold.copyWith(
-            fontSize: 16,
-            color: backgroundColor,
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton.icon(
+        onPressed: () =>
+            Navigator.pushNamed(context, '/edit-nilai', arguments: list),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: tertiaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            padding: const EdgeInsets.all(15)),
+        icon: const Icon(
+          IconlyBold.plus,
+          color: backgroundColor,
+        ),
+        label: FittedBox(
+          child: Text(
+            'Edit Nilai',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }
@@ -158,7 +162,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.integritas.toStringAsFixed(2),
+                          double.parse(detailNilai.data.integritas).toStringAsFixed(
+                            double.parse(detailNilai.data.integritas) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -197,7 +203,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.kerjaSama.toStringAsFixed(2),
+                          double.parse(detailNilai.data.profesionalitas).toStringAsFixed(
+                            double.parse(detailNilai.data.profesionalitas) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -236,7 +244,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.bahasaInggris.toStringAsFixed(2),
+                          double.parse(detailNilai.data.bahasaInggris).toStringAsFixed(
+                            double.parse(detailNilai.data.bahasaInggris) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -275,7 +285,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.teknologiInformasi.toStringAsFixed(2),
+                          double.parse(detailNilai.data.teknologiInformasi).toStringAsFixed(
+                            double.parse(detailNilai.data.teknologiInformasi) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -314,7 +326,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.komunikasi.toStringAsFixed(2),
+                          double.parse(detailNilai.data.komunikasi).toStringAsFixed(
+                            double.parse(detailNilai.data.komunikasi) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -353,7 +367,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.kerjaSama.toStringAsFixed(2),
+                          double.parse(detailNilai.data.kerjaSama).toStringAsFixed(
+                            double.parse(detailNilai.data.kerjaSama) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),
@@ -392,7 +408,9 @@ class NilaiDariPembimbing extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         title: Text(
-                          detailNilai.data.organisasi.toStringAsFixed(2),
+                          double.parse(detailNilai.data.organisasi).toStringAsFixed(
+                            double.parse(detailNilai.data.organisasi) % 1 == 0 ? 0 : 2,
+                          ),
                           textAlign: TextAlign.center,
                           style: kBold.copyWith(
                               color: tertiaryColor, fontSize: 30),

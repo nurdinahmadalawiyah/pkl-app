@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
+import 'package:magang_app/data/models/detail_jurnal_kegiatan_model.dart';
 
 class DetailJurnalKegiatan2Page extends StatefulWidget {
   const DetailJurnalKegiatan2Page({super.key});
