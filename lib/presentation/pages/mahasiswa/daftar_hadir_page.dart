@@ -170,7 +170,7 @@ class ButtonAdd extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () => Navigator.pushNamed(context, '/tambah-daftar-hadir'),
         style: ElevatedButton.styleFrom(
-          primary: tertiaryColor,
+          backgroundColor: tertiaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),

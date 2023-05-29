@@ -27,7 +27,6 @@ import 'package:magang_app/data/models/lowongan_pkl_model.dart';
 import 'package:magang_app/data/models/nilai_pkl_model.dart';
 import 'package:magang_app/data/models/pencarian_lowongan.dart';
 import 'package:magang_app/data/models/pengajuan_pkl_model.dart';
-import 'package:magang_app/data/models/penilaian_pembimbing.dart';
 import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/tambah_daftar_hadir_model.dart';

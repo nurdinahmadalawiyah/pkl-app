@@ -73,7 +73,7 @@ class ButtonAddData extends StatelessWidget {
         onPressed: () =>
             Navigator.pushNamed(context, '/tambah-jurnal-kegiatan'),
         style: ElevatedButton.styleFrom(
-            primary: tertiaryColor,
+            backgroundColor: tertiaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),

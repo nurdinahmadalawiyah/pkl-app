@@ -61,7 +61,7 @@ class _GantiPasswordPageState
             actions: <Widget>[
               TextButton(
                 style: TextButton.styleFrom(
-                  primary: primaryColor,
+                  foregroundColor: primaryColor,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -257,7 +257,7 @@ class _GantiPasswordPageState
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                    primary: tertiaryColor,
+                    backgroundColor: tertiaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
@@ -284,7 +284,7 @@ class _GantiPasswordPageState
               child: ElevatedButton.icon(
                 onPressed: () => handleUpdatePassword(),
                 style: ElevatedButton.styleFrom(
-                    primary: tertiaryColor,
+                    backgroundColor: tertiaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),

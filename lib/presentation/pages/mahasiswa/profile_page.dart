@@ -112,7 +112,7 @@ class Button extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () => Navigator.pushNamed(context, '/edit-profile'),
               style: ElevatedButton.styleFrom(
-                primary: primaryColor,
+                backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),

@@ -82,7 +82,7 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                primary: primaryColor,
+                foregroundColor: primaryColor,
               ),
               onPressed: () {
                 Navigator.of(context).pop();

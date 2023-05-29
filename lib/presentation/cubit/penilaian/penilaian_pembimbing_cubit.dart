@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/penilaian_pembimbing.dart';
 
 part 'penilaian_pembimbing_state.dart';
 
@@ -38,7 +37,7 @@ class PenilaianPembimbingCubit extends Cubit<PenilaianPembimbingState> {
         kerjaSama,
         organisasi,
       );
-      emit(PenilaianPembimbingSuccess(penilaianPembimbing: "Success"));
+      emit(const PenilaianPembimbingSuccess(penilaianPembimbing: "Success"));
     } catch (e) {
       emit(PenilaianPembimbingError(message: e.toString()));
     }

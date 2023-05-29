@@ -246,7 +246,7 @@ class ButtonAjukan extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          primary: tertiaryColor,
+          backgroundColor: tertiaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),

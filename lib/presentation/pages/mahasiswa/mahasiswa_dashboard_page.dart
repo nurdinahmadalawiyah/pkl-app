@@ -28,7 +28,7 @@ class MahasiswaDashboardPage extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.red,
+                foregroundColor: Colors.red,
               ),
               onPressed: () async {
                 if (await authProvider.authLogout(token: token!)) {
@@ -64,7 +64,7 @@ class MahasiswaDashboardPage extends StatelessWidget {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                primary: primaryColor,
+                foregroundColor: primaryColor,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
