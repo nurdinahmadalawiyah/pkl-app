@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/common/constant.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -13,11 +14,28 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final storage = const FlutterSecureStorage();
+  String title = "title";
+  String content = "content";
 
   @override
   void initState() {
     super.initState();
     checkLoginStatus();
+    configureOneSignal();
+  }
+
+  void configureOneSignal() {
+    OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+      setState(() {
+        title = event.notification.title!;
+        content = event.notification.body!;
+      });
+      event.complete(event.notification);
+    });
+
+    OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+      print("Notifikasi di tap");
+    });
   }
 
   Future<void> checkLoginStatus() async {

@@ -106,6 +106,24 @@ class ApiService {
     }
   }
 
+  Future<void> savePlayerId(String notificationId,) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(
+      Uri.parse('$base_url/mahasiswa/save-player-id?_method=PUT'),
+      headers: headers,
+      body: jsonEncode({
+        'notification_id': notificationId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception(
+          'Failed to save player id: Response status code ${response.statusCode}');
+    }
+  }
+
   Future<LowonganPkl> getLowonganPkl() async {
     Map<String, String> headers = await getHeaders();
     final response = await http

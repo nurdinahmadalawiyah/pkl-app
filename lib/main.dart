@@ -12,6 +12,7 @@ import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cub
 import 'package:magang_app/presentation/cubit/daftar_hadir/tambah_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/dashboard/check_status_cubit.dart';
 import 'package:magang_app/presentation/cubit/dashboard/list_mahasiswa_cubit.dart';
+import 'package:magang_app/presentation/cubit/dashboard/save_player_id_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/detail_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/edit_jurnal_kegiatan_cubit.dart';
 import 'package:magang_app/presentation/cubit/jurnal_kegiatan/jurnal_kegiatan_cubit.dart';
@@ -70,11 +71,18 @@ import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/provider/ganti_password_provider.dart';
 import 'package:magang_app/presentation/provider/password_visibility_provider.dart';
 import 'package:magang_app/presentation/provider/pencarian_provider.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'presentation/pages/mahasiswa/download_lembar_penilaian_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+  OneSignal.shared.setAppId("f8bc8286-9b49-4347-995c-1885262c4dc3");
   runApp(const MyApp());
 }
 
@@ -98,6 +106,7 @@ class MyApp extends StatelessWidget {
           create: (_) => GantiPasswordProvider(),
         ),
         BlocProvider(create: (_) => CheckStatusCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => SavePlayerIdCubit()),
         BlocProvider(create: (_) => ProfileCubit(apiService: ApiService())),
         BlocProvider(create: (_) => LowonganPklCubit(apiService: ApiService())),
         BlocProvider(create: (_) => PengajuanPklCubit()),

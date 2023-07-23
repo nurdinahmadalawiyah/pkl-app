@@ -3,12 +3,51 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/logout_model.dart';
+import 'package:magang_app/presentation/cubit/dashboard/save_player_id_cubit.dart';
 import 'package:magang_app/presentation/provider/auth_provider.dart';
 import 'package:magang_app/presentation/widgets/menu_dashboard_mahasiswa.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 
-class MahasiswaDashboardPage extends StatelessWidget {
+class MahasiswaDashboardPage extends StatefulWidget {
   const MahasiswaDashboardPage({Key? key}) : super(key: key);
+
+  @override
+  State<MahasiswaDashboardPage> createState() => _MahasiswaDashboardPageState();
+}
+
+class _MahasiswaDashboardPageState extends State<MahasiswaDashboardPage> {
+  String playerID = '';
+
+  @override
+  void initState() {
+    super.initState();
+    requestNotificationPermission();
+  }
+
+  Future<void> requestNotificationPermission() async {
+    final storage = FlutterSecureStorage();
+    bool isPermissionRequested = await storage.read(key: 'notification_permission_requested') == 'true';
+
+    if (!isPermissionRequested) {
+      OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+        print("Accepted permission: $accepted");
+      });
+
+      await storage.write(key: 'notification_permission_requested', value: 'true');
+    }
+    await getPlayerID();
+    if (playerID != 'Player ID tidak ditemukan') {
+      context.read<SavePlayerIdCubit>().savePlayerId(playerID);
+    }
+  }
+
+  Future<void> getPlayerID() async {
+    var deviceState = await OneSignal.shared.getDeviceState();
+    setState(() {
+      playerID = deviceState?.userId ?? 'Player ID tidak ditemukan';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
