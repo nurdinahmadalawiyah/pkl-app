@@ -42,14 +42,19 @@ class _StatusPengajuanPageState extends State<StatusPengajuanPage> {
           } else if (state is StatusPengajuanLoaded) {
             final statusPengajuan = state.statusPengajuanPkl;
             final profilePengajuan = state.statusPengajuanPkl;
-            return ListView(
-              children: [
-                CardStatusPengajuan(
-                  statusPengajuan: statusPengajuan,
-                  profilePengajuan: profilePengajuan,
-                ),
-                const SizedBox(height: 10)
-              ],
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<StatusPengajuanCubit>().getStatusPengajuan();
+              },
+              child: ListView(
+                children: [
+                  CardStatusPengajuan(
+                    statusPengajuan: statusPengajuan,
+                    profilePengajuan: profilePengajuan,
+                  ),
+                  const SizedBox(height: 10)
+                ],
+              ),
             );
           } else if (state is StatusPengajuanNoData) {
             return Center(
@@ -161,13 +166,14 @@ class CardStatusPengajuan extends StatelessWidget {
                                     style: kMedium.copyWith(color: blackColor)),
                                 content: Text(
                                     "Surat pengantar PKL saat ini tidak tersedia karena pengajuan kamu masih dalam proses persetujuan dari pihak akademik. Tunggu hingga pengajuan kamu disetujui akademik.",
-                                    style: kRegular.copyWith(color: blackColor, fontSize: 13)),
+                                    style: kRegular.copyWith(
+                                        color: blackColor, fontSize: 13)),
                                 actions: <Widget>[
                                   TextButton(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: primaryColor
-                                    ),
-                                    onPressed: () => Navigator.of(context).pop(),
+                                        foregroundColor: primaryColor),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                     child: const Text('OK'),
                                   ),
                                 ],
