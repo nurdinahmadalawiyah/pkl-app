@@ -682,7 +682,7 @@ class FormInput extends StatelessWidget {
                 TextFormField(
                   controller: contactPersonController,
                   cursorColor: primaryColor,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: accentColor,
