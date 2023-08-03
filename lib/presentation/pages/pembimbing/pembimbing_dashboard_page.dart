@@ -216,11 +216,18 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
                         padding: const EdgeInsets.only(left: 25),
                         child: Text(
                           'Daftar Mahasiswa',
-                          style: kMedium.copyWith(color: blackColor, fontSize: 16),
+                          style:
+                              kMedium.copyWith(color: blackColor, fontSize: 16),
                         ),
                       ),
-                      CardListMahasiswa(
-                        listMahasiswa: listMahasiswa,
+                      RefreshIndicator(
+                        onRefresh: () async {
+                          context
+                              .read<ListMahasiswaCubit>().getListMahasiswa();
+                        },
+                        child: CardListMahasiswa(
+                          listMahasiswa: listMahasiswa,
+                        ),
                       ),
                     ],
                   );
@@ -266,7 +273,8 @@ class CardListMahasiswa extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () => Navigator.pushNamed(context, '/menu-mahasiswa', arguments: list),
+            onTap: () => Navigator.pushNamed(context, '/menu-mahasiswa',
+                arguments: list),
             child: Ink(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
