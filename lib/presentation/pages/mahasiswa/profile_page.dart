@@ -299,30 +299,38 @@ class MainInformation extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Column(
-          children: [
-            Text(
-              profile.data.nama,
-              style: kSemiBold.copyWith(
-                fontSize: 24,
-                color: blackColor,
+        Expanded(
+          child: Column(
+            children: [
+              Text(
+                profile.data.nama,
+                textAlign: TextAlign.center,
+                style: kSemiBold.copyWith(
+                  fontSize: 24,
+                  color: blackColor,
+                ),
+                overflow: TextOverflow.clip,
               ),
-            ),
-            Text(
-              profile.data.namaProdi,
-              style: kMedium.copyWith(
-                fontSize: 16,
-                color: tertiaryColor,
+              Text(
+                profile.data.namaProdi,
+                textAlign: TextAlign.center,
+                style: kMedium.copyWith(
+                  fontSize: 16,
+                  color: tertiaryColor,
+                ),
+                overflow: TextOverflow.clip,
               ),
-            ),
-            Text(
-              profile.data.nim,
-              style: kMedium.copyWith(
-                fontSize: 16,
-                color: tertiaryColor,
+              Text(
+                profile.data.nim,
+                textAlign: TextAlign.center,
+                style: kMedium.copyWith(
+                  fontSize: 16,
+                  color: tertiaryColor,
+                ),
+                overflow: TextOverflow.clip,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
