@@ -24,7 +24,7 @@ void getDetailNilaiPkl(String idMahasiswa) async {
   } on SocketException {
     emit(const DetailNilaiNoConnection(message: "Tidak Ada Koneksi Internet"));
   } catch (e) {
-    emit(DetailNilaiNoData(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
+    emit(const DetailNilaiNoData(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
   }
 }
 }

@@ -278,7 +278,7 @@ class ApiService {
   Future<BiodataIndustri> getBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/mahasiswa'),
+        Uri.parse('$base_url/biodata-industri/mahasiswa/detail'),
         headers: headers);
     if (response.statusCode == 200) {
       return BiodataIndustri.fromJson(json.decode(response.body));
