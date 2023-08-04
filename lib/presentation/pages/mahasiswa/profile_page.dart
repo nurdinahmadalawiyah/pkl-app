@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, prefer_if_null_operators
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
@@ -230,7 +232,7 @@ class DetailInformation extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    profile.data.email,
+                    profile.data.email != null ? profile.data.email : "-",
                     style: kMedium.copyWith(
                       fontSize: 16,
                       color: blackColor,
@@ -270,7 +272,7 @@ class DetailInformation extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    profile.data.nomorHp,
+                    profile.data.nomorHp != null ? profile.data.nomorHp : "-",
                     style: kMedium.copyWith(
                       fontSize: 16,
                       color: blackColor,

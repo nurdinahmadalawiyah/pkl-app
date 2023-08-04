@@ -9,15 +9,15 @@ Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
 String profileToJson(Profile data) => json.encode(data.toJson());
 
 class Profile {
+    String status;
+    String message;
+    Data data;
+
     Profile({
         required this.status,
         required this.message,
         required this.data,
     });
-
-    String status;
-    String message;
-    Data data;
 
     factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         status: json["status"],
@@ -33,6 +33,19 @@ class Profile {
 }
 
 class Data {
+    int idMahasiswa;
+    String username;
+    String nama;
+    String nim;
+    int prodi;
+    String semester;
+    dynamic email;
+    dynamic nomorHp;
+    String notificationId;
+    DateTime createdAt;
+    DateTime updatedAt;
+    String namaProdi;
+
     Data({
         required this.idMahasiswa,
         required this.username,
@@ -40,24 +53,13 @@ class Data {
         required this.nim,
         required this.prodi,
         required this.semester,
-        required this.email,
-        required this.nomorHp,
+        this.email,
+        this.nomorHp,
+        required this.notificationId,
         required this.createdAt,
         required this.updatedAt,
         required this.namaProdi,
     });
-
-    int idMahasiswa;
-    String username;
-    String nama;
-    String nim;
-    int prodi;
-    String semester;
-    String email;
-    String nomorHp;
-    DateTime createdAt;
-    DateTime updatedAt;
-    String namaProdi;
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         idMahasiswa: json["id_mahasiswa"],
@@ -68,6 +70,7 @@ class Data {
         semester: json["semester"],
         email: json["email"],
         nomorHp: json["nomor_hp"],
+        notificationId: json["notification_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         namaProdi: json["nama_prodi"],
@@ -82,6 +85,7 @@ class Data {
         "semester": semester,
         "email": email,
         "nomor_hp": nomorHp,
+        "notification_id": notificationId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "nama_prodi": namaProdi,

@@ -60,19 +60,19 @@ class Data {
     String nama;
     String namaProdi;
     String nim;
-    int idPenilaianProdi;
-    int idPenilaianPembimbing;
-    double presentasi;
-    double dokumen;
-    double integritas;
-    double profesionalitas;
-    double bahasaInggris;
-    double teknologiInformasi;
-    double komunikasi;
-    double kerjaSama;
-    double organisasi;
-    double nilaiAkhir;
-    String nilaiHuruf;
+    dynamic idPenilaianProdi;
+    dynamic idPenilaianPembimbing;
+    dynamic presentasi;
+    dynamic dokumen;
+    dynamic integritas;
+    dynamic profesionalitas;
+    dynamic bahasaInggris;
+    dynamic teknologiInformasi;
+    dynamic komunikasi;
+    dynamic kerjaSama;
+    dynamic organisasi;
+    dynamic nilaiAkhir;
+    dynamic nilaiHuruf;
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         idMahasiswa: json["id_mahasiswa"],

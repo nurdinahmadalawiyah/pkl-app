@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
@@ -83,7 +84,7 @@ void main() {
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
   OneSignal.shared.setAppId("f8bc8286-9b49-4347-995c-1885262c4dc3");
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

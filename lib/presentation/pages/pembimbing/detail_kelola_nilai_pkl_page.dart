@@ -56,7 +56,7 @@ class _DetailKelolaNilaiPklPageState extends State<DetailKelolaNilaiPklPage> {
           } else if (state is DetailNilaiError) {
             final message = state.message;
             return Center(
-              child: ErrorAnimation(message: message),
+              child: NoDataAnimation(message: message),
             );
           } else {
             return const Text('Unknown Error');

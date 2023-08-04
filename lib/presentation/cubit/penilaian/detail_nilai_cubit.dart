@@ -16,7 +16,7 @@ void getDetailNilaiPkl(String idMahasiswa) async {
   emit(DetailNilaiLoading());
   try {
     final detailNilai = await apiService.getDetailNilaiPkl(idMahasiswa);
-    if (detailNilai != null && detailNilai.data != null && detailNilai.data.idPenilaianPembimbing != null) {
+    if (detailNilai != null) {
       emit(DetailNilaiLoaded(detailNilai: detailNilai));
     } else {
       emit(const DetailNilaiNoData(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
@@ -24,7 +24,7 @@ void getDetailNilaiPkl(String idMahasiswa) async {
   } on SocketException {
     emit(const DetailNilaiNoConnection(message: "Tidak Ada Koneksi Internet"));
   } catch (e) {
-    emit(const DetailNilaiNoData(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
+    emit(const DetailNilaiError(message: "Data Nilai Kosong\nAnda Belum Memberikan Nilai"));
   }
 }
 }

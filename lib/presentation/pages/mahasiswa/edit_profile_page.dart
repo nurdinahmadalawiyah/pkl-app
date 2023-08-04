@@ -233,12 +233,6 @@ class FormUpdateProfile extends StatelessWidget {
                         color: primaryColor,
                       ),
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Email tidak boleh kosong';
-                      }
-                      return null;
-                    },
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(
@@ -424,12 +418,6 @@ class FormUpdateProfile extends StatelessWidget {
                         color: primaryColor,
                       ),
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Nomor HP tidak boleh kosong';
-                      }
-                      return null;
-                    },
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(

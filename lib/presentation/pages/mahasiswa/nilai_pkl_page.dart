@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/nilai_pkl_model.dart';
 import 'package:magang_app/presentation/cubit/penilaian/nilai_pkl_cubit.dart';
+import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
@@ -59,7 +60,7 @@ class _NilaiPklPageState extends State<NilaiPklPage> {
           } else if (state is NilaiPklError) {
             final message = state.message;
             return Center(
-              child: NoDataAnimation(message: message),
+              child: ErrorAnimation(message: message),
             );
           } else {
             return const Text('Unknown Error');

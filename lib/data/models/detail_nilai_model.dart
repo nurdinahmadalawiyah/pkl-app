@@ -9,15 +9,15 @@ DetailNilai detailNilaiFromJson(String str) => DetailNilai.fromJson(json.decode(
 String detailNilaiToJson(DetailNilai data) => json.encode(data.toJson());
 
 class DetailNilai {
+    String status;
+    String message;
+    Data data;
+
     DetailNilai({
         required this.status,
         required this.message,
         required this.data,
     });
-
-    String status;
-    String message;
-    Data data;
 
     factory DetailNilai.fromJson(Map<String, dynamic> json) => DetailNilai(
         status: json["status"],
@@ -33,9 +33,24 @@ class DetailNilai {
 }
 
 class Data {
+    int idPenilaianPembimbing;
+    int idMahasiswa;
+    int idTempatPkl;
+    String integritas;
+    String profesionalitas;
+    String bahasaInggris;
+    String teknologiInformasi;
+    String komunikasi;
+    String kerjaSama;
+    String organisasi;
+    String totalNilai;
+    DateTime createdAt;
+    DateTime updatedAt;
+
     Data({
         required this.idPenilaianPembimbing,
         required this.idMahasiswa,
+        required this.idTempatPkl,
         required this.integritas,
         required this.profesionalitas,
         required this.bahasaInggris,
@@ -48,22 +63,10 @@ class Data {
         required this.updatedAt,
     });
 
-    int idPenilaianPembimbing;
-    int idMahasiswa;
-    String integritas;
-    String profesionalitas;
-    String bahasaInggris;
-    String teknologiInformasi;
-    String komunikasi;
-    String kerjaSama;
-    String organisasi;
-    String totalNilai;
-    DateTime createdAt;
-    DateTime updatedAt;
-
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         idPenilaianPembimbing: json["id_penilaian_pembimbing"],
         idMahasiswa: json["id_mahasiswa"],
+        idTempatPkl: json["id_tempat_pkl"],
         integritas: json["integritas"],
         profesionalitas: json["profesionalitas"],
         bahasaInggris: json["bahasa_inggris"],
@@ -79,6 +82,7 @@ class Data {
     Map<String, dynamic> toJson() => {
         "id_penilaian_pembimbing": idPenilaianPembimbing,
         "id_mahasiswa": idMahasiswa,
+        "id_tempat_pkl": idTempatPkl,
         "integritas": integritas,
         "profesionalitas": profesionalitas,
         "bahasa_inggris": bahasaInggris,

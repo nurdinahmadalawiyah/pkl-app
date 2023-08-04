@@ -34,62 +34,93 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
     const storage = FlutterSecureStorage();
 
     handleLogout() async {
+      bool isLoading = false; // Tambahkan variabel isLoading
+
       showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text('Konfirmasi Logout',
-              style: kMedium.copyWith(color: blackColor)),
-          content: Text('Apakah anda yakin ingin logout dari akun anda?',
-              style: kRegular.copyWith(color: blackColor)),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
-              onPressed: () async {
-                String? token = await storage.read(key: 'token');
-                if (token != null) {
-                  await authCubit.logoutPembimbing(token);
-                  Navigator.pushReplacementNamed(context, '/login-pembimbing');
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: const Duration(seconds: 3),
-                      content: Text(
-                        'Logout Berhasil',
-                        textAlign: TextAlign.center,
-                        style: kMedium.copyWith(color: backgroundColor),
-                      ),
-                      backgroundColor: tertiaryColor,
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacementNamed(context, '/login-pembimbing');
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: const Duration(seconds: 3),
-                      content: Text(
-                        'Terjadi Kesalahan Saat Proses Logout',
-                        textAlign: TextAlign.center,
-                        style: kMedium.copyWith(color: backgroundColor),
-                      ),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-                await storage.delete(key: 'token');
-              },
-              child: const Text('Ya'),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: primaryColor,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Batalkan'),
-            ),
-          ],
+        barrierDismissible:
+            false, // Agar tidak bisa menutup dialog dengan mengklik di luar dialog
+        builder: (BuildContext context) => StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Konfirmasi Logout',
+                  style: kMedium.copyWith(color: blackColor)),
+              content:
+                  isLoading // Tampilkan loading jika isLoading bernilai true
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text('Apakah anda yakin ingin logout dari akun anda?',
+                          style: kRegular.copyWith(color: blackColor)),
+              actions: <Widget>[
+                TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.red,
+                  ),
+                  onPressed: isLoading
+                      ? null // Jangan do-nothing saat tombol ditekan saat loading
+                      : () async {
+                          setState(() {
+                            isLoading =
+                                true; // Aktifkan loading saat tombol ditekan
+                          });
+
+                          String? token = await storage.read(key: 'token');
+                          if (token != null) {
+                            await authCubit.logoutPembimbing(token);
+                            Navigator.pushReplacementNamed(
+                                context, '/login-pembimbing');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 3),
+                                content: Text(
+                                  'Logout Berhasil',
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      kMedium.copyWith(color: backgroundColor),
+                                ),
+                                backgroundColor: tertiaryColor,
+                              ),
+                            );
+                          } else {
+                            Navigator.pushReplacementNamed(
+                                context, '/login-pembimbing');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 3),
+                                content: Text(
+                                  'Terjadi Kesalahan Saat Proses Logout',
+                                  textAlign: TextAlign.center,
+                                  style:
+                                      kMedium.copyWith(color: backgroundColor),
+                                ),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                          await storage.delete(key: 'token');
+
+                          setState(() {
+                            isLoading =
+                                false; // Matikan loading setelah proses logout selesai
+                          });
+                        },
+                  child: const Text('Ya'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: primaryColor,
+                  ),
+                  onPressed: isLoading
+                      ? null // Jangan do-nothing saat tombol ditekan saat loading
+                      : () {
+                          Navigator.of(context).pop();
+                        },
+                  child: const Text('Batalkan'),
+                ),
+              ],
+            );
+          },
         ),
       );
     }
@@ -222,8 +253,7 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
                       ),
                       RefreshIndicator(
                         onRefresh: () async {
-                          context
-                              .read<ListMahasiswaCubit>().getListMahasiswa();
+                          context.read<ListMahasiswaCubit>().getListMahasiswa();
                         },
                         child: CardListMahasiswa(
                           listMahasiswa: listMahasiswa,

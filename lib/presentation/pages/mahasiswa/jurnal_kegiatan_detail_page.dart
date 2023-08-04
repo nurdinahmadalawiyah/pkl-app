@@ -96,7 +96,7 @@ class JurnalKegiatanDetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          DateFormat('EEEE, d MMMM y').format(jurnal.tanggal),
+                          DateFormat('EEEE, d MMMM y', 'id_ID').format(jurnal.tanggal),
                           style: kBold.copyWith(
                               color: backgroundColor, fontSize: 16),
                         ),
