@@ -34,7 +34,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         semester,
         nomorHp,
       );
-      emit(EditProfileSuccessState(editProfile: response));
+      emit(const EditProfileSuccessState(editProfile: "Success"));
     } catch (e) {
       emit(EditProfileErrorState(message: e.toString()));
     }

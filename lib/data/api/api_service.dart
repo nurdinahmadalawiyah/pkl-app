@@ -183,7 +183,7 @@ class ApiService {
     }
   }
 
-  Future<UpdateProfile> updateProfile(
+  Future<void> updateProfile(
       String email, String username, String semester, String nomorHp) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
@@ -199,13 +199,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      UpdateProfile updateProfile = UpdateProfile.fromJson(data);
-      updateProfile.message = data['message'];
-      updateProfile.data.email = data['email'];
-      updateProfile.data.username = data['username'];
-      updateProfile.data.semester = data['semester'];
-      updateProfile.data.nomorHp = data['nomor_hp'];
-      return updateProfile;
+      return data;
     } else {
       throw Exception(
           'Failed to update profile: Response status code ${response.statusCode}');
@@ -249,7 +243,7 @@ class ApiService {
     }
   }
 
-  Future<KonfirmasiDiterimaPkl> konfirmasiDiterimaPkl(
+  Future<void> konfirmasiDiterimaPkl(
       String idPengajuan, String idPembimbing) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
@@ -263,15 +257,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      KonfirmasiDiterimaPkl konfirmasiDiterimaPkl =
-          KonfirmasiDiterimaPkl.fromJson(data);
-      konfirmasiDiterimaPkl.message = data['message'];
-      konfirmasiDiterimaPkl.data.idPengajuan = data['id_pengajuan'];
-      konfirmasiDiterimaPkl.data.konfirmasiNamaPembimbing =
-          data['konfirmasi_nama_pembimbing'];
-      konfirmasiDiterimaPkl.data.konfirmasiNikPembimbing =
-          data['konfirmasiNikPembimbing'];
-      return konfirmasiDiterimaPkl;
+      return data;
     } else {
       throw Exception(
           'Failed to send confirmation data : Response status code ${response.statusCode}');
@@ -292,7 +278,7 @@ class ApiService {
   Future<BiodataIndustri> getBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/mahasiswa/detail'),
+        Uri.parse('$base_url/biodata-industri/mahasiswa'),
         headers: headers);
     if (response.statusCode == 200) {
       return BiodataIndustri.fromJson(json.decode(response.body));
@@ -302,7 +288,7 @@ class ApiService {
     }
   }
 
-  Future<IsiBiodataIndustri> addBiodataIndustri(
+  Future<void> addBiodataIndustri(
     String namaIndustri,
     String namaPimpinan,
     String alamatKantor,
@@ -349,7 +335,7 @@ class ApiService {
                   jumlahTenagaKerjaSarjanaDoktor,
             }));
     if (response.statusCode == 200) {
-      return IsiBiodataIndustri.fromJson(json.decode(response.body));
+      return json.decode(response.body);
     } else {
       throw Exception(
           "Failed to post biodata industri: Response status code ${response.statusCode}");
@@ -554,7 +540,7 @@ class ApiService {
     }
   }
 
-  Future<UploadLaporan> uploadLaporan(
+  Future<void> uploadLaporan(
     File file,
   ) async {
     Map<String, String> headers = await getHeaders();
@@ -575,7 +561,7 @@ class ApiService {
     if (response.statusCode == 200) {
       final responseData = await response.stream.toBytes();
       final responseString = String.fromCharCodes(responseData);
-      return UploadLaporan.fromJson(json.decode(responseString));
+      return json.decode(responseString);
     } else {
       throw Exception(
           "Failed to upload: Response status code ${response.statusCode}");

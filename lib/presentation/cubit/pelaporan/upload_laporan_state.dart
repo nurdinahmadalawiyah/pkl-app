@@ -23,7 +23,7 @@ class UploadLaporanInitial extends UploadLaporanState {}
 class UploadLaporanLoading extends UploadLaporanState {}
 
 class UploadLaporanSuccess extends UploadLaporanState {
-  final UploadLaporan laporan;
+  final String laporan;
 
   const UploadLaporanSuccess({required this.laporan});
 }

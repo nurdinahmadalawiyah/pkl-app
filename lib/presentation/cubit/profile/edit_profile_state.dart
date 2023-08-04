@@ -12,12 +12,10 @@ class EditProfileInitial extends EditProfileState {}
 class EditProfileLoadingState extends EditProfileState {}
 
 class EditProfileSuccessState extends EditProfileState {
-  final UpdateProfile editProfile;
+  final String editProfile;
 
   const EditProfileSuccessState({required this.editProfile});
 
-  @override
-  List<Object> get props => [editProfile];
 }
 
 class EditProfileErrorState extends EditProfileState {

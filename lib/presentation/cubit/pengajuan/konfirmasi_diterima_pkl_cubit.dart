@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 
 part 'konfirmasi_diterima_pkl_state.dart';
 
@@ -25,7 +24,7 @@ class KonfirmasiDiterimaPklCubit extends Cubit<KonfirmasiDiterimaPklState> {
     try {
       emit(KonfirmasiDiterimaPklLoading());
       final response = await _apiService.konfirmasiDiterimaPkl(idPengajuan, idPembimbing);
-      emit(KonfirmasiDiterimaPklSuccess(konfirmasiDiterimaPkl: response));
+      emit(const KonfirmasiDiterimaPklSuccess(konfirmasiDiterimaPkl: "Success"));
     } catch (e) {
       emit(KonfirmasiDiterimaPklError(message: e.toString()));
     }

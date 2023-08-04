@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 
 part 'isi_biodata_industri_state.dart';
 
@@ -56,7 +55,7 @@ class IsiBiodataIndustriCubit extends Cubit<IsiBiodataIndustriState> {
         jumlahTenagaKerjaSarjanaMagister,
         jumlahTenagaKerjaSarjanaDoktor,
       );
-      emit(IsiBiodataIndustriSuccess(isiBiodataIndustri: response));
+      emit(const IsiBiodataIndustriSuccess(isiBiodataIndustri: "success"));
     } catch (e) {
       emit(IsiBiodataIndustriError(message: e.toString()));
     }

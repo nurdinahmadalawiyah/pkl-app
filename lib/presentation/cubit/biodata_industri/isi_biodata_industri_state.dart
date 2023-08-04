@@ -12,12 +12,9 @@ class IsiBiodataIndustriInitial extends IsiBiodataIndustriState {}
 class IsiBiodataIndustriLoading extends IsiBiodataIndustriState {}
 
 class IsiBiodataIndustriSuccess extends IsiBiodataIndustriState {
-  final IsiBiodataIndustri isiBiodataIndustri;
+  final String isiBiodataIndustri;
 
   const IsiBiodataIndustriSuccess({required this.isiBiodataIndustri});
-
-  @override
-  List<Object> get props => [isiBiodataIndustri];
 }
 
 class IsiBiodataIndustriError extends IsiBiodataIndustriState {

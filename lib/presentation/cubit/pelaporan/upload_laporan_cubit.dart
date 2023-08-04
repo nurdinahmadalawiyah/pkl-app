@@ -31,7 +31,7 @@ class UploadLaporanCubit extends Cubit<UploadLaporanState> {
     emit(UploadLaporanLoading());
     try {
       final response = await apiService.uploadLaporan(file);
-      emit(UploadLaporanSuccess(laporan: response));
+      emit(const UploadLaporanSuccess(laporan: "success"));
     } catch (e) {
       emit(UploadLaporanError(message: e.toString()));
     }

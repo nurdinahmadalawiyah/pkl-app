@@ -12,12 +12,9 @@ class KonfirmasiDiterimaPklInitial extends KonfirmasiDiterimaPklState {}
 class KonfirmasiDiterimaPklLoading extends KonfirmasiDiterimaPklState {}
 
 class KonfirmasiDiterimaPklSuccess extends KonfirmasiDiterimaPklState {
-  final KonfirmasiDiterimaPkl konfirmasiDiterimaPkl;
+  final String konfirmasiDiterimaPkl;
 
   const KonfirmasiDiterimaPklSuccess({required this.konfirmasiDiterimaPkl});
-
-  @override
-  List<Object> get props => [konfirmasiDiterimaPkl];
 }
 
 class KonfirmasiDiterimaPklError extends KonfirmasiDiterimaPklState {
