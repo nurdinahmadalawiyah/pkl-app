@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/data/models/update_profile_model.dart';
 
 part 'edit_profile_state.dart';
 

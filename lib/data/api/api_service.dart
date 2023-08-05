@@ -14,9 +14,7 @@ import 'package:magang_app/data/models/ganti_password_model.dart';
 import 'package:magang_app/data/models/hapus_biodata_industri.dart';
 import 'package:magang_app/data/models/hapus_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/hapus_jurnal_kegiatan_model.dart';
-import 'package:magang_app/data/models/isi_biodata_industri_model.dart';
 import 'package:magang_app/data/models/jurnal_kegiatan_model.dart';
-import 'package:magang_app/data/models/konfirmasi_diterima_pkl_model.dart';
 import 'package:magang_app/data/models/check_status_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/data/models/login_model.dart';
@@ -31,7 +29,6 @@ import 'package:magang_app/data/models/profile_model.dart';
 import 'package:magang_app/data/models/status_pengajuan_pkl_model.dart';
 import 'package:magang_app/data/models/tambah_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/tambah_jurnal_kegiatan_model.dart';
-import 'package:magang_app/data/models/update_profile_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
 import 'package:magang_app/data/models/upload_laporan_model.dart';

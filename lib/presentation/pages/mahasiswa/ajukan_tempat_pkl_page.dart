@@ -198,7 +198,7 @@ void showSuccessDialog(BuildContext context) {
         actions: [
           TextButton(
             style: TextButton.styleFrom(
-              primary: primaryColor,
+              foregroundColor: primaryColor,
             ),
             onPressed: () {
               Navigator.of(context).pop();

@@ -5,7 +5,6 @@ import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/penilaian/detail_nilai_cubit.dart';
-import 'package:magang_app/presentation/widgets/error_animation.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 

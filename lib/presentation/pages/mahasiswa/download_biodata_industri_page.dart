@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_connection_animation.dart';
