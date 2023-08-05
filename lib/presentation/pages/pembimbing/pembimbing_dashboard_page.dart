@@ -34,35 +34,37 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
     const storage = FlutterSecureStorage();
 
     handleLogout() async {
-      bool isLoading = false; // Tambahkan variabel isLoading
+      bool isLoading = false;
 
       showDialog(
         context: context,
-        barrierDismissible:
-            false, // Agar tidak bisa menutup dialog dengan mengklik di luar dialog
+        barrierDismissible: false,
         builder: (BuildContext context) => StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Konfirmasi Logout',
-                  style: kMedium.copyWith(color: blackColor)),
-              content:
-                  isLoading // Tampilkan loading jika isLoading bernilai true
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Text('Apakah anda yakin ingin logout dari akun anda?',
-                          style: kRegular.copyWith(color: blackColor)),
-              actions: <Widget>[
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.red,
-                  ),
-                  onPressed: isLoading
-                      ? null // Jangan do-nothing saat tombol ditekan saat loading
-                      : () async {
+              title: isLoading
+                  ? null
+                  : Text('Konfirmasi Logout',
+                      style: kMedium.copyWith(color: blackColor)),
+              content: isLoading
+                  ? const SizedBox(
+                      height: 50,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : Text('Apakah anda yakin ingin logout dari akun anda?',
+                      style: kRegular.copyWith(color: blackColor)),
+              actions: isLoading
+                  ? []
+                  : <Widget>[
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.red,
+                        ),
+                        onPressed: () async {
                           setState(() {
-                            isLoading =
-                                true; // Aktifkan loading saat tombol ditekan
+                            isLoading = true;
                           });
 
                           String? token = await storage.read(key: 'token');
@@ -99,26 +101,22 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
                             );
                           }
                           await storage.delete(key: 'token');
-
                           setState(() {
-                            isLoading =
-                                false; // Matikan loading setelah proses logout selesai
+                            isLoading = false;
                           });
                         },
-                  child: const Text('Ya'),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: primaryColor,
-                  ),
-                  onPressed: isLoading
-                      ? null // Jangan do-nothing saat tombol ditekan saat loading
-                      : () {
+                        child: const Text('Ya'),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: primaryColor,
+                        ),
+                        onPressed: () {
                           Navigator.of(context).pop();
                         },
-                  child: const Text('Batalkan'),
-                ),
-              ],
+                        child: const Text('Batalkan'),
+                      ),
+                    ],
             );
           },
         ),
