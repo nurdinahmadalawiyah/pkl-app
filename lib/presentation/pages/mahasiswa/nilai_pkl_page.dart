@@ -60,7 +60,7 @@ class _NilaiPklPageState extends State<NilaiPklPage> {
           } else if (state is NilaiPklError) {
             final message = state.message;
             return Center(
-              child: ErrorAnimation(message: message),
+              child: NoDataAnimation(message: message),
             );
           } else {
             return const Text('Unknown Error');

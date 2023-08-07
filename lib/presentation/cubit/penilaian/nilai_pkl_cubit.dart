@@ -29,7 +29,7 @@ class NilaiPklCubit extends Cubit<NilaiPklState> {
     } on SocketException {
       emit(const NilaiPklNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
-      emit(NilaiPklError(message: e.toString()));
+      emit(const NilaiPklError(message: "Pembimbing dan Prodi Belum Memberikan Penilaian"));
     }
   }
 }

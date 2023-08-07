@@ -26,7 +26,7 @@ class DetailBiodataIndustriCubit extends Cubit<DetailBiodataIndustriState> {
     } on SocketException {
       emit(const DetailBiodataIndustriNoConnection(message: "Tidak Ada Koneksi Interner"));
     } catch (e) {
-      emit(const DetailBiodataIndustriError(message: "Biodata Industri Kosong"));
+      emit( DetailBiodataIndustriError(message: e.toString()));
     }
   }
 

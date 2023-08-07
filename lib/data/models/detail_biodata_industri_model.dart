@@ -43,17 +43,17 @@ class Data {
   String contactPerson;
   String bidangUsahaJasa;
   String spesialisasiProduksiJasa;
-  String jangkauanPemasaran;
-  int kapasitasProduksi;
-  int jumlahTenagaKerjaSd;
-  int jumlahTenagaKerjaSltp;
-  int jumlahTenagaKerjaSlta;
-  int jumlahTenagaKerjaSmk;
-  int jumlahTenagaKerjaSmea;
-  int jumlahTenagaKerjaSmkk;
-  int jumlahTenagaKerjaSarjanaMuda;
-  int jumlahTenagaKerjaSarjanaMagister;
-  int jumlahTenagaKerjaSarjanaDoktor;
+  dynamic jangkauanPemasaran;
+  dynamic kapasitasProduksi;
+  dynamic jumlahTenagaKerjaSd;
+  dynamic jumlahTenagaKerjaSltp;
+  dynamic jumlahTenagaKerjaSlta;
+  dynamic jumlahTenagaKerjaSmk;
+  dynamic jumlahTenagaKerjaSmea;
+  dynamic jumlahTenagaKerjaSmkk;
+  dynamic jumlahTenagaKerjaSarjanaMuda;
+  dynamic jumlahTenagaKerjaSarjanaMagister;
+  dynamic jumlahTenagaKerjaSarjanaDoktor;
   DateTime createdAt;
   DateTime updatedAt;
 
