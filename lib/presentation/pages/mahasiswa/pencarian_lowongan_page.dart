@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/common/result_state.dart';
@@ -151,7 +152,29 @@ class CardPencarianLowongan extends StatelessWidget {
         margin: EdgeInsets.zero,
         elevation: 0,
         child: ListTile(
-          onTap: () {},
+          onTap: () async {
+            if (lowongan.url == null) {
+              Navigator.pushNamed(context, '/pengajuan-pkl');
+            } else {
+              try {
+                await launch(
+                  lowongan.url,
+                  customTabsOption: CustomTabsOption(
+                    enableDefaultShare: true,
+                    enableUrlBarHiding: true,
+                    showPageTitle: true,
+                    animation: CustomTabsSystemAnimation.slideIn(),
+                    extraCustomTabs: const <String> [
+                          'org.mozilla.firefox',
+                          'com.microsoft.emmx',
+                    ],
+                  ),
+                );
+              } catch (e) {
+                debugPrint(e.toString());
+              }
+            }
+          },
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(8),
