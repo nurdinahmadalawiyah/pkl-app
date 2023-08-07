@@ -143,7 +143,7 @@ class CardDaftarHadir extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    DateFormat.EEEE().format(
+                                      DateFormat('EEEE', 'id_ID').format(
                                       DateTime.parse(kehadiranHarian.hariTanggal
                                           .toString()),
                                     ),

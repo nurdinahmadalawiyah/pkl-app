@@ -106,7 +106,7 @@ class DaftarHadirDetailPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 15),
                         child: Text(
-                          DateFormat('EEEE, d MMMM y')
+                          DateFormat('EEEE, d MMMM y', 'id_ID')
                               .format(hadir.hariTanggal),
                           style: kBold.copyWith(
                               color: backgroundColor, fontSize: 18),
