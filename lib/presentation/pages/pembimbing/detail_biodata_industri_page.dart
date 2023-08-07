@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
-import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
