@@ -339,6 +339,13 @@ class FormUpload extends StatelessWidget {
                           color: tertiaryColor,
                         ),
                       ),
+                      Text(
+                        'Harap kirim laporan dalam format PDF',
+                        style: kRegular.copyWith(
+                          fontSize: 13,
+                          color: Colors.black45,
+                        ),
+                      ),
                       const SizedBox(height: 15),
                       ElevatedButton(
                         onPressed: () async {
