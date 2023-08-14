@@ -80,6 +80,7 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
               cursorColor: primaryColor,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
+                hintText: "Contoh : PT. Rocket Software",
                 filled: true,
                 fillColor: accentColor,
                 labelText: 'Nama Perusahaan',
@@ -120,6 +121,7 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
               cursorColor: primaryColor,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
+                hintText: "Contoh : Jl. Nasional No. 76",
                 filled: true,
                 fillColor: accentColor,
                 labelText: 'Alamat Perusahaan',
@@ -147,6 +149,47 @@ class _AjukanTempatPklPageState extends State<AjukanTempatPklPage> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Alamat perusahaan tidak boleh kosong';
+                }
+                return null;
+              },
+              style: const TextStyle(color: Colors.black),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: cubit.ditujukanController,
+              cursorColor: primaryColor,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                hintText: "Contoh : Direktur/Pimpinan",
+                filled: true,
+                fillColor: accentColor,
+                labelText: 'Ditujukan Kepada',
+                labelStyle: const TextStyle(color: Color(0xFF585656)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(
+                    width: 2,
+                    style: BorderStyle.solid,
+                    color: primaryColor,
+                  ),
+                ),
+                prefixIcon: const Icon(
+                  IconlyBold.profile,
+                  color: primaryColor,
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Tujuan surat tidak boleh kosong';
                 }
                 return null;
               },
@@ -232,12 +275,14 @@ class ButtonAjukan extends StatelessWidget {
           if (_formKey.currentState!.validate()) {
             final namaPerusahaan = cubit.namaPerusahaanController.text;
             final alamatPerusahaan = cubit.alamatPerusahaanController.text;
+            final ditujukan = cubit.ditujukanController.text;
             final tanggalMulai = cubit.tanggalMulaiController.text;
             final tanggalSelesai = cubit.tanggalSelesaiController.text;
 
             cubit.ajukanTempatPKL(
               namaPerusahaan,
               alamatPerusahaan,
+              ditujukan,
               tanggalMulai,
               tanggalSelesai,
             );

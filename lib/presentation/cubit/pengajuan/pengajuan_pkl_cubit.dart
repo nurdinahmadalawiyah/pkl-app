@@ -11,6 +11,7 @@ class PengajuanPklCubit extends Cubit<PengajuanPklState> {
 
   final namaPerusahaanController = TextEditingController();
   final alamatPerusahaanController = TextEditingController();
+  final ditujukanController = TextEditingController();
   final tanggalMulaiController = TextEditingController();
   final tanggalSelesaiController = TextEditingController();
 
@@ -23,6 +24,7 @@ class PengajuanPklCubit extends Cubit<PengajuanPklState> {
   Future<void> ajukanTempatPKL(
     String namaPerusahaan,
     String alamatPerusahaan,
+    String ditujukan,
     String tanggalMulai,
     String tanggalSelesai,
   ) async {
@@ -31,6 +33,7 @@ class PengajuanPklCubit extends Cubit<PengajuanPklState> {
       final response = await _apiService.ajukanTempatPKL(
         namaPerusahaan,
         alamatPerusahaan,
+        ditujukan,
         tanggalMulai,
         tanggalSelesai,
       );
@@ -43,6 +46,7 @@ class PengajuanPklCubit extends Cubit<PengajuanPklState> {
   void resetForm() {
     namaPerusahaanController.clear();
     alamatPerusahaanController.clear();
+    ditujukanController.clear();
     tanggalMulaiController.clear();
     tanggalSelesaiController.clear();
   }

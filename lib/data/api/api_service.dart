@@ -219,6 +219,7 @@ class ApiService {
   Future<PengajuanPkl> ajukanTempatPKL(
       String namaPerusahaan,
       String alamatPerusahaan,
+      String ditujukan,
       String tanggalMulai,
       String tanggalSelesai) async {
     Map<String, String> headers = await getHeaders();
@@ -228,6 +229,7 @@ class ApiService {
       body: jsonEncode({
         'nama_perusahaan': namaPerusahaan,
         'alamat_perusahaan': alamatPerusahaan,
+        'ditujukan': ditujukan,
         'tanggal_mulai': tanggalMulai,
         'tanggal_selesai': tanggalSelesai
       }),
