@@ -193,10 +193,10 @@ class FormUpdateProfile extends StatelessWidget {
         final state = snapshot.data;
 
         if (state is ProfileLoaded) {
-          cubit.emailController.text = state.profile.data.email;
+          cubit.emailController.text = state.profile.data.email ?? '';
           cubit.usernameController.text = state.profile.data.username;
           cubit.semesterController.text = state.profile.data.semester;
-          cubit.nomorhpController.text = state.profile.data.nomorHp;
+          cubit.nomorhpController.text = state.profile.data.nomorHp ?? '';
 
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
