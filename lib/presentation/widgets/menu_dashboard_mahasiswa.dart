@@ -40,7 +40,7 @@ class _MenuDashboardMahasiswaState extends State<MenuDashboardMahasiswa> {
                 if (state is CheckStatusLoading) {
                   return const Center(
                     child: LoadingAnimation(),
-                  ); 
+                  );
                 } else if (state is CheckStatusApproveWithConfirmed) {
                   return const GridMenuApproveComfirmed();
                 } else if (state is CheckStatusApprove) {
@@ -272,6 +272,36 @@ class GridMenuApproveComfirmed extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Daftar Hadir',
+                    textAlign: TextAlign.center,
+                    style: kMedium.copyWith(fontSize: 10, color: tertiaryColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/catatan-khusus'),
+          child: GridTile(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(
+                    IconlyBold.edit,
+                    size: 50,
+                    color: primaryColor,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Expanded(
+                  child: Text(
+                    'Catatan Khusus PKL',
                     textAlign: TextAlign.center,
                     style: kMedium.copyWith(fontSize: 10, color: tertiaryColor),
                   ),

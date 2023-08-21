@@ -23,21 +23,32 @@ class MenuMahasiswaPage extends StatelessWidget {
             title: 'Biodata Industri',
             image: 'assets/biodata-industri.jpg',
             onTap: () {
-              Navigator.pushNamed(context, '/detail-biodata-industri', arguments: list);
+              Navigator.pushNamed(context, '/detail-biodata-industri',
+                  arguments: list);
             },
           ),
           CardMenu(
             title: 'Jurnal Kegiatan',
             image: 'assets/jurnal-kegiatan.jpg',
             onTap: () {
-              Navigator.pushNamed(context, '/detail-jurnal-kegiatan', arguments: list);
+              Navigator.pushNamed(context, '/detail-jurnal-kegiatan',
+                  arguments: list);
             },
           ),
           CardMenu(
             title: 'Daftar Hadir',
             image: 'assets/daftar-hadir.jpg',
             onTap: () {
-              Navigator.pushNamed(context, '/detail-daftar-hadir', arguments: list);
+              Navigator.pushNamed(context, '/detail-daftar-hadir',
+                  arguments: list);
+            },
+          ),
+          CardMenu(
+            title: 'Catatan Khusus PKL',
+            image: 'assets/catatan-khusus-pkl.jpg',
+            onTap: () {
+              Navigator.pushNamed(context, '/detail-catatan-khusus',
+                  arguments: list);
             },
           ),
         ],

@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:magang_app/data/models/biodata_industri_model.dart';
 import 'package:magang_app/data/models/cancel_laporan_model.dart';
+import 'package:magang_app/data/models/catatan_khusus_model.dart';
 import 'package:magang_app/data/models/daftar_hadir_model.dart';
 import 'package:magang_app/data/models/data_pembimbing_pkl_model.dart';
 import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
+import 'package:magang_app/data/models/detail_catatan_khusus.dart';
 import 'package:magang_app/data/models/detail_daftar_hadir_model.dart';
 import 'package:magang_app/data/models/detail_jurnal_kegiatan_model.dart';
 import 'package:magang_app/data/models/detail_nilai_model.dart';
@@ -103,7 +105,9 @@ class ApiService {
     }
   }
 
-  Future<void> savePlayerId(String notificationId,) async {
+  Future<void> savePlayerId(
+    String notificationId,
+  ) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
       Uri.parse('$base_url/mahasiswa/save-player-id?_method=PUT'),
@@ -525,6 +529,51 @@ class ApiService {
     }
   }
 
+  Future<CatatanKhusus> getCatatanKhusus() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http
+        .get(Uri.parse('$base_url/catatan-khusus/mahasiswa'), headers: headers);
+    if (response.statusCode == 200) {
+      return CatatanKhusus.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get catatan khusus: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<void> addCatatanKhusus(String catatan) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.post(
+      Uri.parse('$base_url/catatan-khusus/mahasiswa'),
+      headers: headers,
+      body: jsonEncode({
+        'catatan': catatan,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception(
+          'Failed to add catatan khusus: Response status code ${response.statusCode}');
+    }
+  }
+
+  Future<void> deleteCatatanKhusus() async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.delete(
+      Uri.parse('$base_url/catatan-khusus/mahasiswa'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception(
+          "Failed to delete catatan khusus: Response status code ${response.statusCode}");
+    }
+  }
+
   Future<HapusDaftarHadir> deleteDaftarHadir(String idDaftarHadir) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.delete(
@@ -732,7 +781,8 @@ class ApiService {
     }
   }
 
-  Future<DetailBiodataIndustri> getDetailBiodataIndustri(String idMahasiswa) async {
+  Future<DetailBiodataIndustri> getDetailBiodataIndustri(
+      String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
         Uri.parse('$base_url/biodata-industri/pembimbing/$idMahasiswa'),
@@ -745,7 +795,8 @@ class ApiService {
     }
   }
 
-  Future<DetailJurnalKegiatan> getDetailJurnalKegiatan(String idMahasiswa) async {
+  Future<DetailJurnalKegiatan> getDetailJurnalKegiatan(
+      String idMahasiswa) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
         Uri.parse('$base_url/jurnal-kegiatan/pembimbing/$idMahasiswa'),
@@ -768,6 +819,19 @@ class ApiService {
     } else {
       throw Exception(
           "Failed to get detail Daftar Hadir: Response status code ${response.statusCode}");
+    }
+  }
+
+  Future<DetailCatatanKhusus> getDetailCatatanKhusus(String idMahasiswa) async {
+    Map<String, String> headers = await getHeaders();
+    final response = await http.get(
+        Uri.parse('$base_url/catatan-khusus/pembimbing/$idMahasiswa'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      return DetailCatatanKhusus.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          "Failed to get detail Catatan Khusus: Response status code ${response.statusCode}");
     }
   }
 }

@@ -7,6 +7,10 @@ import 'package:magang_app/presentation/cubit/auth/auth_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/isi_biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/catatan_khusus/catatan_khusus_cubit.dart';
+import 'package:magang_app/presentation/cubit/catatan_khusus/detail_catatan_khusus_cubit.dart';
+import 'package:magang_app/presentation/cubit/catatan_khusus/hapus_catatan_khusus_cubit.dart';
+import 'package:magang_app/presentation/cubit/catatan_khusus/tambah_catatan_khusus_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/detail_daftar_hadir_cubit.dart';
 import 'package:magang_app/presentation/cubit/daftar_hadir/edit_daftar_hadir_cubit.dart';
@@ -32,8 +36,10 @@ import 'package:magang_app/presentation/cubit/profile/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/ajukan_tempat_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/biodata_industri_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/catatan_khusus_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_detail_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/daftar_hadir_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/download_catatan_khusus_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/download_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/donwload_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/download_biodata_industri_page.dart';
@@ -53,10 +59,12 @@ import 'package:magang_app/presentation/pages/mahasiswa/nilai_pkl_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/profile_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/status_pengajuan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/pencarian_lowongan_page.dart';
+import 'package:magang_app/presentation/pages/mahasiswa/tambah_catatan_khusus_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/tambah_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/tambah_jurnal_kegiatan_page.dart';
 import 'package:magang_app/presentation/pages/mahasiswa/upload_laporan_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/detail_biodata_industri_page.dart';
+import 'package:magang_app/presentation/pages/pembimbing/detail_catatan_khusus_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/detail_daftar_hadir_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/detail_jurnal_kegiatan_2_page.dart';
 import 'package:magang_app/presentation/pages/pembimbing/detail_jurnal_kegiatan_page.dart';
@@ -124,6 +132,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => DaftarHadirCubit(apiService: ApiService())),
         BlocProvider(create: (_) => TambahDaftarHadirCubit()),
         BlocProvider(create: (_) => EditDaftarHadirCubit()),
+        BlocProvider(create: (_) => CatatanKhususCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => TambahCatatanKhususCubit()),
+        BlocProvider(create: (_) => HapusCatatanKhususCubit()),
         BlocProvider(create: (_) => UploadLaporanCubit()),
         BlocProvider(create: (_) => AuthCubit()),
         BlocProvider(create: (_) => ListNilaiPklCubit(apiService: ApiService())),
@@ -133,6 +144,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => DetailBiodataIndustriCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailJurnalKegiatanCubit(apiService: ApiService())),
         BlocProvider(create: (_) => DetailDaftarHadirCubit(apiService: ApiService())),
+        BlocProvider(create: (_) => DetailCatatanKhususCubit(apiService: ApiService()))
       ],
       child: MaterialApp(
         title: 'PKL App',
@@ -173,6 +185,9 @@ class MyApp extends StatelessWidget {
           '/tambah-daftar-hadir': (context) => const TambahDaftarHadirPage(),
           '/edit-daftar-hadir': (context) => const EditDaftarHadirPage(),
           '/download-daftar-hadir': (context) => const DownloadDaftarHadirPage(),
+          '/catatan-khusus': (context) => const CatatanKhususPage(),
+          '/tambah-catatan-khusus': (context) => const TambahCatatanKhususPage(),
+          '/download-catatan-khusus': (context) => const DownloadCatatanKhususPage(),
           '/upload-laporan': (context) => const UploadLaporanPage(),
           '/login-pembimbing': (context) => const PembimbingLoginPage(),
           '/register-pembimbing': (context) => const PembimbingRegisterPage(),
@@ -184,7 +199,8 @@ class MyApp extends StatelessWidget {
           '/detail-biodata-industri': (context) => const DetailBiodataIndustriPage(),
           '/detail-jurnal-kegiatan': (context) => const DetailJurnalKegiatanPage(),
           '/detail-jurnal-kegiatan-2': (context) => const DetailJurnalKegiatan2Page(),
-          '/detail-daftar-hadir':(context) => const DetailDaftarHadirPage()
+          '/detail-daftar-hadir':(context) => const DetailDaftarHadirPage(),
+          '/detail-catatan-khusus': (context) => const DetailCatatanKhususPage(),
         },
       ),
     );
