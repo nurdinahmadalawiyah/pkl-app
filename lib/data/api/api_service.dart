@@ -185,7 +185,7 @@ class ApiService {
   }
 
   Future<void> updateProfile(
-      String email, String username, String semester, String nomorHp) async {
+      String email, String username, String tahunMasuk, String nomorHp) async {
     Map<String, String> headers = await getHeaders();
     final response = await http.post(
       Uri.parse('$base_url/mahasiswa/update-profile?_method=PUT'),
@@ -193,7 +193,7 @@ class ApiService {
       body: jsonEncode({
         'email': email,
         'username': username,
-        'semester': semester,
+        'tahun_masuk': tahunMasuk,
         'nomor_hp': nomorHp,
       }),
     );

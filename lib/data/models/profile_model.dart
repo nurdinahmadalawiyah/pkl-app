@@ -39,6 +39,7 @@ class Data {
     String nim;
     int prodi;
     String semester;
+    dynamic tahunMasuk;
     dynamic email;
     dynamic nomorHp;
     String notificationId;
@@ -53,6 +54,7 @@ class Data {
         required this.nim,
         required this.prodi,
         required this.semester,
+        required this.tahunMasuk,
         required this.email,
         required this.nomorHp,
         required this.notificationId,
@@ -68,6 +70,7 @@ class Data {
         nim: json["nim"],
         prodi: json["prodi"],
         semester: json["semester"],
+        tahunMasuk: json["tahun_masuk"],
         email: json["email"],
         nomorHp: json["nomor_hp"],
         notificationId: json["notification_id"],
@@ -83,6 +86,7 @@ class Data {
         "nim": nim,
         "prodi": prodi,
         "semester": semester,
+        "tahun_masuk": tahunMasuk,
         "email": email,
         "nomor_hp": nomorHp,
         "notification_id": notificationId,

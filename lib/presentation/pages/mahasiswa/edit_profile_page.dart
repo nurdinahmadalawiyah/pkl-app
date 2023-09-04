@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
 import 'package:magang_app/presentation/cubit/profile/edit_profile_cubit.dart';
 import 'package:magang_app/presentation/cubit/profile/profile_cubit.dart';
+import 'package:magang_app/presentation/widgets/date_picker_form_field.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -108,7 +110,8 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamedAndRemoveUntil(context, '/profile', ModalRoute.withName('/dashboard'));
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/profile', ModalRoute.withName('/dashboard'));
             },
             child: const Text('OK'),
           ),
@@ -138,10 +141,10 @@ class ConfirmButton extends StatelessWidget {
           if (_formKey.currentState!.validate()) {
             final email = cubit.emailController.text;
             final username = cubit.usernameController.text;
-            final semester = cubit.semesterController.text;
+            final tahunMasuk = cubit.tahunMasukController.text;
             final nomorHp = cubit.nomorhpController.text;
 
-            cubit.updateProfile(email, username, semester, nomorHp);
+            cubit.updateProfile(email, username, tahunMasuk, nomorHp);
             cubit.resetForm();
           }
         },
@@ -195,7 +198,7 @@ class FormUpdateProfile extends StatelessWidget {
         if (state is ProfileLoaded) {
           cubit.emailController.text = state.profile.data.email ?? '';
           cubit.usernameController.text = state.profile.data.username;
-          cubit.semesterController.text = state.profile.data.semester;
+          cubit.tahunMasukController.text = state.profile.data.tahunMasuk.toString();
           cubit.nomorhpController.text = state.profile.data.nomorHp ?? '';
 
           return Container(
@@ -279,12 +282,13 @@ class FormUpdateProfile extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: cubit.semesterController,
-                    keyboardType: TextInputType.text,
+                    controller: cubit.tahunMasukController,
+                    cursorColor: primaryColor,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: accentColor,
-                      labelText: 'Semester',
+                      labelText: 'Tahun Masuk',
                       labelStyle: const TextStyle(color: Color(0xFF585656)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -308,84 +312,123 @@ class FormUpdateProfile extends StatelessWidget {
                           color: primaryColor,
                         ),
                       ),
-                      suffixIcon: Transform.rotate(
-                        angle: 90 * 3.14 / 180,
-                        child: const Icon(
-                          Icons.chevron_right_rounded,
-                          color: primaryColor,
-                        ),
-                      ),
                     ),
-                    style: const TextStyle(color: tertiaryColor),
-                    readOnly: true,
-                    onTap: () async {
-                      final selectedOption = await showMenu<String>(
-                        context: context,
-                        position: const RelativeRect.fromLTRB(50, 340, 50, 50),
-                        items: [
-                          PopupMenuItem(
-                            value: '1 (Satu)',
-                            child: Text(
-                              '1 (Satu)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '2 (Dua)',
-                            child: Text(
-                              '2 (Dua)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '3 (Tiga)',
-                            child: Text(
-                              '3 (Tiga)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '4 (Empat)',
-                            child: Text(
-                              '4 (Empat)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '5 (Lima)',
-                            child: Text(
-                              '5 (Lima)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '6 (Enam)',
-                            child: Text(
-                              '6 (Enam)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '7 (Tujuh)',
-                            child: Text(
-                              '7 (Tujuh)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: '8 (Delapan)',
-                            child: Text(
-                              '8 (Delapan)',
-                              style: kMedium.copyWith(color: tertiaryColor),
-                            ),
-                          ),
-                        ],
-                      );
-                      if (selectedOption != null) {
-                        cubit.semesterController.text = selectedOption;
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Tahun Masuk tidak boleh kosong';
                       }
+                      return null;
                     },
+                    style: const TextStyle(color: Colors.black),
                   ),
+                  // TextFormField(
+                  //   controller: cubit.tahunMasukController,
+                  //   keyboardType: TextInputType.text,
+                  //   decoration: InputDecoration(
+                  //     filled: true,
+                  //     fillColor: accentColor,
+                  //     labelText: 'Tahun Masuk',
+                  //     labelStyle: const TextStyle(color: Color(0xFF585656)),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(16),
+                  //       borderSide: const BorderSide(
+                  //         width: 0,
+                  //         style: BorderStyle.none,
+                  //       ),
+                  //     ),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(16),
+                  //       borderSide: const BorderSide(
+                  //         width: 2,
+                  //         style: BorderStyle.solid,
+                  //         color: primaryColor,
+                  //       ),
+                  //     ),
+                  //     prefixIcon: Padding(
+                  //       padding: const EdgeInsets.all(10),
+                  //       child: SvgPicture.asset(
+                  //         'assets/semester_icon.svg',
+                  //         color: primaryColor,
+                  //       ),
+                  //     ),
+                  //     suffixIcon: Transform.rotate(
+                  //       angle: 90 * 3.14 / 180,
+                  //       child: const Icon(
+                  //         Icons.chevron_right_rounded,
+                  //         color: primaryColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   style: const TextStyle(color: tertiaryColor),
+                  //   readOnly: true,
+                  //   onTap: () async {
+                  //     final selectedOption = await showMenu<String>(
+                  //       context: context,
+                  //       position: const RelativeRect.fromLTRB(50, 340, 50, 50),
+                  //       items: [
+                  //         PopupMenuItem(
+                  //           value: '1 (Satu)',
+                  //           child: Text(
+                  //             '1 (Satu)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '2 (Dua)',
+                  //           child: Text(
+                  //             '2 (Dua)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '3 (Tiga)',
+                  //           child: Text(
+                  //             '3 (Tiga)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '4 (Empat)',
+                  //           child: Text(
+                  //             '4 (Empat)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '5 (Lima)',
+                  //           child: Text(
+                  //             '5 (Lima)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '6 (Enam)',
+                  //           child: Text(
+                  //             '6 (Enam)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '7 (Tujuh)',
+                  //           child: Text(
+                  //             '7 (Tujuh)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //         PopupMenuItem(
+                  //           value: '8 (Delapan)',
+                  //           child: Text(
+                  //             '8 (Delapan)',
+                  //             style: kMedium.copyWith(color: tertiaryColor),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     );
+                  //     if (selectedOption != null) {
+                  //       cubit.tahunMasukController.text = selectedOption;
+                  //     }
+                  //   },
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -426,7 +469,7 @@ class FormUpdateProfile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Untuk menjaga keamanan akun, anda hanya bisa edit email, username, semester dan nomor hp. Jika ada kesalahan dalam penulisan nama dan nim silahkan hubungi akademik atau prodi.',
+                      'Untuk menjaga keamanan akun, anda hanya bisa edit email, username, tahun masuk dan nomor hp. Jika ada kesalahan dalam penulisan nama dan nim silahkan hubungi akademik atau prodi.',
                       style: kRegular.copyWith(
                         fontSize: 11,
                         color: blackColor,

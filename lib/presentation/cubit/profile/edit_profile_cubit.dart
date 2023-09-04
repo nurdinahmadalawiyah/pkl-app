@@ -10,7 +10,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
-  final semesterController = TextEditingController();
+  final tahunMasukController = TextEditingController();
   final nomorhpController = TextEditingController();
 
   EditProfileCubit() : super(EditProfileInitial());
@@ -22,7 +22,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future<void> updateProfile(
     String email,
     String username,
-    String semester,
+    String tahunMasuk,
     String nomorHp,
   ) async {
     try {
@@ -30,7 +30,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       final response = await _apiService.updateProfile(
         email,
         username,
-        semester,
+        tahunMasuk,
         nomorHp,
       );
       emit(const EditProfileSuccessState(editProfile: "Success"));
@@ -42,7 +42,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   void resetForm() {
     emailController.clear();
     usernameController.clear();
-    semesterController.clear();
+    tahunMasukController.clear();
     nomorhpController.clear();
   }
 }
