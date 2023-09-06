@@ -313,7 +313,7 @@ class ApiService {
   ) async {
     Map<String, String> headers = await getHeaders();
     final response =
-        await http.post(Uri.parse('$base_url/biodata-industri/mahasiswa'),
+        await http.post(Uri.parse('$base_url/biodata-industri/pembimbing'),
             headers: headers,
             body: jsonEncode({
               'nama_industri': namaIndustri,
@@ -361,7 +361,7 @@ class ApiService {
   Future<HapusBiodataIndustri> deleteBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.delete(
-      Uri.parse('$base_url/biodata-industri/mahasiswa'),
+      Uri.parse('$base_url/biodata-industri/pembimbing'),
       headers: headers,
     );
     if (response.statusCode == 200) {
@@ -781,11 +781,10 @@ class ApiService {
     }
   }
 
-  Future<DetailBiodataIndustri> getDetailBiodataIndustri(
-      String idMahasiswa) async {
+  Future<DetailBiodataIndustri> getDetailBiodataIndustri() async {
     Map<String, String> headers = await getHeaders();
     final response = await http.get(
-        Uri.parse('$base_url/biodata-industri/pembimbing/$idMahasiswa'),
+        Uri.parse('$base_url/biodata-industri/pembimbing'),
         headers: headers);
     if (response.statusCode == 200) {
       return DetailBiodataIndustri.fromJson(json.decode(response.body));

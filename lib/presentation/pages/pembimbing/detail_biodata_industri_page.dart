@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/models/detail_biodata_industri_model.dart';
 import 'package:magang_app/data/models/list_mahasiswa_model.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/hapus_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_animation.dart';
 import 'package:magang_app/presentation/widgets/no_data_animation.dart';
 
@@ -22,13 +24,13 @@ class _DetailBiodataIndustriPageState extends State<DetailBiodataIndustriPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     list = ModalRoute.of(context)?.settings.arguments as Datum;
-    context
-        .read<DetailBiodataIndustriCubit>()
-        .getDetailBiodataIndustri(list.idMahasiswa.toString());
+    context.read<DetailBiodataIndustriCubit>().getDetailBiodataIndustri();
   }
 
   @override
   Widget build(BuildContext context) {
+    final HapusBiodataIndustriCubit hapusCubit = HapusBiodataIndustriCubit();
+    
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
@@ -54,14 +56,50 @@ class _DetailBiodataIndustriPageState extends State<DetailBiodataIndustriPage> {
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaMagister ?? 0) +
                 (biodataIndustri.data.jumlahTenagaKerjaSarjanaDoktor ?? 0);
 
-            return ListView(
-              children: [
-                DataBiodataIndustriAktivitas(biodataIndustri: biodataIndustri),
-                DataTenagaKerja(
-                  biodataIndustri: biodataIndustri,
-                  jumlahTenagaKerja: jumlahTenagaKerja,
-                ),
-              ],
+            return GestureDetector(
+                            onLongPress: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Konfirmasi Hapus Biodata Industri",
+                          style: kMedium.copyWith(color: tertiaryColor)),
+                      content: Text(
+                          "Apakah Anda yakin ingin menghapus biodata industri?",
+                          style: kRegular.copyWith(color: tertiaryColor)),
+                      actions: [
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red,
+                          ),
+                          onPressed: () async {
+                            await hapusCubit.deleteBiodataIndustri();
+                            Navigator.of(context).pop();
+                            Navigator.pushNamedAndRemoveUntil(context, '/detail-biodata-industri', ModalRoute.withName('/dashboard-pembimbing'));
+                          },
+                          child: const Text("Hapus"),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: primaryColor,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text("Batal"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: ListView(
+                children: [
+                  DataBiodataIndustriAktivitas(biodataIndustri: biodataIndustri),
+                  DataTenagaKerja(
+                    biodataIndustri: biodataIndustri,
+                    jumlahTenagaKerja: jumlahTenagaKerja,
+                  ),
+                ],
+              ),
             );
           } else if (state is DetailBiodataIndustriNoData) {
             final message = state.message;
@@ -77,6 +115,96 @@ class _DetailBiodataIndustriPageState extends State<DetailBiodataIndustriPage> {
             return const Text('Unknown Error');
           }
         },
+      ),
+      bottomNavigationBar:
+          BlocBuilder<DetailBiodataIndustriCubit, DetailBiodataIndustriState>(
+        builder: (context, state) {
+          if (state is DetailBiodataIndustriError) {
+            return const ButtonAdd();
+          } else if (state is DetailBiodataIndustriNoData) {
+            return const ButtonAdd();
+          } else if (state is DetailBiodataIndustriLoaded) {
+            return const ButtonEdit();
+          } else {
+            return const Text('Unknown Error');
+          }
+        },
+      ),
+    );
+  }
+}
+
+class ButtonAdd extends StatelessWidget {
+  const ButtonAdd({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton.icon(
+        onPressed: () => Navigator.pushNamed(context, "/isi-biodata-industri"),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: tertiaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          padding: const EdgeInsets.all(15),
+        ),
+        icon: const Icon(
+          IconlyBold.editSquare,
+          color: backgroundColor,
+        ),
+        label: FittedBox(
+          child: Text(
+            'Isi Data',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ButtonEdit extends StatelessWidget {
+  const ButtonEdit({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton.icon(
+        onPressed: () => Navigator.pushNamed(context, "/isi-biodata-industri"),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: tertiaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          padding: const EdgeInsets.all(15),
+        ),
+        icon: const Icon(
+          IconlyBold.editSquare,
+          color: backgroundColor,
+        ),
+        label: FittedBox(
+          child: Text(
+            'Edit Data',
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.clip,
+            style: kSemiBold.copyWith(
+              fontSize: 16,
+              color: backgroundColor,
+            ),
+          ),
+        ),
       ),
     );
   }

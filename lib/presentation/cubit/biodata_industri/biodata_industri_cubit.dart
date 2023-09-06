@@ -21,14 +21,14 @@ class BiodataIndustriCubit extends Cubit<BiodataIndustriState> {
     try {
       final biodataIndustri = await apiService.getBiodataIndustri();
       if (biodataIndustri == null) {
-        emit(const BiodataIndustriNoData(message: "Biodata Industri Kosong"));
+        emit(const BiodataIndustriNoData(message: "Biodata Industri Kosong\nPembimbing Anda Belum Mengisi Biodata Industri"));
       } else {
         emit(BiodataIndustriLoaded(biodataIndustri: biodataIndustri));
       }
     } on SocketException {
       emit(const BiodataIndustriNoConnection(message: "Tidak Ada Koneksi Internet"));
     } catch (e) {
-      emit(const BiodataIndustriError(message: "Biodata Industri Kosong"));
+      emit(const BiodataIndustriError(message: "Biodata Industri Kosong\nPembimbing Anda Belum Mengisi Biodata Industri"));
     }
   }
 

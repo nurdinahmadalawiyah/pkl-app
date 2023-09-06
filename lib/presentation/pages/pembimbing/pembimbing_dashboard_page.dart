@@ -227,6 +227,26 @@ class _PembimbingDashboardPageState extends State<PembimbingDashboardPage> {
                       ],
                     ),
                   ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ListTile(
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/detail-biodata-industri'),
+                      title: Text(
+                        'Biodata Industri',
+                        style: kMedium.copyWith(fontSize: 16),
+                      ),
+                      trailing: const Icon(
+                        Icons.chevron_right_rounded,
+                        color: backgroundColor,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

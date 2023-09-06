@@ -20,14 +20,6 @@ class MenuMahasiswaPage extends StatelessWidget {
       body: ListView(
         children: [
           CardMenu(
-            title: 'Biodata Industri',
-            image: 'assets/biodata-industri.jpg',
-            onTap: () {
-              Navigator.pushNamed(context, '/detail-biodata-industri',
-                  arguments: list);
-            },
-          ),
-          CardMenu(
             title: 'Jurnal Kegiatan',
             image: 'assets/jurnal-kegiatan.jpg',
             onTap: () {

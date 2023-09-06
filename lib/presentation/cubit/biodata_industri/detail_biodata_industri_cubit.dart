@@ -10,15 +10,15 @@ part 'detail_biodata_industri_state.dart';
 class DetailBiodataIndustriCubit extends Cubit<DetailBiodataIndustriState> {
   final ApiService apiService;
 
-  DetailBiodataIndustriCubit({required this.apiService})
-      : super(DetailBiodataIndustriInitial());
+  DetailBiodataIndustriCubit({required this.apiService}) : super(DetailBiodataIndustriInitial()) {
+    getDetailBiodataIndustri();
+  }
 
-  void getDetailBiodataIndustri(String idMahasiswa) async {
+  void getDetailBiodataIndustri() async {
     emit(DetailBiodataIndustriLoading());
     try {
-      final biodataIndustri =
-          await apiService.getDetailBiodataIndustri(idMahasiswa);
-      if (biodataIndustri.data == null) {
+      final biodataIndustri = await apiService.getDetailBiodataIndustri();
+      if (biodataIndustri == null) {
         emit(const DetailBiodataIndustriNoData(message: "Biodata Industri Kosong"));
       } else {
         emit(DetailBiodataIndustriLoaded(biodataIndustri: biodataIndustri));

@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:magang_app/common/constant.dart';
 import 'package:magang_app/data/api/api_service.dart';
-import 'package:magang_app/presentation/cubit/biodata_industri/biodata_industri_cubit.dart';
+import 'package:magang_app/presentation/cubit/biodata_industri/detail_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/cubit/biodata_industri/isi_biodata_industri_cubit.dart';
 import 'package:magang_app/presentation/widgets/loading_button.dart';
 
@@ -19,7 +19,7 @@ class IsiBiodataIndustriPage extends StatefulWidget {
 
 class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
   final _formKey = GlobalKey<FormState>();
-  late final BiodataIndustriCubit biodataIndustri;
+  late final DetailBiodataIndustriCubit biodataIndustri;
   final namaIndustriController = TextEditingController();
   final namaPimpinanController = TextEditingController();
   final alamatKantorController = TextEditingController();
@@ -42,7 +42,7 @@ class _IsiBiodataIndustriPageState extends State<IsiBiodataIndustriPage> {
   @override
   void initState() {
     super.initState();
-    biodataIndustri = BiodataIndustriCubit(apiService: ApiService());
+    biodataIndustri = DetailBiodataIndustriCubit(apiService: ApiService());
   }
 
   @override
@@ -223,7 +223,7 @@ class SaveButton extends StatelessWidget {
             final jumlahTenagaKerjaSarjanaMuda =
                 jumlahTenagaKerjaSarjanaMudaController.text;
             final jumlahTenagaKerjaSarjanaMagister =
-                jumlahTenagaKerjaSarjanaMudaController.text;
+                jumlahTenagaKerjaSarjanaMagisterController.text;
             final jumlahTenagaKerjaSarjanaDoktor =
                 jumlahTenagaKerjaSarjanaDoktorController.text;
 
@@ -300,7 +300,7 @@ class FormBiodataIndustri extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey;
   final IsiBiodataIndustriCubit cubit;
-  final BiodataIndustriCubit biodataIndustri;
+  final DetailBiodataIndustriCubit biodataIndustri;
   final namaIndustriController;
   final namaPimpinanController;
   final alamatKantorController;
@@ -322,11 +322,11 @@ class FormBiodataIndustri extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<BiodataIndustriState>(
+    return StreamBuilder<DetailBiodataIndustriState>(
         stream: biodataIndustri.stream,
         builder: (context, snapshot) {
           final state = snapshot.data;
-          if (state is BiodataIndustriLoaded) {
+          if (state is DetailBiodataIndustriLoaded) {
             var data = state.biodataIndustri.data;
 
             namaIndustriController.text = data.namaIndustri;
@@ -385,7 +385,7 @@ class FormBiodataIndustri extends StatelessWidget {
               spesialisasiProduksiJasaController:
                   spesialisasiProduksiJasaController,
             );
-          } else if (state is BiodataIndustriError) {
+          } else if (state is DetailBiodataIndustriError) {
             return FormInput(
               formKey: _formKey,
               cubit: cubit,
@@ -412,7 +412,7 @@ class FormBiodataIndustri extends StatelessWidget {
               spesialisasiProduksiJasaController:
                   spesialisasiProduksiJasaController,
             );
-          } else if (state is BiodataIndustriNoData) {
+          } else if (state is DetailBiodataIndustriNoData) {
             return FormInput(
               formKey: _formKey,
               cubit: cubit,
@@ -1305,8 +1305,8 @@ void showSuccessDialog(BuildContext context) {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.pushNamedAndRemoveUntil(context, '/biodata-industri',
-                  ModalRoute.withName('/dashboard'));
+              Navigator.pushNamedAndRemoveUntil(context, '/detail-biodata-industri',
+                  ModalRoute.withName('/dashboard-pembimbing'));
             },
             child: const Text('OK'),
           ),
